@@ -65,7 +65,7 @@ document.searchmon.boosted.disabled = false;
 
 }
 </script>
-<select class="monfind" id="monster" name="monster" style="width:100%;" onChange="monNameFunction(this);" <?php if($_POST){?>disabled<?php }?>>
+<select class="monfind" id="monster" name="monster" style="width:100%;" <?php if($_POST){?>disabled<?php }?>>
 <script>
 let dropdown = $('#monster');
 
@@ -172,19 +172,8 @@ $.getJSON(url, function (data) {
 </table>
 </form>
 
-<script>
-function monNameFunction(element) {
-    var text = element.options[element.selectedIndex].text;
-    document.getElementById("found").innerHTML = "Your choice: " + text;
-}
-</script>
-
-<p id="found"></p>   
-
-<?php if(!empty($_POST)){?><input type="button" value="Go back!" onclick="history.back();"><?php } ?><br>
-
-<table id="mon_table" class="table table-striped table-bordered" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
-    <thead>
+<table id="mon_table" class="table" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
+    <thead class="thead-dark">
         <tr>
             <th style="display:none";>ID:</th>
             <th>Pokemon:</th>
@@ -246,11 +235,14 @@ function monNameFunction(element) {
             { type: 'time-uni', targets: 13 },
             { "targets": [ 0 ], "visible": false}
             ],
-
+            
+            
             paging: true,
-            lengthChange: false,
+            lengthChange: true,
             searching: true,
             responsive: true,
+            pageLength: "10",
+            lengthMenu: [[10, 20, 25, 50, -1], [10, 20, 25, 50, 'All']],
             
             language: {
                 "search":         "Filter results:",
@@ -259,7 +251,8 @@ function monNameFunction(element) {
                 "infoFiltered":   "(filtered from _MAX_ total Pokémon)",
                 "emptyTable":     "No Pokémon available in table",
                 "zeroRecords":    "No matching Pokémon found",
-                searchPlaceholder: "Enter name/id"
+                "searchPlaceholder": "Enter info",
+                "lengthMenu":     "Show _MENU_ Pokemon per page",
                 }
             
         });
