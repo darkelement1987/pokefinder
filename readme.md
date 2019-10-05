@@ -11,3 +11,7 @@ Join our Discord, especially if you are PHP-Developer.
 - Host with MySQL/PHP
 - Rocketmap DB
 - MAD
+
+![Pokefinder1](http://www.pokemonwinterswijk.nl/pokefinder1.png)
+
+![Pokefinder2](http://www.pokemonwinterswijk.nl/pokefinder2.png)
