@@ -1,0 +1,17 @@
+<?php
+
+// Connect to Database
+$servername = "";
+$username = "";
+$password = "";
+$database = "";
+
+// Frontend
+
+$clock = "24"; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
+
+// Images
+
+// !!! Don't touch stuff below !!!
+
+$assetRepo = "https://raw.githubusercontent.com/geekygreek7/pokedave_shuffle_icons_-PMSF-/master/";
