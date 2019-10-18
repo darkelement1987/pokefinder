@@ -6,7 +6,7 @@ function getMons()
     global $monsters;
     
     $mons = [];
-    $mon_name = json_decode(file_get_contents(DIRECTORY . '/json/pokedex.json'), true);
+    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
     
     if(!empty($_POST['gender'])){
         switch ($_POST['gender']) {
@@ -165,7 +165,7 @@ function getMons()
                             $row->level = (round($row->level)*2)/2;
                             }
 
-            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
+            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
             // Detect Form
