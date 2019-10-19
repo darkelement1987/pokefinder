@@ -173,6 +173,12 @@ $.getJSON(url, function (data) {
 </form>
 <?php if($_POST){?><b>Filter results:</b><?php }?>
 <table cellpadding="3" cellspacing="0" border="0" <?php if(!$_POST){?>hidden<?php }?>>
+        <thead>
+            <tr>
+                <th>Target</th>
+                <th>Search text</th>
+            </tr>
+        </thead>
         <tbody>
             <tr id="filter_col2" data-column="1">
                 <td>NAME</td>
@@ -294,7 +300,7 @@ function filterColumn ( i ) {
             "pageLength": 10,
             paging: true,
             lengthChange: true,
-            searching: false,
+            searching: true,
             responsive: true,
             lengthMenu: [[10, 20, 25, 50, -1], [10, 20, 25, 50, 'All']],
             
