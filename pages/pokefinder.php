@@ -4,7 +4,7 @@ global $clock;
 ?>
 
 <form action="index.php#found" method="post" name="searchmon" id="searchmon" <?php if($_POST){?>hidden<?php }?>><input name="page" type="hidden" value="test" />
-<table style="border-style:solid; border-width:1px; border-color:Gainsboro; margin-left:10px;" cellpadding="5">
+<table style="border-style:solid; border-width:1px; border-color:Gainsboro; margin-left:10px;" cellpadding="5" >
 <tbody>
 
 <style>.select2-container {
@@ -171,8 +171,52 @@ $.getJSON(url, function (data) {
 </tbody>
 </table>
 </form>
+<?php if($_POST){?><b>Filter results:</b><?php }?>
+<table cellpadding="3" cellspacing="0" border="0" <?php if(!$_POST){?>hidden<?php }?>>
+        <tbody>
+            <tr id="filter_col2" data-column="1">
+                <td>NAME</td>
+                <td align="center"><input type="text" class="column_filter" id="col1_filter"></td>
+            </tr>
+            <tr id="filter_col3" data-column="2">
+                <td>IV</td>
+                <td align="center"><input type="text" class="column_filter" id="col2_filter"></td>
+            </tr>
+            <tr id="filter_col4" data-column="3">
+                <td>CP</td>
+                <td align="center"><input type="text" class="column_filter" id="col3_filter"></td>
+            </tr>
+            <tr id="filter_col5" data-column="4">
+                <td>BOOSTED BY</td>
+                <td align="center"><input type="text" class="column_filter" id="col4_filter"></td>
+            </tr>
+            <tr id="filter_col6" data-column="5">
+                <td>LEVEL</td>
+                <td align="center"><input type="text" class="column_filter" id="col5_filter"></td>
+            </tr>
+            <tr id="filter_col7" data-column="6">
+                <td>GENDER</td>
+                <td align="center"><input type="text" class="column_filter" id="col6_filter"></td>
+            </tr>
+            <tr id="filter_col8" data-column="7">
+                <td>FORM</td>
+                <td align="center"><input type="text" class="column_filter" id="col7_filter"></td>
+            </tr>
+            <tr id="filter_col9" data-column="8">
+                <td>ATTACK</td>
+                <td align="center"><input type="text" class="column_filter" id="col8_filter"></td>
+            </tr>
+            <tr id="filter_col10" data-column="9">
+                <td>DEFENSE</td>
+                <td align="center"><input type="text" class="column_filter" id="col9_filter"></td>
+            </tr>
+            <tr id="filter_col11" data-column="10">
+                <td>STAMINA</td>
+                <td align="center"><input type="text" class="column_filter" id="col10_filter"></td>
+            </tr>
+        </tbody>
 
-<table id="mon_table" class="table" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
+<table id="mon_table" class="table table-striped table-bordered table-sm" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
     <thead class="thead-dark">
         <tr>
             <th style="display:none";>ID:</th>
@@ -224,8 +268,18 @@ $.getJSON(url, function (data) {
 </table>
 <?php if(!empty($_POST)){?>
 <script>
+
+function filterColumn ( i ) {
+    $('#mon_table').DataTable().column( i ).search(
+        $('#col'+i+'_filter').val()
+    ).draw();
+}
+
     $(document).ready(function() {
-        $('#mon_table').DataTable({
+        $('#mon_table').DataTable(
+        
+        {
+            
             order: [
                 [13, "desc"]
                 ],
@@ -237,11 +291,11 @@ $.getJSON(url, function (data) {
             ],
             
             
+            "pageLength": 10,
             paging: true,
             lengthChange: true,
-            searching: true,
+            searching: false,
             responsive: true,
-            pageLength: "10",
             lengthMenu: [[10, 20, 25, 50, -1], [10, 20, 25, 50, 'All']],
             
             language: {
@@ -256,6 +310,11 @@ $.getJSON(url, function (data) {
                 }
             
         });
+        
+            $('input.column_filter').on( 'keyup click', function () {
+        filterColumn( $(this).parents('tr').attr('data-column') );
+    } );
+        
     });
 </script>
 <?php }?>
