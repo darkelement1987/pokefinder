@@ -2,7 +2,7 @@
 $mons = getMons();
 global $clock;
 ?>
-
+<?php if(!$_POST){?><h3>Search:</h3><?php }?>
 <form action="index.php#found" method="post" name="searchmon" id="searchmon" <?php if($_POST){?>hidden<?php }?>><input name="page" type="hidden" value="test" />
 <table style="border-style:solid; border-width:1px; border-color:Gainsboro; margin-left:10px;" cellpadding="5" >
 <tbody>
@@ -171,7 +171,7 @@ $.getJSON(url, function (data) {
 </tbody>
 </table>
 </form>
-<?php if($_POST){?><b>Filter results:</b><?php }?>
+<?php if($_POST){?><h3>Filter results:</h3><?php }?>
 <table cellpadding="3" cellspacing="0" border="0" <?php if(!$_POST){?>hidden<?php }?>>
         <thead>
             <tr>
@@ -221,8 +221,8 @@ $.getJSON(url, function (data) {
                 <td align="center"><input type="text" class="column_filter" id="col10_filter"></td>
             </tr>
         </tbody>
-
 <table id="mon_table" class="table table-striped table-bordered table-sm" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
+<?php if($_POST){?><h3>Results:</h3><?php }?>
     <thead class="thead-dark">
         <tr>
             <th style="display:none";>ID:</th>
