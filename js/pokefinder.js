@@ -75,7 +75,7 @@ $(document).ready(function() {
 		},
 		initComplete: function() {
 			$('#mon_table tfoot tr').appendTo('#mon_table thead');
-			this.api().columns([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]).every(function() {
+			this.api().columns([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13]).every(function() {
 				var column = this;
 				var select = $('<select class="monresult" style="width:100%;"><option value="">All</option></select>')
 					.appendTo($(column.footer()).empty())
@@ -98,7 +98,10 @@ $(document).ready(function() {
 					}
 				});
 			});
-		}
+		},
+        
+        "dom": '<"top"i>rt<"bottom"p><"clear">'
+        
 	});
 });
 
@@ -136,7 +139,7 @@ function updateSelect() {
 				search: 'applied'
 			}).data().sort().unique();
 			$.each(data, function(ix, v) {
-				if (ii === 1) {
+				if (ii === 1||11) {
 					v = v.replace(/<[^>]*>?/gm, '');
 				}
 				var option = new Option(v, v, false,
