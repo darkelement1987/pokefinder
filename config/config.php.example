@@ -14,4 +14,4 @@ $clock = "24"; // enter "24" for 24-hour format enter "12" for 12-hour format, d
 
 // !!! Don't touch stuff below !!!
 
-$assetRepo = "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
+$assetRepo = "https://raw.githubusercontent.com/geekygreek7/pokedave_shuffle_icons_-PMSF-/master/";

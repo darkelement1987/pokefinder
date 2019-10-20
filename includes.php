@@ -26,5 +26,14 @@ switch ($clock) {
 
 function index()
 {
-            require_once(DIRECTORY  . '/pages/pokefinder.php');
+    if (isset($_GET['page']) && !empty($_GET['page'])) {
+        $page = $_GET['page'];
+        if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
+            require_once(DIRECTORY  . '/pages/' . $page . '.php');
+        } else {
+            echo "Does not exist";
+        }
+    } else {
+        require_once(DIRECTORY  . '/pages/pokefinder.php');
+    }
 }
