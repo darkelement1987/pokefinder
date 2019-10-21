@@ -28,7 +28,8 @@ include './includes.php';
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="index.php">Home</a>
+          <a class="dropdown-item" href="index.php">PokeFinder</a>
+          <a class="dropdown-item" href="index.php?page=rocket">Rocket Stops</a>
         </div>
       </li>
     </ul>

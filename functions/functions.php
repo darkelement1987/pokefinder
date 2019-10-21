@@ -180,3 +180,26 @@ function getMons()
         return $mons;
     }
 }
+
+function getRocket()
+{
+    global $conn;
+    
+    $rocket = [];
+    $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/invasions.json'), true);
+    
+    $sql = "SELECT latitude, longitude, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
+
+    $result = $conn->query($sql);
+
+    // Check if mon available
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_object()) {
+            
+            $row->gender = $rocket_name[$row->type]['gruntGender'];
+            $row->type = $rocket_name[$row->type]['type'];
+            $rocket[] = $row;
+        }
+        return $rocket;
+    }
+}

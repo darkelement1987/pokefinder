@@ -3,8 +3,17 @@ $mons = getMons();
 global $clock;
 ?>
 <!-- START OF RESULT TABLE -->
-<table <?php if($_POST){?>id="mon_table"<?php }?> class="table table-striped table-bordered table-sm" style="width:100%" <?php if(!$_POST){?>hidden<?php }?>>
-<?php if($_POST){?><h3>Results:</h3><?php }?>
+<style>
+div.dataTables_paginate {
+    margin: 0;
+    float: left;
+    white-space: nowrap;
+    text-align: right;
+}
+</style>
+<?php if($_POST){?>
+<table id="mon_table" class="table table-striped table-bordered table-sm" style="width:100%" >
+<h3>Results:</h3>
     <thead class="thead-dark">
         <tr>
             <th style="display:none";>ID:</th>
@@ -71,6 +80,7 @@ global $clock;
         </tr> <?php }}
                         } else {
                             echo $mons;
-                        }} ?> </tbody>
+        }} else { echo "No data";}?> </tbody>
 </table>
+<?php } else { echo "<div class=\"card\" style=\"width: 10rem;\">\r\n <img class=\"card-img-top\" src=\"https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_007_895.png\" alt=\"Card image cap\">\r\n <div class=\"card-body\">\r\n <p class=\"card-text\">Squirtle-squir. That is not allowed!</p></div></div>";}?>
 <!-- END OF RESULT TABLE -->
