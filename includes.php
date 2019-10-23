@@ -27,7 +27,7 @@ switch ($clock) {
 function index()
 {
     if (isset($_GET['page']) && !empty($_GET['page'])) {
-        $page = $_GET['page'];
+        $page = trim($_GET['page'], './');
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
         } else {
