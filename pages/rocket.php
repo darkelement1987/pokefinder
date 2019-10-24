@@ -17,6 +17,7 @@ div.bottom{
         <tr>
             <th>Stop:</th>
             <th>Grunt Type:</th>
+            <th>Reward:</th>
             <th>Grunt Gender:</th>
             <th>Scanned:</th>
             <th>Start:</th>
@@ -31,10 +32,14 @@ div.bottom{
                     <td><img height='42' width='42' src='<?= $row->image ?>'/> <?= $row->name ?></td>
                     <td><b>Type:</b> <?= $row->rtype ?>
                     <?php if ($row->secreward == 'false'){?>
-                    <br><b>100 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?>
+                    <td>
+                    <b>100 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?>
+                    </td>
                     <?php } else {?>
-                    <br><b>85 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?>
-                    <br><b>15 % encounter chance: </b><?= $row->secondrow0 ?><?= $row->secondrow1 ?><?= $row->secondrow2 ?>
+                    <td>
+                    <b>85 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?><br>
+                    <b>15 % encounter chance: </b><?= $row->secondrow0 ?><?= $row->secondrow1 ?><?= $row->secondrow2 ?>
+                    </td>
                     <?php }?>
                     </td>
                     <td><?= $row->rgender ?></td>
