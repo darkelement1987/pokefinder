@@ -29,8 +29,15 @@ div.bottom{
                 ?>
                 <tr>
                     <td><img height='42' width='42' src='<?= $row->image ?>'/> <?= $row->name ?></td>
-                    <td><?= $row->type ?></td>
-                    <td><?= $row->gender ?></td>
+                    <td><b>Type:</b> <?= $row->rtype ?>
+                    <?php if ($row->secreward == 'false'){?>
+                    <br><b>100 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?>
+                    <?php } else {?>
+                    <br><b>85 % encounter chance: </b><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?>
+                    <br><b>15 % encounter chance: </b><?= $row->secondrow0 ?><?= $row->secondrow1 ?><?= $row->secondrow2 ?>
+                    <?php }?>
+                    </td>
+                    <td><?= $row->rgender ?></td>
                     <td><?= date($clock, $row->scanned) ?></td>
                     <td><?= date($clock, $row->start) ?></td>
                     <td><?= date($clock, $row->stop) ?></td>
