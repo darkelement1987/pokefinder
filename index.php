@@ -42,7 +42,7 @@ include './includes.php';
                 </div>
             </nav>
         </div>
-        <div id="page-container" style="padding:15px; padding-top:65px;">
+        <div id="page-container">
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
             <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/datatables.min.js"></script>

@@ -36,3 +36,10 @@ td.stopnamehidden,
 th.stopnamehidden {
 	display: none;
 }
+
+div#page-container {
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom:80px;
+    padding-top:80px;
+}
