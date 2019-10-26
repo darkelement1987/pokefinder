@@ -31,6 +31,7 @@ include './includes.php';
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="index.php">PokeFinder</a>
           <a class="dropdown-item" href="index.php?page=rocket">Rocket Stops</a>
+          <a class="dropdown-item" href="index.php?page=quests">Quests</a>
         </div>
       </li>
     </ul>

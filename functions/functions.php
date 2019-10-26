@@ -174,6 +174,9 @@ function getMons()
                 } else {
                     $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
                     }
+                    
+            // Detect Rarity
+            $spawnpct = 
 
             $mons[] = $row;
         }
@@ -227,3 +230,38 @@ function getRocket()
                                                 return $rocket;
                                                 }
                                                 }
+                                                
+function getQuest()
+{
+    global $conn;
+    global $assetRepo;
+
+    $quest = [];
+
+    $sql = "SELECT pokestop.name, pokestop.image, trs_quest.quest_reward_type as type, trs_quest.quest_item_amount as amount, trs_quest.quest_task as task, trs_quest.quest_stardust as stardust, trs_quest.quest_pokemon_id as monid, trs_quest.quest_item_id as itemid from pokestop,trs_quest WHERE trs_quest.GUID = pokestop.pokestop_id;";
+    $result = $conn->query($sql);
+    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
+
+    if ($result && $result->num_rows > 0){
+        while ($row = $result->fetch_object()) {
+            $row->text='';
+            $row->monname='';
+            switch ($row->type) {
+                case '2':
+                $row->type = 'https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/images/quest/reward_' . $row->itemid . '_1.png';
+                $row->text = '<br>Pieces: ' . $row->amount;
+                break;
+                case '3':
+                $row->type = 'https://raw.githubusercontent.com/Map-A-Droid/MAD/master/madmin/static/quest/reward_stardust.png';
+                $row->text = '<br>Amount: ' . $row->stardust;
+                break;
+                case '7':
+                $row->type = $assetRepo . '/pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
+                $row->text = '<br>' . $mon_name[$row->monid]['name'];
+                break;
+            }
+            $quest[] = $row;
+                }
+                return $quest;
+                }
+                }
