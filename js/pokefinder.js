@@ -238,7 +238,27 @@ $(document).ready(function ()
 		autoWidth: true,
 		paging: true,
 		searching: true,
-		responsive: true,
+        responsive: {
+            details: true
+        },
+		columnDefs: [
+		{
+			type: 'time-uni',
+			targets: 5
+		},
+		{
+			className: 'control',
+			orderable: false,
+			targets: 0
+		},
+		{
+			responsivePriority: 1,
+			targets: [1, 2,7]
+		},
+		{
+			responsivePriority: 2,
+			targets: [3, 4, 5, 6]
+		}],
 		processing: true,
 		language:
 		{

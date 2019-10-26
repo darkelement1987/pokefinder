@@ -8,6 +8,7 @@ global $clock;
 <h3>Results:</h3>
     <thead class="thead-dark">
         <tr>
+            <th></th>
             <th>Gym Name</th>            
             <th>Raid Boss</th>
             <th>Moves</th>			
@@ -22,11 +23,12 @@ global $clock;
             foreach ($raids as $row) {
                 ?>
                 <tr>
+                    <td></td>
                     <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
                     <td><?= $row->bossname ?></td>
                     <td><?= $row->move_1 . $row->move_2 ?></td>
                     <td><?= $row->cp ?></td>
-                    <td><?= str_repeat('★', $row->level) ?></td>
+                    <td><?= str_repeat('★', $row->level) ?></td>    
                     <td><?= $row->spawn?></td>
                     <td> <?= $row->time_start ?> - <?= $row->time_end ?></td>
         </tr> <?php }
