@@ -27,10 +27,10 @@ include './includes.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=quests">Pokémon</a>
+                            <a class="nav-link" href="index.php">Pokémon</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=quests">Rocket Stops</a>
+                            <a class="nav-link" href="index.php?page=rocket">Rocket Stops</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=quests">Quests</a>
