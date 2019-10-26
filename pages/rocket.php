@@ -5,7 +5,7 @@ global $clock;
 <!-- START OF ROCKET STOPS TABLE -->
 <div class="table-responsive-sm">
 <table id="rocket_table" class="table table-striped table-bordered w-auto">
-<h3>Results:</h3>
+<h3>Rocket Stops:</h3>
     <thead class="thead-dark">
         <tr>
             <th></th>

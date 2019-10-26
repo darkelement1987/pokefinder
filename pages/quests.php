@@ -5,7 +5,7 @@ global $clock;
 <!-- START OF QUESTS TABLE -->
 <div class="table-responsive-sm">
 <table id="quest_table" class="table table-striped table-bordered w-auto">
-<h3>Results:</h3>
+<h3>Quests:</h3>
     <thead class="thead-dark">
         <tr>
             <th>Pic:</th>

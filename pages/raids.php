@@ -5,7 +5,7 @@ global $clock;
 <!-- START OF RAIDS TABLE -->
 <div class="table-responsive-sm">
 <table id="raid_table" class="table table-striped table-bordered w-auto">
-<h3>Results:</h3>
+<h3>Raids:</h3>
     <thead class="thead-dark">
         <tr>
             <th></th>
