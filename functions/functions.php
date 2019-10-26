@@ -289,7 +289,7 @@ function getRaids()
                 $row->id = '#???';
             // Else it's a raid :-)
             } else {
-                $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png';
+                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png" height="42" width="42"/>';
                 $row->bossname = $row->sprite . $mon_name[$row->pokemon_id]['name'];
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
                 if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
