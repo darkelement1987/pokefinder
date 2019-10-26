@@ -32,6 +32,7 @@ include './includes.php';
           <a class="dropdown-item" href="index.php">PokeFinder</a>
           <a class="dropdown-item" href="index.php?page=rocket">Rocket Stops</a>
           <a class="dropdown-item" href="index.php?page=quests">Quests</a>
+          <a class="dropdown-item" href="index.php?page=raids">Raids</a>
         </div>
       </li>
     </ul>

@@ -194,68 +194,6 @@ $(document).ready(function ()
 	});
 });
 
-$(document).ready(function ()
-{
-	$('#quest_table').DataTable(
-	{
-		order: [
-			[2, "asc"]
-		],
-
-
-		"pageLength": 10,
-		autoWidth: true,
-		paging: true,
-		searching: true,
-		responsive: true,
-		processing: true,
-		language:
-		{
-			"search": "Filter results:",
-			"info": "Showing _START_ to _END_ of _TOTAL_ Pokémon",
-			"infoEmpty": "Showing 0 to 0 of 0 Pokémon",
-			"infoFiltered": "(filtered from _MAX_ total Pokémon)",
-			"emptyTable": "No Pokémon available in table",
-			"zeroRecords": "No matching Pokémon found",
-			"searchPlaceholder": "Enter info",
-			"lengthMenu": "Show _MENU_ Pokemon per page",
-		},
-		"dom": '<"top"f>rt<"bottom"p><"clear">'
-
-	});
-});
-
-$(document).ready(function ()
-{
-	$('#raid_table').DataTable(
-	{
-		order: [
-			[0, "asc"]
-		],
-
-
-		"pageLength": 10,
-		autoWidth: true,
-		paging: true,
-		searching: true,
-		responsive: true,
-		processing: true,
-		language:
-		{
-			"search": "Filter results:",
-			"info": "Showing _START_ to _END_ of _TOTAL_ Pokémon",
-			"infoEmpty": "Showing 0 to 0 of 0 Pokémon",
-			"infoFiltered": "(filtered from _MAX_ total Pokémon)",
-			"emptyTable": "No Pokémon available in table",
-			"zeroRecords": "No matching Pokémon found",
-			"searchPlaceholder": "Enter info",
-			"lengthMenu": "Show _MENU_ Pokemon per page",
-		},
-		"dom": '<"top"f>rt<"bottom"p><"clear">'
-
-	});
-});
-
 function updateSelect()
 {
 	var table = $('#mon_table').DataTable();
