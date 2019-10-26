@@ -174,9 +174,6 @@ function getMons()
                 } else {
                     $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
                     }
-                    
-            // Detect Rarity
-            $spawnpct = 
 
             $mons[] = $row;
         }
