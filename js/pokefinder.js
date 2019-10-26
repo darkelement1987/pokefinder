@@ -230,7 +230,7 @@ $(document).ready(function ()
 	$('#raid_table').DataTable(
 	{
 		order: [
-			[0, "asc"]
+			[5, "desc"]
 		],
 
 
