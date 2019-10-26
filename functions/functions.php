@@ -4,10 +4,10 @@ function getMons()
     global $conn;
     global $assetRepo;
     global $monsters;
-    
+
     $mons = [];
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-    
+
     if(!empty($_POST['gender'])){
         switch ($_POST['gender']) {
             case '1':
@@ -24,8 +24,8 @@ function getMons()
                 break;
                 }
     } else { $gender = '';}
-    
-    if(!empty($_POST['monster'])){ $monsterid = 'pokemon_id IN (' . $_POST['monster'] . ') AND '; 
+
+    if(!empty($_POST['monster'])){ $monsterid = 'pokemon_id IN (' . $_POST['monster'] . ') AND ';
     } elseif(!empty($_POST['generation'])){
         switch ($_POST['generation']) {
             case '1':
@@ -45,7 +45,7 @@ function getMons()
                 break;
                 }
     } else { $monsterid = '';}
-    
+
     if(!empty($_POST['boosted'])){ switch ($_POST['boosted']){
         case'1':
         $boosted = ' AND weather_boosted_condition=1';
@@ -73,7 +73,7 @@ function getMons()
             break;
             }
             } else { $boosted = '';}
-    
+
     $sql = "SELECT form, gender, catch_prob_1, catch_prob_2, catch_prob_3, cp_multiplier, individual_attack, individual_defense, individual_stamina, pokemon_id, cp, weather_boosted_condition, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, latitude, longitude  FROM pokemon WHERE " . $monsterid . "gender" . $gender . $boosted . " AND disappear_time > utc_timestamp();";
 
     $result = $conn->query($sql);
@@ -124,7 +124,7 @@ function getMons()
                     $row->gender = '-';
                     break;
                     }
-            
+
             // Detect Weatherboost
             switch ($row->weather_boosted_condition) {
                 case'0':
@@ -174,6 +174,9 @@ function getMons()
                 } else {
                     $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
                     }
+                    
+            // Detect Rarity
+            $spawnpct = 
 
             $mons[] = $row;
         }
@@ -184,22 +187,46 @@ function getMons()
 function getRocket()
 {
     global $conn;
-    
+    global $assetRepo;
+
     $rocket = [];
-    $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/invasions.json'), true);
-    
-    $sql = "SELECT latitude, longitude, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
+    $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
+
+    $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
 
     $result = $conn->query($sql);
 
-    // Check if mon available
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            
-            $row->gender = $rocket_name[$row->type]['gruntGender'];
-            $row->type = $rocket_name[$row->type]['type'];
-            $rocket[] = $row;
-        }
-        return $rocket;
-    }
-}
+
+            $row->rgender = $rocket_name[$row->type]['grunt'];
+            $row->rgender = str_replace(" Grunt","",$row->rgender);
+            $row->rtype = $rocket_name[$row->type]['type'];
+           if (empty($rocket_name[$row->type]['type'])) {
+                $row->rtype = 'Unknown';
+            }
+
+            $row->secreward = $rocket_name[$row->type]['second_reward'];
+            $row->onefirst = $rocket_name[$row->type]['encounters']['first'];
+            $row->onesecond = $rocket_name[$row->type]['encounters']['second'];
+
+                        if (is_array($row->onefirst) || is_array($row->onesecond) || is_array($row->onethird)) {
+                            for($x = 0; $x <= 2; $x++){
+                                if (!empty($row->onefirst[$x])) {
+                                    $row->{"firstrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42">';
+                                    } else { $row->{"firstrow" . $x} = '';
+                                    };
+                                    };
+                                    for($x = 0; $x <= 2; $x++) {
+                                        if (!empty($row->onesecond[$x])) {
+                                            $row->{"secondrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42">';
+                                            } else {
+                                                $row->{"secondrow" . $x} = '';
+                                                };
+                                                };
+                                                $rocket[] = $row;
+                                                }
+                                                }
+                                                return $rocket;
+                                                }
+                                                }

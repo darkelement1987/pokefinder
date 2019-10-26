@@ -4,6 +4,7 @@ define('DIRECTORY', __Dir__);
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
+$conn->set_charset('utf8');
 
 // Check connection
 if ($conn->connect_error) {
@@ -26,8 +27,8 @@ switch ($clock) {
 
 function index()
 {
-    if (isset($_GET['page']) && !empty($_GET['page'])) {
-        $page = htmlentities(trim($_GET['page'], './'));
+    if (isset($_GET['page']) || !empty($_GET['page'])) {
+        $page = trim($_GET['page'], './');
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
         } else {
