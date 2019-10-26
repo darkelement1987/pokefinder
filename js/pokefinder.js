@@ -84,6 +84,10 @@ $(document).ready(function ()
 			"zeroRecords": "No matching Pokémon found",
 			"searchPlaceholder": "Enter info",
 			"lengthMenu": "Show _MENU_ Pokemon per page",
+            "paginate": {
+            "previous": "<",
+            "next": ">"
+            }
 		},
 		initComplete: function ()
 		{
