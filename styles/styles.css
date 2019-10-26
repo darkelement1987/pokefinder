@@ -1,27 +1,41 @@
-div.top{
-    float:left;
+div.top {
+	float: left;
 }
 
-div.bottom{
-    float:left;
-    }
-    
+div.bottom {
+	float: left;
+}
+
 @media only screen and (max-width: 600px) {
-  td.stopname {
-    white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    max-width:25px;
-    }
+	td.stopname {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 25px;
+	}
+	img {
+		width: 35px;
+		height: 35px;
+	}
 }
 
-td.stopnamehidden, th.stopnamehidden {
-    display:none;
+@media only screen and (min-width: 600px) {
+	td.stopname {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 25px;
+	}
+	.table td,
+	.table th {
+		white-space: nowrap;
+		padding: .75rem;
+		vertical-align: top;
+		border-top: 1px solid #dee2e6;
+	}
 }
 
-.table td, .table th {
-    white-space: nowrap;
-    padding: .75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+td.stopnamehidden,
+th.stopnamehidden {
+	display: none;
 }
