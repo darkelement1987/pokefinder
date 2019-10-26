@@ -27,7 +27,7 @@ global $clock;
     </thead>
         <tfoot>
             <tr>
-                <th style="display:none";>ID:</th>
+                <th style="display:none">ID:</th>
                 <th>Pokemon:</th>
                 <th>IV:</th>
                 <th>CP:</th>
@@ -54,7 +54,7 @@ global $clock;
                 if($row->iv >= $miniv && $row->cp >= $mincp && $row->level >= $minlvl){
                 ?>
                 <tr>
-                    <td style="display:none";><?= $row->id ?></td>
+                    <td style="display:none"><?= $row->id ?></td>
                     <td><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
                     <td><?= $row->ivoutput ?></td>
                     <td><?= $row->cp ?></td>

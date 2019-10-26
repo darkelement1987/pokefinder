@@ -11,6 +11,7 @@ global $clock;
             <th></th>
             <th>Pic:</th>
             <th>Stop:</th>
+            <th>Stop:</th>
             <th>Type:</th>
             <th>15% Chance:</th>
             <th>85% Chance:</th>
@@ -25,6 +26,7 @@ global $clock;
                 <tr>
                     <td></td>
                     <td><img height='42' width='42' src='<?= $row->image ?>'/></td>
+                    <td><a href='https://maps.google.com/?q=<?= $row->lat?>,<?= $row->lon?>'><?= $row->name ?></td>
                     <td><a href='https://maps.google.com/?q=<?= $row->lat?>,<?= $row->lon?>'><?= $row->name ?></td>
                     <td><img height='42' width='42' src='images/<?= $row->rgender ?>.png'/><img height='42' width='42' src='images/<?= $row->rtype ?>.png'/></td>
                     <td><?php if ($row->secreward == 'true'){?><?= $row->secondrow0 ?><?= $row->secondrow1 ?><?= $row->secondrow2 ?><?php } else { echo '-';}?></td>

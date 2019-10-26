@@ -14,3 +14,7 @@ div.bottom{
     max-width:25px;
     }
 }
+
+td.stopnamehidden, th.stopnamehidden {
+    display:none;
+}

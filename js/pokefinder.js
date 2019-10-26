@@ -130,13 +130,13 @@ $(document).ready(function ()
 	$('#rocket_table').DataTable(
 	{
 		order: [
-			[7, "asc"]
+			[8, "asc"]
 		],
 
 		columnDefs: [
 		{
 			type: 'time-uni',
-			targets: 7
+			targets: 8
 		},
 		{
 			className: 'control',
@@ -145,15 +145,19 @@ $(document).ready(function ()
 		},
 		{
 			responsivePriority: 1,
-			targets: [2, 4, 7]
+			targets: [2, 5, 8]
 		},
 		{
 			responsivePriority: 2,
-			targets: [0, 1, 3, 5]
+			targets: [0, 1, 3, 6, 7]
 		},
 		{
 			className: "stopname",
 			"targets": [2]
+		},
+        {
+			className: "stopnamehidden",
+			"targets": [3]
 		}],
 
 
