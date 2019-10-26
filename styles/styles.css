@@ -20,12 +20,6 @@ div.bottom {
 }
 
 @media only screen and (min-width: 600px) {
-	td.stopname {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 25px;
-	}
 	.table td,
 	.table th {
 		white-space: nowrap;
