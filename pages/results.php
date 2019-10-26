@@ -3,20 +3,12 @@ $mons = getMons();
 global $clock;
 ?>
 <!-- START OF RESULT TABLE -->
-<style>
-div.dataTables_paginate {
-    margin: 0;
-    float: left;
-    white-space: nowrap;
-    text-align: right;
-}
-</style>
 <?php if($_POST){?>
-<table id="mon_table" class="table table-striped table-bordered table-sm" style="width:100%" >
+<table id="mon_table" class="table table-striped table-bordered w-auto">
 <h3>Results:</h3>
     <thead class="thead-dark">
         <tr>
-            <th style="display:none";>ID:</th>
+            <th style="display:none">ID:</th>
             <th>Pokemon:</th>
             <th>IV:</th>
             <th>CP:</th>

@@ -192,7 +192,7 @@ function getRocket()
     $rocket = [];
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
 
-    $sql = "SELECT latitude, longitude, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
+    $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
 
     $result = $conn->query($sql);
 
@@ -200,6 +200,7 @@ function getRocket()
         while ($row = $result->fetch_object()) {
 
             $row->rgender = $rocket_name[$row->type]['grunt'];
+            $row->rgender = str_replace(" Grunt","",$row->rgender);
             $row->rtype = $rocket_name[$row->type]['type'];
            if (empty($rocket_name[$row->type]['type'])) {
                 $row->rtype = 'Unknown';
