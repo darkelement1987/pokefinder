@@ -9,13 +9,13 @@ global $clock;
     <thead class="thead-dark">
         <tr>
             <th></th>
-            <th>Gym Name</th>            
-            <th>Raid Boss</th>
+            <th>Gym</th>            
+            <th>Boss</th>
             <th>Moves</th>			
             <th>CP</th>
             <th>Level</th>
             <th>Egg Spawn</th>
-            <th>Raid Start - End</th>
+            <th>Time</th>
         </tr>
     </thead>
     <tbody>
