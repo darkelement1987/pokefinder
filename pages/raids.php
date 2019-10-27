@@ -15,7 +15,7 @@ global $clock;
             <th>CP</th>
             <th>Level</th>
             <th>Egg Spawn</th>
-            <th>Time</th>
+            <th>Raid Time</th>
         </tr>
     </thead>
     <tbody>
