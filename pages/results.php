@@ -5,7 +5,7 @@ global $clock;
 <!-- START OF RESULT TABLE -->
 <?php if($_POST){?>
 <table id="mon_table" class="table table-striped table-bordered w-auto">
-<h3>Results:</h3>
+<h3>Pokemon:</h3>
     <thead class="thead-dark">
         <tr>
             <th style="display:none">ID:</th>

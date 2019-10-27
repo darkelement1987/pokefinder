@@ -74,6 +74,7 @@ $(document).ready(function ()
 		paging: true,
 		searching: true,
 		responsive: true,
+        processing: true,
 		language:
 		{
 			"search": "Filter results:",
@@ -180,11 +181,93 @@ $(document).ready(function ()
 		language:
 		{
 			"search": "Filter results:",
-			"info": "Showing _START_ to _END_ of _TOTAL_ Pokémon",
-			"infoEmpty": "Showing 0 to 0 of 0 Pokémon",
-			"infoFiltered": "(filtered from _MAX_ total Pokémon)",
-			"emptyTable": "No Pokémon available in table",
-			"zeroRecords": "No matching Pokémon found",
+			"info": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"infoEmpty": "Showing 0 to 0 of 0 entries",
+			"infoFiltered": "(filtered from _MAX_ total entries)",
+			"emptyTable": "No entries available in table",
+			"zeroRecords": "No matching entries found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"f>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#quest_table').DataTable(
+	{
+		order: [
+			[2, "asc"]
+		],
+
+
+		"pageLength": 10,
+		autoWidth: true,
+		paging: true,
+		searching: true,
+		responsive: true,
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Quests",
+			"infoEmpty": "Showing 0 to 0 of 0 Quests",
+			"infoFiltered": "(filtered from _MAX_ total Quests)",
+			"emptyTable": "No Quests available in table",
+			"zeroRecords": "No matching Quests found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"f>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#raid_table').DataTable(
+	{
+		order: [
+			[5, "desc"]
+		],
+
+
+		"pageLength": 10,
+		autoWidth: true,
+		paging: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		columnDefs: [
+		{
+			type: 'time-uni',
+			targets: 5
+		},
+		{
+			className: 'control',
+			orderable: false,
+			targets: 0
+		},
+		{
+			responsivePriority: 1,
+			targets: [1, 2,7]
+		},
+		{
+			responsivePriority: 2,
+			targets: [3, 4, 5, 6]
+		}],
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Raids",
+			"infoEmpty": "Showing 0 to 0 of 0 Raids",
+			"infoFiltered": "(filtered from _MAX_ total Raids)",
+			"emptyTable": "No Raids available in table",
+			"zeroRecords": "No matching Raids found",
 			"searchPlaceholder": "Enter info",
 			"lengthMenu": "Show _MENU_ Pokemon per page",
 		},

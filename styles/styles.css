@@ -20,6 +20,10 @@ div.bottom {
     body {
         font-size: 14px;
     }
+    
+    span.genderhide, span.typehide {
+        display:none;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -35,4 +39,15 @@ div.bottom {
 td.stopnamehidden,
 th.stopnamehidden {
 	display: none;
+}
+
+div#page-container {
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom:15px;
+    padding-top:80px;
+}
+
+.nav-link:hover .badge-secondary {
+    background-color: #356635;
 }
