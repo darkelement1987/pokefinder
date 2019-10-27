@@ -14,6 +14,7 @@ include './includes.php';
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="styles/styles.css">
+        <link rel="icon" type="image/png" href="images/locamon.png"/>
     </head>
 
     <body>
@@ -27,7 +28,7 @@ include './includes.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Pokémon <span class="badge badge-secondary"><?= $moncount ?></a>
+                            <a class="nav-link" href="index.php?page=pokefinder">Pokémon <span class="badge badge-secondary"><?= $moncount ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=rocket">Team Rocket <span class="badge badge-secondary"><?= $stopcount ?></a>
