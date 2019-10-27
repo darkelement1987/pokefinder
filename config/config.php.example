@@ -9,6 +9,7 @@ $database = "";
 // Frontend
 
 $clock = "24"; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
+$title = "PokeFinder";
 
 // Images
 

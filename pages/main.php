@@ -3,11 +3,12 @@ global $moncount;
 global $stopcount;
 global $raidcount;
 global $questcount;
+global $title;
 ?>
 <!-- START OF MAP RAME -->
 <div class="mainpage">
 <div class="container mt-3">
-  <h2>PokeFinder</h2>
+  <h2><?= $title?></h2>
   <p>Activity in your area:</p>
   <div class="media border p-3">
     <img src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/pokeball_sprite.png" class="mr-3 mt-3 rounded-circle" style="width:60px; height:60px;">
