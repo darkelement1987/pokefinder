@@ -47,3 +47,7 @@ div#page-container {
     padding-bottom:15px;
     padding-top:80px;
 }
+
+.nav-link:hover .badge-secondary {
+    background-color: #356635;
+}
