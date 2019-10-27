@@ -25,6 +25,28 @@ switch ($clock) {
         break;
 }
 
+// Count stuff for index
+
+$mcount = $conn->query("select count(pokemon_id) as moncount from pokemon where disappear_time > utc_timestamp()");
+$row = $mcount->fetch_assoc();
+$moncount = $row['moncount'];
+$mcount->close();
+
+$scount = $conn->query("select count(*) as stopcount from pokestop where incident_expiration > utc_timestamp()");
+$row = $scount->fetch_assoc();
+$stopcount = $row['stopcount'];
+$scount->close();
+
+$rcount = $conn->query("select count(*) as raidcount from raid where raid.end > utc_timestamp()");
+$row = $rcount->fetch_assoc();
+$raidcount = $row['raidcount'];
+$rcount->close();
+
+$qcount = $conn->query("select count(*) as questcount from trs_quest");
+$row = $qcount->fetch_assoc();
+$questcount = $row['questcount'];
+$qcount->close();
+
 function index()
 {
     if (isset($_GET['page']) || !empty($_GET['page'])) {

@@ -18,7 +18,7 @@ include './includes.php';
 
     <body>
         <div class="topnav" id="myTopnav">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-lg p-30 mb-30">
                 <a class="navbar-brand" href="index.php"><img src="images/locamon.png" alt="Logo" style="width:35px;"> PokeFinder</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,16 +27,16 @@ include './includes.php';
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Pokémon</a>
+                            <a class="nav-link" href="index.php">Pokémon <span class="badge badge-secondary"><?= $moncount ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=rocket">Rocket Stops</a>
+                            <a class="nav-link" href="index.php?page=rocket">Team Rocket <span class="badge badge-secondary"><?= $stopcount ?></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=quests">Quests</a>
+                            <a class="nav-link" href="index.php?page=quests">Quests <span class="badge badge-secondary"><?= $questcount ?></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=raids">Raids</a>
+                            <a class="nav-link" href="index.php?page=raids">Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
                     </ul>
                 </div>
