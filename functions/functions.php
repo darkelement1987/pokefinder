@@ -188,7 +188,7 @@ function getRocket()
 
     $rocket = [];
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
-
+    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
     $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
 
     $result = $conn->query($sql);
@@ -210,15 +210,20 @@ function getRocket()
                         if (is_array($row->onefirst) || is_array($row->onesecond) || is_array($row->onethird)) {
                             for($x = 0; $x <= 2; $x++){
                                 if (!empty($row->onefirst[$x])) {
+                                    $row->{"firstname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onefirst[$x])), '0')]['name'];
                                     $row->{"firstrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42">';
-                                    } else { $row->{"firstrow" . $x} = '';
+                                    } else { 
+                                    $row->{"firstrow" . $x} = '';
+                                    $row->{"firstname" . $x} = '';
                                     };
                                     };
                                     for($x = 0; $x <= 2; $x++) {
                                         if (!empty($row->onesecond[$x])) {
+                                            $row->{"secondname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onesecond[$x])), '0')]['name'];
                                             $row->{"secondrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42">';
                                             } else {
-                                                $row->{"secondrow" . $x} = '';
+                                                $row->{"secondrow" . $x} = '';                                                
+                                                $row->{"secondname" . $x} = '';
                                                 };
                                                 };
                                                 $rocket[] = $row;
