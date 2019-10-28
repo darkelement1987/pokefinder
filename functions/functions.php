@@ -196,8 +196,7 @@ function getRocket()
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
 
-            $row->rgender = $rocket_name[$row->type]['grunt'];
-            $row->rgender = str_replace(" Grunt","",$row->rgender);
+            $row->rgender = str_replace(" Grunt","",$rocket_name[$row->type]['grunt']);
             $row->rtype = $rocket_name[$row->type]['type'];
            if (empty($rocket_name[$row->type]['type'])) {
                 $row->rtype = 'Unknown';
