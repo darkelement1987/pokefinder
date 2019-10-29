@@ -3,9 +3,19 @@ $rocket = getRocket();
 global $clock;
 ?>
 <!-- START OF ROCKET STOPS TABLE -->
+<?php
+global $moncount;
+global $stopcount;
+global $raidcount;
+global $questcount;
+global $title;
+global $maplink;
+?>
+  <div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid">
+    <h3 class="display-6">Team Rocket</h3>
 <div class="table-responsive-sm">
 <table id="rocket_table" class="table table-striped table-bordered w-auto">
-<h3>Team Rocket:</h3>
     <thead class="thead-dark">
         <tr>
             <th></th>
@@ -45,4 +55,6 @@ global $clock;
         }?> </tbody>
 </table>
 </div>
+</div>
+<!-- END OF MAP FRAME -->
 <!-- END OF ROCKET STOPS TABLE -->
