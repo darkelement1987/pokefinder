@@ -31,7 +31,7 @@ div.bottom {
 	.table th {
 		white-space: nowrap;
 		padding: .75rem;
-		vertical-align: top;
+		vertical-align: middle;
 		border-top: 1px solid #dee2e6;
 	}
 }
