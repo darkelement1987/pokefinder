@@ -3,9 +3,11 @@ $raids = getRaids();
 global $clock;
 ?>
 <!-- START OF RAIDS TABLE -->
+  <div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid">
+    <h3 class="display-6">Raids</h3>
 <div class="table-responsive-sm">
 <table id="raid_table" class="table table-striped table-bordered w-auto">
-<h3>Raids:</h3>
     <thead class="thead-dark">
         <tr>
             <th></th>

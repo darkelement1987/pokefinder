@@ -3,9 +3,11 @@ $quest = getQuest();
 global $clock;
 ?>
 <!-- START OF QUESTS TABLE -->
+  <div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid">
+    <h3 class="display-6">Quests</h1>
 <div class="table-responsive-sm">
 <table id="quest_table" class="table table-striped table-bordered w-auto">
-<h3>Quests:</h3>
     <thead class="thead-dark">
         <tr>
             <th>Pic:</th>
@@ -28,5 +30,6 @@ global $clock;
                             echo $quest;
         }?> </tbody>
 </table>
+</div>
 </div>
 <!-- END OF QUESTS TABLE -->

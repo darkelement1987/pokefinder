@@ -3,9 +3,11 @@ $rocket = getRocket();
 global $clock;
 ?>
 <!-- START OF ROCKET STOPS TABLE -->
+  <div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid">
+    <h3 class="display-6">Team Rocket</h3>
 <div class="table-responsive-sm">
 <table id="rocket_table" class="table table-striped table-bordered w-auto">
-<h3>Team Rocket:</h3>
     <thead class="thead-dark">
         <tr>
             <th></th>
@@ -17,6 +19,9 @@ global $clock;
             <th>15% Chance:</th>
             <th>85% Chance:</th>
             <th>100% Chance:</th>
+            <th style="display:none;"></th>
+            <th style="display:none;"></th>
+            <th style="display:none;"></th>
         </tr>
     </thead>
     <tbody>
@@ -33,10 +38,15 @@ global $clock;
                     <td><?php if ($row->secreward == 'true'){?><?= $row->secondrow0 ?><?= $row->secondrow1 ?><?= $row->secondrow2 ?><?php } else { echo '-';}?></td>
                     <td><?php if ($row->secreward == 'true'){?><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?><?php } else { echo '-';}?></td>
                     <td><?php if ($row->secreward == 'false'){?><?= $row->firstrow0 ?><?= $row->firstrow1 ?><?= $row->firstrow2 ?><?php } else { echo '-';}?></td>
+                    <td style="display:none;"><?php if ($row->secreward == 'true'){?><?= $row->secondname0 ?><?= $row->secondname1 ?><?= $row->secondname2 ?><?php } else { echo '-';}?></td>
+                    <td style="display:none;"><?php if ($row->secreward == 'true'){?><?= $row->firstname0 ?><?= $row->firstname1 ?><?= $row->firstname2 ?><?php } else { echo '-';}?></td>
+                    <td style="display:none;"><?php if ($row->secreward == 'false'){?><?= $row->firstname0 ?><?= $row->firstname1 ?><?= $row->firstname2 ?><?php } else { echo '-';}?></td>
         </tr> <?php }
                         } else {
                             echo $rocket;
         }?> </tbody>
 </table>
 </div>
+</div>
+<!-- END OF MAP FRAME -->
 <!-- END OF ROCKET STOPS TABLE -->
