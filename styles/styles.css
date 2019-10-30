@@ -31,6 +31,11 @@ div.bottom {
     h1.display-6 {
         font-size:32px;
     }
+    
+    img.logo {
+        width:28px;
+        height:28px;
+    }
 }
 
 @media only screen and (min-width: 600px) {
@@ -41,6 +46,10 @@ div.bottom {
 		vertical-align: middle;
 		border-top: 1px solid #dee2e6;
 	}
+    img.logo {
+        width:35px;
+        height:35px;
+        }    
 }
 
 td.stopnamehidden,
