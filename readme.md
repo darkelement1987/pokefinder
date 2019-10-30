@@ -1,4 +1,4 @@
-Pokemon Go Datatable project, pull in real-time from Rocketmap DB, support for MAD/RDM, search/filter for quest types, mon iv/cp etcetera.
+Pokemon Go Datatable project, pull in real-time from Rocketmap/MAD DB, search/filter for quest types, mon iv/cp etcetera.
 This is not a map.
 
 ## DISCORD
