@@ -21,7 +21,7 @@ global $clock;
             foreach ($quest as $row) {
                 ?>
                 <tr>
-                    <td><img height='42' width='42' src='<?= $row->image ?>'/></td>
+                    <td><img class='pic' height='42' width='42' src='<?= $row->image ?>'/></td>
                     <td><a href='https://maps.google.com/?q=<?= $row->lat?>,<?= $row->lon?>'><?= $row->name ?> </td>
                     <td><img height='42' width='42' src='<?= $row->type?>'/><?= $row->text?> <?= $row->item?></td>
                     <td><?= $row->task?></td>

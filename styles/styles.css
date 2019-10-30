@@ -103,3 +103,9 @@ table.dataTable {
     border-spacing: 0;
     padding-bottom: 0px;
 }
+
+img.pic {
+    border: 1px solid;
+    border-radius: 20px;
+    padding: 2px;
+}

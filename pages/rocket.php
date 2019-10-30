@@ -30,7 +30,7 @@ global $clock;
                 ?>
                 <tr>
                     <td></td>
-                    <td><img height='42' width='42' src='<?= $row->image ?>'/></td>
+                    <td><img class='pic' height='42' width='42' src='<?= $row->image ?>'/></td>
                     <td><a href='https://maps.google.com/?q=<?= $row->lat?>,<?= $row->lon?>'><?= $row->name ?></td>
                     <td><a href='https://maps.google.com/?q=<?= $row->lat?>,<?= $row->lon?>'><?= $row->name ?></td>
                     <td><img height='42' width='42' src='images/<?= $row->rgender ?>.png'/><span class="genderhide"> <?= $row->rgender ?> </span><img height='42' width='42' src='images/<?= $row->rtype ?>.png'/><span class="typehide"> <?= $row->rtype ?> </span></td>
