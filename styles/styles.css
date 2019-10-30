@@ -14,15 +14,22 @@ div.bottom {
 		max-width: 25px;
 	}
 	img {
-		width: 35px;
-		height: 35px;
+		width: 28px;
+		height: 28px;
 	}
     body {
-        font-size: 14px;
+        font-size: 12px;
     }
     
     span.genderhide, span.typehide {
         display:none;
+    }
+    h3.display-6 {
+        font-size:20px;
+    }
+    
+    h1.display-6 {
+        font-size:32px;
     }
 }
 
@@ -80,7 +87,19 @@ div#page-container {
 }
 
 .jumbotron {
-    height:100%;
-    padding-bottom:15px;
-    margin-bottom:0px;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: .3rem;
+    background-color: #ffffff;
+}
+
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    padding-bottom: 0px;
 }
