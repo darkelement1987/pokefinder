@@ -13,15 +13,27 @@ if ($conn->connect_error) {
 
 include './functions/functions.php';
 
-switch ($clock) {
-    case '24':
-        $clock = 'H:i:s';
+switch ($seconds) {
+    case true:
+        $showseconds = ':s';
         break;
-    case '12':
-        $clock = 'g:i:s';
+    case false:
+        $showseconds = '';
         break;
     default:
-        $clock = 'g:i:s';
+        $showseconds = '';
+        break;
+}
+
+switch ($clock) {
+    case '24':
+        $clock = 'H:i' . $showseconds;
+        break;
+    case '12':
+        $clock = 'g:i' . $showseconds;
+        break;
+    default:
+        $clock = 'g:i' . $showseconds;
         break;
 }
 
