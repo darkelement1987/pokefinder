@@ -32,7 +32,7 @@ global $clock;
                     <td><?= $row->bossname ?></td>
                     <td><?= $row->move_1 . $row->move_2 ?></td>
                     <td><?= $row->cp ?></td>
-                    <td><?= str_repeat('<img src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/premierball_sprite.png" height="28" width="28">', $row->level) ?></td>    
+                    <td><span hidden><?= $row->level ?></span><?= str_repeat('<img src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/premierball_sprite.png" height="28" width="28">', $row->level) ?></td>    
                     <td><?= $row->spawn?></td>
                     <td> <?= $row->time_start ?> - <?= $row->time_end ?></td>
         </tr> <?php }
