@@ -11,6 +11,7 @@ global $clock;
     <thead class="thead-dark">
         <tr>
             <th></th>
+            <th>Pic</th>
             <th>Gym</th>            
             <th>Boss</th>
             <th>Moves</th>			
@@ -26,6 +27,7 @@ global $clock;
                 ?>
                 <tr>
                     <td></td>
+                    <td><img height='42' width='42' src='<?= $row->image ?>'/></td>
                     <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
                     <td><?= $row->bossname ?></td>
                     <td><?= $row->move_1 . $row->move_2 ?></td>

@@ -234,7 +234,7 @@ $(document).ready(function ()
 	$('#raid_table').DataTable(
 	{
 		order: [
-			[5, "desc"]
+			[7, "asc"]
 		],
 
 
@@ -248,7 +248,7 @@ $(document).ready(function ()
 		columnDefs: [
 		{
 			type: 'time-uni',
-			targets: 5
+			targets: 7
 		},
 		{
 			className: 'control',
@@ -257,11 +257,11 @@ $(document).ready(function ()
 		},
 		{
 			responsivePriority: 1,
-			targets: [1, 2,7]
+			targets: [2, 3, 8]
 		},
 		{
 			responsivePriority: 2,
-			targets: [3, 4, 5, 6]
+			targets: [1, 4, 5, 6, 7]
 		}],
 		processing: true,
 		language:
