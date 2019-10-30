@@ -154,7 +154,11 @@ $(document).ready(function ()
 		},
 		{
 			responsivePriority: 2,
-			targets: [0, 1, 4, 5, 8]
+			targets: [0, 4, 5, 8]
+		},
+		{
+			responsivePriority: 3,
+			targets: 1
 		},
 		{
 			className: "stopname",
@@ -261,7 +265,11 @@ $(document).ready(function ()
 		},
 		{
 			responsivePriority: 2,
-			targets: [1, 4, 5, 6, 7]
+			targets: [4, 5, 6, 7]
+		},
+		{
+			responsivePriority: 3,
+			targets: 1
 		}],
 		processing: true,
 		language:
