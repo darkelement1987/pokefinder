@@ -27,7 +27,7 @@ global $clock;
                 ?>
                 <tr>
                     <td></td>
-                    <td><img class='<?= $row->team?>' height='42' width='42' src='<?= $row->image ?>' title='Gym control: <?= $row->team?>'/></td>
+                    <td><span hidden><?= $row->team?></span><img class='<?= $row->team?>' height='42' width='42' src='<?= $row->image ?>' title='Gym control: <?= $row->team?>'/></td>
                     <td><a href='https://www.google.com/maps?q=<?= $row->latitude?>,<?= $row->longitude ?>'><?= $row->name ?></a></td>
                     <td><?= $row->bossname ?></td>
                     <td><?= $row->move_1 . $row->move_2 ?></td>
