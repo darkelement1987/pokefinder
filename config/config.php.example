@@ -13,7 +13,7 @@ $title = "PokeFinder"; // Title of website
 $maplink = ""; // Enter url for your map to show map-button on main page
 $seconds = false; // Show seconds for times set to true to show seconds
 
-// Social Icons
+// Social Icons - Enter URLs to corresponding page to show icons example: $youtube = 'https://www.youtube.com/user/pokemon';
 
 $discord = '';
 $youtube = '';
