@@ -8,10 +8,21 @@ $database = "";
 
 // Frontend
 
-$clock = "12"; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
+$clock = "24"; // enter "24" for 24-hour format enter "12" for 12-hour format, default="12"
 $title = "PokeFinder"; // Title of website
 $maplink = ""; // Enter url for your map to show map-button on main page
 $seconds = false; // Show seconds for times set to true to show seconds
+
+// Social Icons
+
+$discord = '';
+$youtube = '';
+$whatsapp = '';
+$telegram = '';
+$facebook = '';
+$twitter = '';
+$instagram = '';
+$pinterest = '';
 
 // Images
 

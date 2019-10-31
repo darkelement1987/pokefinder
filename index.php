@@ -8,6 +8,7 @@ include './includes.php';
         <title><?= $title?></title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
@@ -40,10 +41,21 @@ include './includes.php';
                             <a class="nav-link" href="index.php?page=raids">Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ml-auto">
+                    <?php if(!empty($discord)){ ?><li><a href="#" class="nav-link"><i class="fab fa-discord"></i></a></li><?php }?>
+                    <?php if(!empty($youtube)){ ?><li><a href="#" class="nav-link"><i class="fab fa-youtube"></i></a></li><?php }?>
+                    <?php if(!empty($whatsapp)){ ?><li><a href="#" class="nav-link"><i class="fab fa-whatsapp"></i></a></li><?php }?>
+                    <?php if(!empty($telegram)){ ?><li><a href="#" class="nav-link"><i class="fab fa-telegram"></i></a></li><?php }?>
+                    <?php if(!empty($facebook)){ ?><li><a href="#" class="nav-link"><i class="fab fa-facebook"></i></a></li><?php }?>
+                    <?php if(!empty($twitter)){ ?><li><a href="#" class="nav-link"><i class="fab fa-twitter"></i></a></li><?php }?>
+                    <?php if(!empty($instagram)){ ?><li><a href="#" class="nav-link"><i class="fab fa-instagram"></i></a></li><?php }?>
+                    <?php if(!empty($pinterest)){ ?><li><a href="#" class="nav-link"><i class="fab fa-pinterest"></i></a></li><?php }?>
+                    </ul>
                 </div>
             </nav>
         </div>
         <div id="page-container">
+            <script src="https://kit.fontawesome.com/155c09c805.js" crossorigin="anonymous"></script>
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
             <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
