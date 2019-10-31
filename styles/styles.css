@@ -113,8 +113,42 @@ table.dataTable {
     padding-bottom: 0px;
 }
 
-img.pic {
+img.Unknown {
     border: 1px solid;
     border-radius: 50%;
     padding: 2px;
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 1px grey;
+}
+
+img.Uncontested {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 1px grey;
+}
+
+img.Mystic {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #45b6fe;
+    box-shadow: 1px 1px 1px grey;
+}
+
+img.Valor {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #FF0000;    
+    box-shadow: 1px 1px 1px grey;
+}
+
+img.Instinct {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+    background-color: #FFD400;    
+    box-shadow: 1px 1px 1px grey;
 }
