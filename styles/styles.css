@@ -152,3 +152,10 @@ img.Instinct {
     background-color: #FFD400;    
     box-shadow: 1px 1px 1px grey;
 }
+
+img.pic {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 2px;
+    box-shadow: 1px 1px 1px grey;
+}
