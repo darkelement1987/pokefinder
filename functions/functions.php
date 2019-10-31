@@ -309,7 +309,7 @@ function getRaids()
             $row->name = $row->name . $ex;
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
-                $row->bossname = 'Egg not hatched';
+                $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"  height="42" width="36"> Egg not hatched';
                 $row->move_1 = '-';
                 $row->move_2 = '';
                 $row->cp = '-';
