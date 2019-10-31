@@ -36,10 +36,14 @@ div.bottom {
         width:28px;
         height:28px;
     }
+    img.egg  {
+        height:28px;
+        width: 24px;
+        }
 }
 
 @media only screen and (min-width: 600px) {
-	.table td,
+    .table td,
 	.table th {
 		white-space: nowrap;
 		padding: .75rem;
@@ -49,7 +53,11 @@ div.bottom {
     img.logo {
         width:35px;
         height:35px;
-        }    
+        }
+        img.egg  {
+            height:42px;
+            width: 38px;
+            }
 }
 
 td.stopnamehidden,
