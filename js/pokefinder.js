@@ -279,12 +279,6 @@ $(document).ready( function () {
               //initially clear select otherwise first option is selected
               $('.select2').val(null).trigger('change');
             } );
-      
-    $('<button>Click to sum time of visible rows</button>')
-        .prependTo( '#demo' )
-        .on( 'click', function () {
-            alert( 'Column sum is: '+ table.column( 3, {page:'current'} ).data().sum()+ ' hours' );
-		});
 			}
   }
   );
