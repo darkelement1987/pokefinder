@@ -67,6 +67,7 @@ $(document).ready(function ()
 
 
 		"pageLength": 10,
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		"drawCallback": function (settings)
 		{
 			updateSelect();
@@ -124,7 +125,7 @@ $(document).ready(function ()
 			});
 		},
 
-		"dom": '<"top"i>rt<"bottom"p><"clear">'
+		"dom": '<"top"l>rt<"bottom"p><"clear">'
 
 	});
 	$('.monresult').select2();
@@ -175,6 +176,7 @@ $(document).ready(function ()
 
 
 		"pageLength": 10,
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
 		searching: true,
@@ -197,7 +199,7 @@ $(document).ready(function ()
 			"searchPlaceholder": "Enter info",
 			"lengthMenu": "Show _MENU_ Pokemon per page",
 		},
-		"dom": '<"top"f>rt<"bottom"p><"clear">'
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
 
 	});
 });
@@ -294,6 +296,7 @@ $(document).ready(function ()
 
 
 		"pageLength": 10,
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
 		searching: true,
@@ -334,7 +337,7 @@ $(document).ready(function ()
 			"searchPlaceholder": "Enter info",
 			"lengthMenu": "Show _MENU_ Pokemon per page",
 		},
-		"dom": '<"top"f>rt<"bottom"p><"clear">'
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
 
 	});
 });
