@@ -167,3 +167,8 @@ img.pic {
     padding: 2px;
     box-shadow: 1px 1px 1px grey;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    list-style: none;
+    color: black;
+}
