@@ -41,6 +41,7 @@ include './includes.php';
                             <a class="nav-link" href="index.php?page=raids">Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
                     </ul>
+                    <?php if($socialon != false) {?>
                     <ul class="navbar-nav ml-auto">
                     <?php if(!empty($discord)){ ?><li><a href="#" class="nav-link"><i class="fab fa-discord"></i></a></li><?php }?>
                     <?php if(!empty($youtube)){ ?><li><a href="#" class="nav-link"><i class="fab fa-youtube"></i></a></li><?php }?>
@@ -51,6 +52,7 @@ include './includes.php';
                     <?php if(!empty($instagram)){ ?><li><a href="#" class="nav-link"><i class="fab fa-instagram"></i></a></li><?php }?>
                     <?php if(!empty($pinterest)){ ?><li><a href="#" class="nav-link"><i class="fab fa-pinterest"></i></a></li><?php }?>
                     </ul>
+                    <?php }?>
                 </div>
             </nav>
         </div>
