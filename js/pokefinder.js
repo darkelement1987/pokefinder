@@ -377,3 +377,22 @@ function updateSelect()
 		}
 	});
 }
+
+$(function () {
+  $("[data-toggle=popover]").popover({
+        html : true,
+        trigger: 'focus',
+        content: function() {
+            var content = $(this).attr("data-popover-content");
+            return $(content).children(".popover-body").html();
+        }
+    })
+})
+
+$(function() {
+		$('.pop').on('click', function() {
+			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+			$('.imagetitle').text($(this).find('img').attr('title'));
+			$('#imagemodal').modal('show');   
+		});		
+});

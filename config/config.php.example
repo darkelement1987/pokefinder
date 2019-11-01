@@ -12,9 +12,8 @@ $clock = "12"; // enter "24" for 24-hour format enter "12" for 12-hour format, d
 $title = "PokeFinder"; // Title of website
 $maplink = ""; // Enter url for your map to show map-button on main page
 $seconds = false; // Show seconds for times set to true to show seconds
-$socialon = false; // Enable/disable socialicons
 
-// Social Icons
+// Social Icons - Enter URLs to corresponding page to show icons example: $youtube = 'https://www.youtube.com/user/pokemon';
 
 $discord = '';
 $youtube = '';

@@ -40,6 +40,10 @@ div.bottom {
         height:28px;
         width: 24px;
         }
+    img.map {
+        height:100px;
+        width:150px;
+    }    
 }
 
 @media only screen and (min-width: 600px) {
@@ -171,4 +175,9 @@ img.pic {
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
     list-style: none;
     color: black;
+}
+
+.imagepreview {
+    width: 100%;
+    height: 100%;
 }
