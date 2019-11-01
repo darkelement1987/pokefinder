@@ -202,16 +202,21 @@ $(document).ready(function ()
 	});
 });
 
-$(document).ready(function ()
-{
-	$('#quest_table').DataTable(
-	{
+$(document).ready(function() {
+    $('.questselect').select2();
+});
+
+$(document).ready( function () {
+  
+  var table = $('#quest_table').DataTable(
+  {
 		order: [
 			[2, "asc"]
 		],
 
 
 		"pageLength": 10,
+        "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
 		searching: true,
@@ -226,12 +231,64 @@ $(document).ready(function ()
 			"emptyTable": "No Quests available in table",
 			"zeroRecords": "No matching Quests found",
 			"searchPlaceholder": "Enter info",
-			"lengthMenu": "Show _MENU_ Pokemon per page",
+			"lengthMenu": "Show _MENU_ Quests per page",
 		},
-		"dom": '<"top"f>rt<"bottom"p><"clear">'
-
-	});
-});
+		dom: '<"top"l>rt<"bottom"p><"clear">',
+            initComplete: function () {
+            $('#quest_table tfoot tr').appendTo('#quest_table thead');
+            count = 0;
+            this.api().columns([1,2,3]).every( function () {
+                var title = this.header();
+                //replace spaces with dashes
+                title = $(title).html().replace(/[\W]/g, '');
+                var column = this;
+                var select = $('<select id="' + title + '" class="select2" ></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                      //Get the "text" property from each selected data 
+                      //regex escape the value and store in array
+                      var data = $.map( $(this).select2('data'), function( value, key ) {
+                        return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
+                                 });
+                      
+                      //if no data selected use ""
+                      if (data.length === 0) {
+                        data = [""];
+                      }
+                      
+                      //join array into string with regex or (|)
+                      var val = data.join('|');
+                      
+                      //search for the option(s) selected
+                      column
+                            .search( val ? val : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+j+'">'+d+'</option>' );
+                } );
+              
+              //use column title as selector and placeholder
+              $('#' + title).select2({
+                multiple: true,
+                closeOnSelect: false,
+                placeholder: "Select a " + title
+              });
+              
+              //initially clear select otherwise first option is selected
+              $('.select2').val(null).trigger('change');
+            } );
+      
+    $('<button>Click to sum time of visible rows</button>')
+        .prependTo( '#demo' )
+        .on( 'click', function () {
+            alert( 'Column sum is: '+ table.column( 3, {page:'current'} ).data().sum()+ ' hours' );
+		});
+			}
+  }
+  );
+} );
 
 $(document).ready(function ()
 {

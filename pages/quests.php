@@ -16,6 +16,14 @@ global $clock;
             <th>Quest:</th>
         </tr>
     </thead>
+    <tfoot>
+        <tr>
+            <th>Filters:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
     <tbody>
         <?php if (is_array($quest)) {
             foreach ($quest as $row) {
