@@ -45,7 +45,7 @@ global $maplink;
     <img src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/ic_map.png" class="mr-3 mt-3 rounded-circle" style="width:60px; height:60px;">
     <div class="media-body">
       <p><h4><strong>Map</strong></h4>
-      <h5><a href="<?= $maplink ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">GO</a></h5></p>   
+      <h5><a href="<?= $maplink ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" target="_blank">GO</a></h5></p>   
     </div>
   </div><? }?>
 </div>
