@@ -224,7 +224,7 @@ $(document).ready( function () {
 		processing: true,
 		language:
 		{
-			"search": "Filter results:",
+			"search": "Global search:",
 			"info": "Showing _START_ to _END_ of _TOTAL_ Quests",
 			"infoEmpty": "Showing 0 to 0 of 0 Quests",
 			"infoFiltered": "(filtered from _MAX_ total Quests)",
@@ -233,7 +233,7 @@ $(document).ready( function () {
 			"searchPlaceholder": "Enter info",
 			"lengthMenu": "Show _MENU_ Quests per page",
 		},
-		dom: '<"top"l>rt<"bottom"p><"clear">',
+		dom: '<"top"fl>rt<"bottom"p><"clear">',
             initComplete: function () {
             $('#quest_table tfoot tr').appendTo('#quest_table thead');
             count = 0;
