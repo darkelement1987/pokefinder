@@ -13,17 +13,18 @@ $title = "PokeFinder"; // Title of website
 $maplink = ""; // Enter url for your map to show map-button on main page
 $seconds = false; // Show seconds for times set to true to show seconds
 $socialon = false; // Enable/disable socialicons
+$gmaps = ""; // Google maps api-key to show maps on quest page
 
 // Social Icons
 
-$discord = '';
-$youtube = '';
-$whatsapp = '';
-$telegram = '';
-$facebook = '';
-$twitter = '';
-$instagram = '';
-$pinterest = '';
+$discord = "";
+$youtube = "";
+$whatsapp = "";
+$telegram = "";
+$facebook = "";
+$twitter = "";
+$instagram = "";
+$pinterest = "";
 
 // Images
 
