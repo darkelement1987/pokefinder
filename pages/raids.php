@@ -41,4 +41,6 @@ global $clock;
         }?> </tbody>
 </table>
 </div>
+</div>
+</div>
 <!-- END OF RAIDS TABLE -->

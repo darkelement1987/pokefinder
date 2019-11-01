@@ -40,4 +40,5 @@ global $clock;
 </table>
 </div>
 </div>
+</div>
 <!-- END OF QUESTS TABLE -->

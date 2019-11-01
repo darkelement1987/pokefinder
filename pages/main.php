@@ -6,7 +6,6 @@ global $questcount;
 global $title;
 global $maplink;
 ?>
-<!-- START OF MAP RAME -->
   <div class="container-fluid">
   <div class="jumbotron jumbotron-fluid">
     <h1 class="display-6">Welcome to <?= $title?></h1>
@@ -50,4 +49,4 @@ global $maplink;
   </div><? }?>
 </div>
 </div>
-<!-- END OF MAP FRAME -->
+</div>

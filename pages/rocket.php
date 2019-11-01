@@ -48,5 +48,5 @@ global $clock;
 </table>
 </div>
 </div>
-<!-- END OF MAP FRAME -->
+</div>
 <!-- END OF ROCKET STOPS TABLE -->
