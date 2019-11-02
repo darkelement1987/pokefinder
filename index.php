@@ -42,6 +42,7 @@ include './includes.php';
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=raids">Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
+                        <div class="dropdown-divider"></div>
                     </ul>
                     <?php if($socialon != false) {?>
                     <ul class="navbar-nav ml-auto">
