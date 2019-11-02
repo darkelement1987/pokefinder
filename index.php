@@ -42,10 +42,10 @@ include './includes.php';
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=raids"><i class="fas fa-fist-raised"></i> Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
-                        <div class="dropdown-divider"></div>
                     </ul>
                     <?php if($socialon != false) {?>
                     <ul class="navbar-nav ml-auto">
+                    <div class="dropdown-divider"></div>
                     <span class="text-muted" id="menutitles"><b><u><h6>Social</h6></u></b></span>
                     <?php if(!empty($discord)){ ?><li><a href="<?= $discord?>" class="nav-link"><i class="fab fa-discord"></i> <span class="social">Discord</span></a></li><?php }?>
                     <?php if(!empty($youtube)){ ?><li><a href="<?= $youtube?>" class="nav-link"><i class="fab fa-youtube"></i> <span class="social">Youtube</span></a></li><?php }?>
