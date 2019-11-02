@@ -291,7 +291,7 @@ $(document).ready(function ()
 	$('#raid_table').DataTable(
 	{
 		order: [
-			[7, "asc"]
+			[7, "desc"]
 		],
 
 
