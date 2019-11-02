@@ -29,6 +29,7 @@ include './includes.php';
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
+                    <span class="text-muted" id="menutitles"><b><u><h6>Pages</h6></u></b></span>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=pokefinder">Pokémon <span class="badge badge-secondary"><?= $moncount ?></span></a>
                         </li>
@@ -44,14 +45,15 @@ include './includes.php';
                     </ul>
                     <?php if($socialon != false) {?>
                     <ul class="navbar-nav ml-auto">
-                    <?php if(!empty($discord)){ ?><li><a href="<?= $discord?>" class="nav-link"><i class="fab fa-discord"></i></a></li><?php }?>
-                    <?php if(!empty($youtube)){ ?><li><a href="<?= $youtube?>" class="nav-link"><i class="fab fa-youtube"></i></a></li><?php }?>
-                    <?php if(!empty($whatsapp)){ ?><li><a href="<?= $whatsapp?>" class="nav-link"><i class="fab fa-whatsapp"></i></a></li><?php }?>
-                    <?php if(!empty($telegram)){ ?><li><a href="<?= $telegram?>" class="nav-link"><i class="fab fa-telegram"></i></a></li><?php }?>
-                    <?php if(!empty($facebook)){ ?><li><a href="<?= $facebook?>" class="nav-link"><i class="fab fa-facebook"></i></a></li><?php }?>
-                    <?php if(!empty($twitter)){ ?><li><a href="<?= $twitter?>" class="nav-link"><i class="fab fa-twitter"></i></a></li><?php }?>
-                    <?php if(!empty($instagram)){ ?><li><a href="<?= $instagram?>" class="nav-link"><i class="fab fa-instagram"></i></a></li><?php }?>
-                    <?php if(!empty($pinterest)){ ?><li><a href="<?= $pinterest?>" class="nav-link"><i class="fab fa-pinterest"></i></a></li><?php }?>
+                    <span class="text-muted" id="menutitles"><b><u><h6>Social</h6></u></b></span>
+                    <?php if(!empty($discord)){ ?><li><a href="<?= $discord?>" class="nav-link"><i class="fab fa-discord"></i> <span class="social">Discord</span></a></li><?php }?>
+                    <?php if(!empty($youtube)){ ?><li><a href="<?= $youtube?>" class="nav-link"><i class="fab fa-youtube"></i> <span class="social">Youtube</span></a></li><?php }?>
+                    <?php if(!empty($whatsapp)){ ?><li><a href="<?= $whatsapp?>" class="nav-link"><i class="fab fa-whatsapp"></i> <span class="social">Whatsapp</span></a></li><?php }?>
+                    <?php if(!empty($telegram)){ ?><li><a href="<?= $telegram?>" class="nav-link"><i class="fab fa-telegram"></i> <span class="social">Telegram</span></a></li><?php }?>
+                    <?php if(!empty($facebook)){ ?><li><a href="<?= $facebook?>" class="nav-link"><i class="fab fa-facebook"></i> <span class="social">Facebook</span></a></li><?php }?>
+                    <?php if(!empty($twitter)){ ?><li><a href="<?= $twitter?>" class="nav-link"><i class="fab fa-twitter"></i> <span class="social">Twitter</span></a></li><?php }?>
+                    <?php if(!empty($instagram)){ ?><li><a href="<?= $instagram?>" class="nav-link"><i class="fab fa-instagram"></i> <span class="social">Instagram</span></a></li><?php }?>
+                    <?php if(!empty($pinterest)){ ?><li><a href="<?= $pinterest?>" class="nav-link"><i class="fab fa-pinterest"></i> <span class="social">Pinterest</span></a></li><?php }?>
                     </ul>
                     <?php }?>
                 </div>

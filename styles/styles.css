@@ -58,6 +58,13 @@ div.bottom {
             height:42px;
             width: 38px;
             }
+    .social {
+        display:none;
+    }
+    
+    span#menutitles.text-muted {
+    display:none;
+}
 }
 
 td.stopnamehidden,
@@ -171,4 +178,14 @@ img.pic {
 .select2-container--default .select2-selection--multiple .select2-selection__rendered li {
     list-style: none;
     color: black;
+}
+
+.dropdown-divider {
+    height: 0;
+    margin: .5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #ffffff2e;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba(255, 255, 255, 0.18);
 }
