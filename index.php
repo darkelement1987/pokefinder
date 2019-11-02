@@ -31,16 +31,16 @@ include './includes.php';
                     <ul class="navbar-nav">
                     <span class="text-muted" id="menutitles"><b><u><h6>Pages</h6></u></b></span>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=pokefinder">Pokémon <span class="badge badge-secondary"><?= $moncount ?></span></a>
+                            <a class="nav-link" href="index.php?page=pokefinder"><i class="fas fa-calculator"></i> Pokémon <span class="badge badge-secondary"><?= $moncount ?></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=rocket">Team Rocket <span class="badge badge-secondary"><?= $stopcount ?></span></a>
+                            <a class="nav-link" href="index.php?page=rocket"><i class="fas fa-rocket"></i> Team Rocket <span class="badge badge-secondary"><?= $stopcount ?></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=quests">Quests <span class="badge badge-secondary"><?= $questcount ?></span></a>
+                            <a class="nav-link" href="index.php?page=quests"><i class="fas fa-shield-alt"></i> Quests <span class="badge badge-secondary"><?= $questcount ?></span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=raids">Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
+                            <a class="nav-link" href="index.php?page=raids"><i class="fas fa-fist-raised"></i> Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                         </li>
                         <div class="dropdown-divider"></div>
                     </ul>
