@@ -1,4 +1,5 @@
 <?php
+if (file_exists(__Dir__ . '/config/config.php')) {
 include './includes.php';
 ?>
     <!DOCTYPE html>
@@ -71,6 +72,7 @@ include './includes.php';
         ?>
             </div>
         </div>
+    <?php } else { echo "Please fill out config.php.example and save as config.php";}?>
     </body>
 
     </html>
