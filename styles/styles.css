@@ -72,30 +72,8 @@ th.stopnamehidden {
 	display: none;
 }
 
-div#page-container {
-    padding-bottom:0px;
-    padding-top:45px;
-}
-
 .nav-link:hover .badge-secondary {
     background-color: #356635;
-}
-
-.container-fluid {
-    width: 100%;
-    margin-right: 0px;
-    margin-left: 0px;
-    padding-left:0px;
-    padding-right:0px;
-}
-
-.jumbotron-fluid {
-    padding-right: 0;
-    padding-left: 25px;
-    padding-right:25px;
-    border-radius: 0;
-    padding-top:30px;
-    padding-bottom:0px;
 }
 
 .lead {
@@ -108,14 +86,6 @@ div#page-container {
     height:100%;
     padding-bottom:15px;
     margin-bottom:0px;
-}
-
-.jumbotron {
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background-color: #e9ecef;
-    border-radius: .3rem;
-    background-color: #ffffff;
 }
 
 table.dataTable {
@@ -188,4 +158,8 @@ img.pic {
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+div#page-container {
+    padding-top:65px;
 }

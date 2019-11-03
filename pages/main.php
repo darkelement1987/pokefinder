@@ -6,8 +6,6 @@ global $questcount;
 global $title;
 global $maplink;
 ?>
-  <div class="container-fluid">
-  <div class="jumbotron jumbotron-fluid">
     <h1 class="display-6">Welcome to <?= $title?></h1>
     <p class="lead">Current game activity in your area:</p> 
   <div class="row">
@@ -47,6 +45,4 @@ global $maplink;
       <h5><a href="<?= $maplink ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" target="_blank">GO</a></h5></p>   
     </div>
   </div><? }?>
-</div>
-</div>
 </div>
