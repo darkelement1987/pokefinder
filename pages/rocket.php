@@ -3,8 +3,6 @@ $rocket = getRocket();
 global $clock;
 ?>
 <!-- START OF ROCKET STOPS TABLE -->
-  <div class="container-fluid">
-  <div class="jumbotron jumbotron-fluid">
     <h3 class="display-6">Team Rocket</h3>
 <div class="table-responsive-sm">
 <table id="rocket_table" class="table table-striped table-bordered w-auto">
@@ -46,7 +44,5 @@ global $clock;
                             echo $rocket;
         }?> </tbody>
 </table>
-</div>
-</div>
 </div>
 <!-- END OF ROCKET STOPS TABLE -->

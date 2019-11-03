@@ -1,8 +1,6 @@
 <?php
 $mons = getMons();
 ?>
-  <div class="container-fluid">
-  <div class="jumbotron jumbotron-fluid">
 <?php if(!$_POST){?><h3 class="display-6">Search:</h1><?php }?>
 <form action="index.php?page=results" method="post" name="searchmon" id="searchmon" <?php if($_POST){?>hidden<?php }?>><input name="page" type="hidden" value="test" />
 <table style="border-style:solid; border-width:1px; border-color:Gainsboro; margin-left:10px;" cellpadding="5" >
@@ -118,4 +116,3 @@ $.getJSON(url, function (data) {
 </tbody>
 </table>
 </form>
-</div>
