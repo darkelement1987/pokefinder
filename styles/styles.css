@@ -161,5 +161,6 @@ img.pic {
 }
 
 div#page-container {
-    padding-top:65px;
+    padding-top:80px;
+    padding-bottom:15px;
 }
