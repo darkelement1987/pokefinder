@@ -12,11 +12,11 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 && $pokemon > 809 ){
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 
-$raidquery = $conn->query("SELECT pid, count, last_seen from raid_stats where pid=" . $pokemon);
+$raidquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $raidrow = $raidquery->fetch_assoc();
 $raidquery->close();
 
-$monquery = $conn->query("SELECT pid, count, last_seen from pokemon_stats where pid=" . $pokemon);
+$monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $monrow = $monquery->fetch_assoc();
 $monquery->close();
 
