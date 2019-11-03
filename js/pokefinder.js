@@ -85,11 +85,7 @@ $(document).ready(function ()
 			"emptyTable": "No Pokémon available in table",
 			"zeroRecords": "No matching Pokémon found",
 			"searchPlaceholder": "Enter info",
-			"lengthMenu": "Show _MENU_ Pokemon per page",
-            "paginate": {
-            "previous": "<",
-            "next": ">"
-            }
+			"lengthMenu": "Show _MENU_ Pokemon per page"
 		},
 		initComplete: function ()
 		{
@@ -377,3 +373,6 @@ function updateSelect()
 		}
 	});
 }
+
+// Limit number of paginate buttons showing at bottom of a table
+$.fn.DataTable.ext.pager.numbers_length = 6;
