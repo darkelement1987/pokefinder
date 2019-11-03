@@ -10,9 +10,9 @@ $characters = json_decode($data); // decode the JSON feed
   <h3>Pokedex</h3>
   <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
 <?php foreach ($characters as $character) {?>  
-    <div class="col-lg-2">
+    <div class="col">
 <center>
-<a href="index.php?page=seen&pokemon=<?php echo str_pad($character->pkdx_id, 1, 0, STR_PAD_LEFT)?>"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/<?php echo str_pad($character->pkdx_id, 3, 0, STR_PAD_LEFT)?>.png"></a>
+<a href="index.php?page=seen&pokemon=<?php echo str_pad($character->pkdx_id, 1, 0, STR_PAD_LEFT)?>"><img src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/<?php echo str_pad($character->pkdx_id, 3, 0, STR_PAD_LEFT)?>.png" class="dexentry"></a>
 <br>
 <?php echo $character->name;?></center>
 </div>
