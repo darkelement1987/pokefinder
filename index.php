@@ -53,6 +53,9 @@ include './includes.php';
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?page=raids"><i class="fas fa-fist-raised"></i> Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=pokedex"><i class="fas fa-mobile-alt"></i> Pokedex</a>
+                            </li>
                         </ul>
                         <?php if($socialon != false) {?>
                         <ul class="navbar-nav ml-auto">
