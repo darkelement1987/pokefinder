@@ -376,3 +376,7 @@ function updateSelect()
 
 // Limit number of paginate buttons showing at bottom of a table
 $.fn.DataTable.ext.pager.numbers_length = 6;
+
+function goBack() {
+  window.history.back();
+}

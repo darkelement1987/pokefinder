@@ -45,6 +45,15 @@ div.bottom {
         height:64px;
         width:64px;
     }
+    
+    img.dexmon {
+        height:64px;
+        width:64px;
+    }
+    
+    p.lead {
+        font-size:18px;
+    }
 }
 
 @media only screen and (min-width: 600px) { 
@@ -69,6 +78,10 @@ div.bottom {
         width:128px;
     }
 
+    img.dexmon {
+        height:64px;
+        width:64px;
+    }
 }
 
 td.stopnamehidden,

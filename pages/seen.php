@@ -27,8 +27,8 @@ $img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_
 
 if($pokemon < 808){
 if(empty($dex[$pokemon-1]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-1]['description']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='?';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name'])){$type2='';} else { $type2 = ' / ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name']; }
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='?';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name']; }
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name'])){$type2='';} else { $type2 = ' / ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['emoji'] . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name']; }
 } else {
     if(empty($dex[$pokemon-90]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-90]['description']; }
 if(empty($dex[$pokemon-90]['types'][0])){$type1='?';} else { $type1 = ucfirst($dex[$pokemon-90]['types'][0]); }
@@ -40,19 +40,20 @@ if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
     $img = 'https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
 }
 ?>
+<div class="container">
+<div class="jumbotron-fluid">
+  <h4 class="display-6"><img src="<?= $img?>" class="dexmon"> <b><?= $mon_name[$pokemon]['name']?></b></h4>
+  <p class="lead"><?= $desc?></p>
+  <p class="lead"><b><?=$type1 . $type2?></b></p>
+  <hr class="my-4">
 
-<h3 class="display-6">Have i seen <?= $mon_name[$pokemon]['name']?>?</h1>
-<img src="<?= $img?>"><br><br>
-
-<?php if($form){?>
-<b>Form:</b>  <?= $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['form']['name']?><br><br>
-<?php }?>
-<b><u><h3>Stats</h3></u></b><br>
-Seen in raids:<b> <?= $raidrow['count']?></b> times (last time: <?= $raidrow['last_seen']?>)<br>
-Seen in the wild:<b> <?= $monrow['count']?></b> times (last time: <?= $monrow['last_seen']?>)<br>
-<br>
-<b><u><h3>Pokedex</h3></u></b><br>
-<b>Description:</b> <?= $desc?><br>
-<b>Types:</b> <?=$type1 . $type2?>
+<h4 class="display-6">Recently seen</h4>
+<p class="lead">Spawned <span class="badge badge-secondary"><?= $monrow['count']?></span> times<br>
+Last time: <?= $monrow['last_seen']?>
+<hr class="my-4">
+<i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return to Pokedex</a>
+</p>
+</div>
+</div>
 
 <?php }} else {echo 'NO ID GIVEN';}?>
