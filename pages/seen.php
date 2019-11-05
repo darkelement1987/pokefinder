@@ -26,7 +26,7 @@ $monquery->close();
 
 $monseen = $monrow['count'];
 $total = $totalrow['total'];
-$spawnrate = number_format((($monseen / $total)*100), 4, '.', '');
+$spawnrate = number_format((($monseen / $total)*100), 2, '.', '');
 $rarity = 'Common';
 
 switch ($rarity) {
