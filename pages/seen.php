@@ -12,6 +12,10 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 && $pokemon > 809 ){
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 
+$totalquery = $conn->query("select count(*) as total from pokemon");
+$totalrow = $totalquery->fetch_assoc();
+$totalquery->close();
+
 $raidquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $raidrow = $raidquery->fetch_assoc();
 $raidquery->close();
@@ -19,6 +23,29 @@ $raidquery->close();
 $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $monrow = $monquery->fetch_assoc();
 $monquery->close();
+
+$monseen = $monrow['count'];
+$total = $totalrow['total'];
+$spawnrate = number_format((($monseen / $total)*100), 4, '.', '');
+$rarity = 'Common';
+
+switch ($rarity) {
+    case $spawnrate == 0.00:
+    $rarity = 'New Spawn';
+        break;
+    case $spawnrate < 0.01:
+    $rarity = 'Ultra Rare';
+        break;
+    case $spawnrate < 0.03:
+    $rarity = 'Very Rare';
+        break;
+    case $spawnrate < 0.5:
+    $rarity = 'Rare';
+        break;
+    case $spawnrate < 0.1:
+    $rarity = 'Uncommon';
+        break;
+}
 
 if(!$raidrow || empty($raidrow)){$raidrow['count']='0';$raidrow['last_seen']='never';} else {$raidrow['last_seen'] = date('l jS \of F Y ' . $clock, $raidrow['last_seen']);}
 if(!$monrow || empty($monrow)){$monrow['count']='0';$monrow['last_seen']='never';} else {$monrow['last_seen'] = date('l jS \of F Y ' . $clock, $monrow['last_seen']);}
@@ -49,7 +76,9 @@ if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
 
 <h4 class="display-6">Recently seen</h4>
 <p class="lead">Spawned <span class="badge badge-secondary"><?= $monrow['count']?></span> times<br>
-Last time: <?= $monrow['last_seen']?>
+Last time: <?= $monrow['last_seen']?><br>
+Rarity: <?= $rarity?><br>
+Spawnrate: <?= $spawnrate?>
 <hr class="my-4">
 <i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return to Pokedex</a>
 </p>
