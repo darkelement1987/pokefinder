@@ -27,6 +27,8 @@ $monquery->close();
 $monseen = $monrow['count'];
 $total = $totalrow['total'];
 $spawnrate = number_format((($monseen / $total)*100), 2, '.', '');
+
+if($monseen>0){
 $rarity = 'Common';
 
 switch ($rarity) {
@@ -46,12 +48,16 @@ switch ($rarity) {
     $rarity = 'Uncommon';
         break;
 }
+} else {
+    $rarity = 'Unseen';
+}
 
 if(!$raidrow || empty($raidrow)){$raidrow['count']='0';$raidrow['last_seen']='never';} else {$raidrow['last_seen'] = date('l jS \of F Y ' . $clock, $raidrow['last_seen']);}
 if(!$monrow || empty($monrow)){$monrow['count']='0';$monrow['last_seen']='never';} else {$monrow['last_seen'] = date('l jS \of F Y ' . $clock, $monrow['last_seen']);}
 
 $img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, 2, 0, STR_PAD_LEFT) . '.png';
 
+// Perform check because of missing 719 - 807 in json
 if($pokemon < 808){
 if(empty($dex[$pokemon-1]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-1]['description']; }
 if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='?';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name']; }
@@ -62,11 +68,13 @@ if(empty($dex[$pokemon-90]['types'][0])){$type1='?';} else { $type1 = ucfirst($d
 if(empty($dex[$pokemon-90]['types'][1])){$type2='';} else { $type2 = ' / '. ucfirst($dex[$pokemon-90]['types'][1]); }
 }
 
+// Replace mon image with placeholder sprite if image is not in assets yet
 $file_headers = @get_headers($img);
 if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
     $img = 'https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
 }
 ?>
+
 <div class="container">
 <div class="jumbotron-fluid">
   <h4 class="display-6"><img src="<?= $img?>" class="dexmon"> <b><?= $mon_name[$pokemon]['name']?></b></h4>
@@ -78,7 +86,7 @@ if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
 <p class="lead">Spawned <span class="badge badge-secondary"><?= $monrow['count']?></span> times<br>
 Last time: <?= $monrow['last_seen']?><br>
 Rarity: <?= $rarity?><br>
-Spawnrate: <?= $spawnrate?>
+Spawnrate: <?= $spawnrate?>%
 <hr class="my-4">
 <i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return to Pokedex</a>
 </p>

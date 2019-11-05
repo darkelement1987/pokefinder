@@ -380,3 +380,12 @@ $.fn.DataTable.ext.pager.numbers_length = 6;
 function goBack() {
   window.history.back();
 }
+
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#pokedex div").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
