@@ -62,6 +62,11 @@ div.bottom {
     p.lead {
         font-size:18px;
     }
+
+    img.minimap {
+        height: 200px;
+        width: 250px;
+    }
 }
 
 @media only screen and (min-width: 600px) { 
