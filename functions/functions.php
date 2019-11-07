@@ -170,9 +170,9 @@ function getMons()
 
             // Detect Form
             if (empty($row->form)){
-                $row->form='-';
+                $row->formname='-';
                 } else {
-                    $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
+                    $row->formname = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
                     }
 
             $mons[] = $row;

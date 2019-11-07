@@ -55,13 +55,13 @@ global $clock;
                 ?>
                 <tr>
                     <td style="display:none"><?= $row->id ?></td>
-                    <td><a href="index.php?page=seen&pokemon=<?= $row->pokemon_id?><?php if($row->form !=''){ echo '&form='. $row->formid;}?>"><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
+                    <td><a href="index.php?page=seen&pokemon=<?= $row->pokemon_id?><?php if($row->formname != '-' && $row->formname != NULL){ echo '&form='. $row->form;} else {}?>"><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
                     <td><?= $row->ivoutput ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= $row->weather_boosted_condition ?></td>
                     <td><?= $row->level ?></td>
                     <td><?= $row->gender ?></td>
-                    <td><?= $row->form ?></td>
+                    <td><?= $row->formname ?></td>
                     <td><?= $row->individual_attack ?></td>
                     <td><?= $row->individual_defense ?></td>
                     <td><?= $row->individual_stamina ?></td>
