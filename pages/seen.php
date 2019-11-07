@@ -26,19 +26,31 @@ $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) fr
 $monrow = $monquery->fetch_assoc();
 $monquery->close();
 $monname = $mon_name[$pokemon]['name'];
+
+$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+$raidmonrow = $raidmonquery->fetch_assoc();
+$raidmonquery->close();
+$raidmonname = $mon_name[$pokemon]['name'];
 } else {
     $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
     $monrow = $monquery->fetch_assoc();
     $monquery->close();
     $monname = $mon_name[$pokemon]['name'] . ' (' . $formname . ')';
+    
+    $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+    $raidmonrow = $raidmonquery->fetch_assoc();
+    $raidmonquery->close();
+    $raidmonname = $mon_name[$pokemon]['name'] . ' (' . $formname . ')';
     }
 
 $monseen = $monrow['count'];
+$raidmonseen = $raidmonrow['count'];
 $total = $totalrow['total'];
 $spawnrate = number_format((($monseen / $total)*100), 2, '.', '');
 $lat = $monrow['latitude'];
 $lon = $monrow['longitude'];
 $last = $monrow['last_seen'];
+$raidlast = $raidmonrow['last_seen'];
 
 if($monseen>0){
 $rarity = 'Common';
@@ -61,10 +73,11 @@ switch ($rarity) {
         break;
 }
 } else {
-    $rarity = 'Unseen';
+    $rarity = 'New Spawn';
 }
 
-if(!$monrow || empty($monrow)){$monseen='0';$last='Never';} else {$last = date('l jS \of F Y ' . $clock, $last);}
+if(!$monrow || empty($monrow)){$monseen='0';$last='-';} else {$last = date('l jS \of F Y ' . $clock, $last);}
+if(!$raidmonrow || empty($raidmonrow)){$raidmonseen='0';$raidlast='-';} else {$raidlast = date('l jS \of F Y ' . $clock, $raidlast);}
 
 $img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, 2, 0, STR_PAD_LEFT) . '.png';
 
@@ -94,8 +107,11 @@ if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
   <hr class="my-4">
 
 <h4 class="display-6">Recently seen</h4>
-<p class="lead">Spawned <span class="badge badge-secondary"><?= $monseen?></span> times<br>
-Last time: <?= $last?><br>
+<p class="lead">
+Wild: <span class="badge badge-secondary"><?= $monseen?></span> times<br>
+Raids: <span class="badge badge-secondary"><?= $raidmonseen?></span> times<br>
+Recently wild: <?= $last?><br>
+Recently in raids: <?=$raidlast?><br>
 Rarity: <?= $rarity?><br>
 Spawnrate: <?= $spawnrate?>%
 <hr class="my-4">
@@ -105,7 +121,7 @@ Spawnrate: <?= $spawnrate?>%
 <a href="https://maps.google.com/?q=<?=$lat. ',' .$lon?>"><img src="https://open.mapquestapi.com/staticmap/v5/map?locations=<?=$lat. ',' .$lon?>&key=<?=$mapkey?>&zoom=15&size=250,200" style="border: 1px solid grey;" class="minimap"></a><br>
 <hr class="my-4">
     <?php }}?>
-<i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return to Pokedex</a>
+<i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return</a>
 </p>
 </div>
 </div>
