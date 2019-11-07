@@ -1,6 +1,7 @@
 <?php
 global $assetRepo;
 global $conn;
+global $maxpokemon;
 
 $url = 'https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/monsters.json'; // path to your JSON file
 $data = file_get_contents($url); // put the contents of the file into a variable
@@ -9,7 +10,6 @@ $json = json_decode($data); // decode the JSON feed
 $query = 'SELECT DISTINCT pokemon_id FROM pokemon UNION select distinct pokemon_id from raid';
 $result = $conn->query($query);
 $seen = [];
-$maxpokemon = '';
 if($result && $result->num_rows >= 1 ) {
     while ($row = $result->fetch_object() ) {
     $seen[] = $row->pokemon_id;

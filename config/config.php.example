@@ -15,6 +15,8 @@ $seconds = false; // Show seconds for times set to true to show seconds
 $socialon = false; // Enable/disable socialicons
 $mapkey = ''; // Need mapquest.com API-key. Signup @ https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register
               // Make key @ https://developer.mapquest.com/user/me/apps
+              
+$maxpokemon = ''; // Show maximum amount of #mons in pokedex -> $maxpokemon = '150'; shows mons #001 until #150
 
 // Social Icons
 
