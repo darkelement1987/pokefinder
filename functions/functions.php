@@ -209,7 +209,7 @@ function getRocket()
                             for($x = 0; $x <= 2; $x++){
                                 if (!empty($row->onefirst[$x])) {
                                     $row->{"firstname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onefirst[$x])), '0')]['name'];
-                                    $row->{"firstrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42">';
+                                    $row->{"firstrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onefirst[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42"></a>';
                                     } else { 
                                     $row->{"firstrow" . $x} = '';
                                     $row->{"firstname" . $x} = '';
@@ -218,7 +218,7 @@ function getRocket()
                                     for($x = 0; $x <= 2; $x++) {
                                         if (!empty($row->onesecond[$x])) {
                                             $row->{"secondname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onesecond[$x])), '0')]['name'];
-                                            $row->{"secondrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42">';
+                                            $row->{"secondrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onesecond[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42"></a>';
                                             } else {
                                                 $row->{"secondrow" . $x} = '';                                                
                                                 $row->{"secondname" . $x} = '';
