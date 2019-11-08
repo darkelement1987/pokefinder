@@ -41,13 +41,13 @@ if($formresult && $formresult->num_rows >= 1 ) {
     }
     ?>  
 <?php if($entry->form->name != 'Purified' && $entry->form->name != 'Shadow' && $entry->form->name != 'Normal'){?>
-<div class="col">
+<div class="col" id="dexcol">
 <center>
 <?php if($entry->form->name == ''){?><a href="index.php?page=seen&pokemon=<?= $monid?>"><?php } else {?><a href="index.php?page=seen&pokemon=<?= $monid?>&form=<?= $entry->form->id?>"><?php }?>
 <img <?php if (!in_array($monid, $seen) || !in_array($entry->form->id, $formseen)) {?>class="unseen"<?php } else {?>class="dexentry"<?php }?>src="<?=$imgurl?>">
 </a>
 <br>
-<?= $monname?></center>
+<span id="entrytext"><?= $monname?></span></center>
 </div>
 <?php }}?>    
   </div>
