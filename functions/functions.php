@@ -259,7 +259,7 @@ function getQuest()
                 $row->text = $row->stardust . ' Stardust';
                 break;
                 case '7':
-                $row->type = $assetRepo . '/pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
+                $row->type = $assetRepo . 'pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
                 $row->text = '<br><a href="index.php?page=seen&pokemon=' . $row->monid . '">' . $mon_name[$row->monid]['name'] . '</a>';
                 break;
             }
