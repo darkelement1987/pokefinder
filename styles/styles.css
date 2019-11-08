@@ -40,16 +40,36 @@ div.bottom {
         height:28px;
         width: 24px;
         }
+        
+    img.dexentry {
+        height:64px;
+        width:64px;
+    }
+
+    img.unseen {
+        height:64px;
+        width:64px;
+        opacity:0.4;
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+
+    img.dexmon {
+        height:64px;
+        width:64px;
+    }
+    
+    p.lead {
+        font-size:18px;
+    }
+
+    img.minimap {
+        height: 200px;
+        width: 250px;
+    }
 }
 
-@media only screen and (min-width: 600px) {
-    .table td,
-	.table th {
-		white-space: nowrap;
-		padding: .75rem;
-		vertical-align: middle;
-		border-top: 1px solid #dee2e6;
-	}
+@media only screen and (min-width: 600px) { 
     img.logo {
         width:35px;
         height:35px;
@@ -65,6 +85,24 @@ div.bottom {
     span#menutitles.text-muted {
     display:none;
 }
+
+    img.dexentry {
+        height:128px;
+        width:128px;
+    }
+    
+    img.unseen {
+        height:128px;
+        width:128px;
+        opacity:0.4;
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+    }
+
+    img.dexmon {
+        height:64px;
+        width:64px;
+    }
 }
 
 td.stopnamehidden,

@@ -16,7 +16,7 @@ global $clock;
     </thead>
     <tfoot>
         <tr>
-            <th>Filters:</th>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>

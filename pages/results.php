@@ -55,13 +55,13 @@ global $clock;
                 ?>
                 <tr>
                     <td style="display:none"><?= $row->id ?></td>
-                    <td><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
+                    <td><a href="index.php?page=seen&pokemon=<?= $row->pokemon_id?><?php if($row->formname != '-' && $row->formname != NULL){ echo '&form='. $row->form;} else {}?>"><img height='42' width='42' src='<?= $row->sprite ?>'/> <?= $row->name ?></td>
                     <td><?= $row->ivoutput ?></td>
                     <td><?= $row->cp ?></td>
                     <td><?= $row->weather_boosted_condition ?></td>
                     <td><?= $row->level ?></td>
                     <td><?= $row->gender ?></td>
-                    <td><?= $row->form ?></td>
+                    <td><?= $row->formname ?></td>
                     <td><?= $row->individual_attack ?></td>
                     <td><?= $row->individual_defense ?></td>
                     <td><?= $row->individual_stamina ?></td>
@@ -74,5 +74,5 @@ global $clock;
                             echo $mons;
         }} else { echo "No data";}?> </tbody>
 </table>
-<?php } else { echo "<div class=\"card\" style=\"width: 10rem;\">\r\n <img class=\"card-img-top\" src=\"https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_007_895.png\" alt=\"Card image cap\">\r\n <div class=\"card-body\">\r\n <p class=\"card-text\">Squirtle-squir. That is not allowed!</p></div></div>";}?>
+<?php } else { echo "<div class=\"card\" style=\"width: 10rem;\">\r\n <img class=\"card-img-top\" src=\"images/pokemon/pokemon_icon_007_895.png\" alt=\"Card image cap\">\r\n <div class=\"card-body\">\r\n <p class=\"card-text\">Squirtle-squir. That is not allowed!</p></div></div>";}?>
 <!-- END OF RESULT TABLE -->

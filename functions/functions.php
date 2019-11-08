@@ -170,9 +170,9 @@ function getMons()
 
             // Detect Form
             if (empty($row->form)){
-                $row->form='-';
+                $row->formname='-';
                 } else {
-                    $row->form = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
+                    $row->formname = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
                     }
 
             $mons[] = $row;
@@ -209,7 +209,7 @@ function getRocket()
                             for($x = 0; $x <= 2; $x++){
                                 if (!empty($row->onefirst[$x])) {
                                     $row->{"firstname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onefirst[$x])), '0')]['name'];
-                                    $row->{"firstrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42">';
+                                    $row->{"firstrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onefirst[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42"></a>';
                                     } else { 
                                     $row->{"firstrow" . $x} = '';
                                     $row->{"firstname" . $x} = '';
@@ -218,7 +218,7 @@ function getRocket()
                                     for($x = 0; $x <= 2; $x++) {
                                         if (!empty($row->onesecond[$x])) {
                                             $row->{"secondname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onesecond[$x])), '0')]['name'];
-                                            $row->{"secondrow" . $x} = '<img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42">';
+                                            $row->{"secondrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onesecond[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42"></a>';
                                             } else {
                                                 $row->{"secondrow" . $x} = '';                                                
                                                 $row->{"secondname" . $x} = '';
@@ -259,8 +259,8 @@ function getQuest()
                 $row->text = $row->stardust . ' Stardust';
                 break;
                 case '7':
-                $row->type = $assetRepo . '/pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
-                $row->text = '<br>' . $mon_name[$row->monid]['name'];
+                $row->type = $assetRepo . 'pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
+                $row->text = '<br><a href="index.php?page=seen&pokemon=' . $row->monid . '">' . $mon_name[$row->monid]['name'] . '</a>';
                 break;
             }
             $quest[] = $row;
@@ -310,6 +310,7 @@ function getRaids()
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
                 $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
+                $row->formname = '';
                 $row->move_1 = '-';
                 $row->move_2 = '';
                 $row->cp = '-';
@@ -317,7 +318,9 @@ function getRaids()
             // Else it's a raid :-)
             } else {
                 $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';
-                $row->bossname = $row->sprite . $mon_name[$row->pokemon_id]['name'];
+                if($row->form != 0 || $row->form != '0'){$row->formname = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];}                
+                if(empty($row->formname)){$row->formlink = '';} else {$row->formlink = '&form=' . $row->form;}
+                $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
                 if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
                 $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
