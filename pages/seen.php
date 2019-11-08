@@ -93,10 +93,9 @@ if(empty($dex[$pokemon-90]['types'][1])){$type2='';} else { $type2 = ' / '. ucfi
 }
 
 // Replace mon image with placeholder sprite if image is not in assets yet
-$file_headers = @get_headers($img);
-if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
-    $img = 'https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-}
+if(!file_exists($img)){
+    $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+    }
 ?>
 
 <div class="container">
