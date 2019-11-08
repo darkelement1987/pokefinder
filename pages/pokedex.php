@@ -29,7 +29,7 @@ if($formresult && $formresult->num_rows >= 1 ) {
 <div class="container">
 <div class="row" id="pokedex">
 <h3>Pokedex</h3>
-<input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+<input class="form-control" id="myInput" type="text" placeholder="Search.."><br><br>
 <?php foreach ($json as $entry) {
     if(!empty($maxpokemon)){if($entry->id > $maxpokemon){break;}}
     $monid = str_pad($entry->id, 1, 0, STR_PAD_LEFT);
