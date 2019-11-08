@@ -66,7 +66,7 @@ function index()
         if (file_exists(DIRECTORY . '/pages/' . $page . '.php')) {
             require_once(DIRECTORY  . '/pages/' . $page . '.php');
         } else {
-            echo "<div class=\"card\" style=\"width: 10rem;\">\r\n <img class=\"card-img-top\" src=\"https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/pokemon_icon_007_895.png\" alt=\"Card image cap\">\r\n <div class=\"card-body\">\r\n <p class=\"card-text\">Squirtle-squir. That page does not exist!</p></div></div>";
+            echo "<div class=\"card\" style=\"width: 10rem;\">\r\n <img class=\"card-img-top\" src=\"images/pokemon/pokemon_icon_007_895.png\" alt=\"Card image cap\">\r\n <div class=\"card-body\">\r\n <p class=\"card-text\">Squirtle-squir. That page does not exist!</p></div></div>";
         }
     } else {
         require_once(DIRECTORY  . '/pages/main.php');

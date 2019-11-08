@@ -33,4 +33,4 @@ $pinterest = '';
 
 // !!! Don't touch stuff below !!!
 
-$assetRepo = "https://raw.githubusercontent.com/whitewillem/PogoAssets/resized/no_border/";
+$assetRepo = "images/pokemon/";
