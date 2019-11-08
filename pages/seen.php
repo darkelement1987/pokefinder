@@ -27,7 +27,7 @@ $monrow = $monquery->fetch_assoc();
 $monquery->close();
 $monname = $mon_name[$pokemon]['name'];
 
-$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $raidmonrow = $raidmonquery->fetch_assoc();
 $raidmonquery->close();
 $raidmonname = $mon_name[$pokemon]['name'];
@@ -37,7 +37,7 @@ $raidmonname = $mon_name[$pokemon]['name'];
     $monquery->close();
     $monname = $mon_name[$pokemon]['name'] . ' (' . $formname . ')';
     
-    $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(end, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+    $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
     $raidmonrow = $raidmonquery->fetch_assoc();
     $raidmonquery->close();
     $raidmonname = $mon_name[$pokemon]['name'] . ' (' . $formname . ')';
