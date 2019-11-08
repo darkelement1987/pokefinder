@@ -25,7 +25,7 @@ if($result && $result->num_rows >= 1 ) {
     if(!empty($maxpokemon)){if($entry->id > $maxpokemon){break;}}
     $monid = str_pad($entry->id, 1, 0, STR_PAD_LEFT);
     $monsprite = str_pad($entry->id, 3, 0, STR_PAD_LEFT);
-    if(!empty($entry->form->name)){$monname = $entry->name . '<br>(' . $entry->form->name . ')'; $formid = '_' . $entry->form->id;} else {$monname = $entry->name . '<br>(No form)'; $formid = '_00';}
+    if(!empty($entry->form->name)){$monname = $entry->name . '<br>(' . $entry->form->name . ')'; $formid = '_' . $entry->form->id;} else {$monname = $entry->name; $formid = '_00';}
     $imgurl = 'images/pokemon/pokemon_icon_' . $monsprite . $formid . '.png';
     if(!file_exists($imgurl)){
         $imgurl='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
