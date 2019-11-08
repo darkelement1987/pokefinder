@@ -202,3 +202,17 @@ div#page-container {
     padding-top:80px;
     padding-bottom:15px;
 }
+
+div#dexcol.col:hover {
+    background-color: hsla(120, 100%, 50%, 0.3);
+    outline: 1px solid black;
+    outline-offset: -1px;
+}
+
+img.unseen, img.dexentry {
+    padding:5px;
+}
+
+div#dexcol.col:hover span#entrytext {
+    font-weight:bold;
+}
