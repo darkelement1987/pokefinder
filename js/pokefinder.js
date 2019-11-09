@@ -389,3 +389,36 @@ $(document).ready(function(){
     });
   });
 });
+
+$(document).ready(function ()
+{
+	$('#formTable').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:false,
+		autoWidth: true,
+        ordering: false,
+		searching: false,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Forms",
+			"infoEmpty": "Showing 0 to 0 of 0 Forms",
+			"infoFiltered": "(filtered from _MAX_ total Forms)",
+			"emptyTable": "This Pokémon has no alternative forms",
+			"zeroRecords": "No matching Forms found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Forms per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});

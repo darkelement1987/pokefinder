@@ -5,11 +5,11 @@ global $assetRepo;
 global $mapkey;
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/description.json'), true);
-$stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/monsters.json'), true);
+$stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
-if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 && $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
+if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 if(!empty($stats[$pokemon. '_' . $form]['form']['name'])){
@@ -22,12 +22,12 @@ $totalrow = $totalquery->fetch_assoc();
 $totalquery->close();
 
 if(!isset($_GET['form'])){
-$monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+$monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=0) as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $monrow = $monquery->fetch_assoc();
 $monquery->close();
 $monname = $mon_name[$pokemon]['name'];
 
-$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=0) as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $raidmonrow = $raidmonquery->fetch_assoc();
 $raidmonquery->close();
 $raidmonname = $mon_name[$pokemon]['name'];
@@ -114,13 +114,41 @@ Recently in raids: <?=$raidlast?><br>
 Rarity: <?= $rarity?><br>
 Spawnrate: <?= $spawnrate?>%
 <hr class="my-4">
+<h4 class="display-6">Forms</h4>
+<?php
+$data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json');
+$json = json_decode($data);?>
+<div class="table-responsive-sm">
+<table id="formTable" class="table table-striped table-bordered w-auto">
+  <thead>
+    <tr>
+      <th>Pic</th>
+      <th>Form</th>
+      <th>Pokedex</th>
+    </tr>
+  </thead>
+  <tbody>
+<?php foreach($json as $entry) if ($entry->id == $pokemon && $entry->form->name !== 'Shadow' && $entry->form->name !== 'Purified'){
+    if (empty($entry->form->name)){$formtext='No form'; $link = 'index.php?page=seen&pokemon=' . $pokemon;} else {$formtext = $entry->form->name;$link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $entry->form->id;}
+    if ($entry->form->id != $form){?>
+    <tr align='center' style='align-content:center;text-align:center;'>
+      <td class="align-middle"><img src='images/pokemon/pokemon_icon_<?=str_pad($entry->id, 3, 0, STR_PAD_LEFT)?>_<?=str_pad($entry->form->id, 2, 0, STR_PAD_LEFT)?>.png' height='96' width='96'></td>
+      <td class="align-middle"><?=$formtext?></td>
+      <td class="align-middle"><a href="<?=$link?>">Link</a></td>
+    </tr>
+    <?php }}?>
+  </tbody>
+</table>
+</div>
+
+<hr class="my-4">
 <?php if(!empty($mapkey)){
     if($monseen>0){?>
 <h4 class="display-6">Location last seen</h4>
 <a href="https://maps.google.com/?q=<?=$lat. ',' .$lon?>"><img src="https://open.mapquestapi.com/staticmap/v5/map?locations=<?=$lat. ',' .$lon?>&key=<?=$mapkey?>&zoom=15&size=250,200" style="border: 1px solid grey;" class="minimap"></a><br>
 <hr class="my-4">
     <?php }}?>
-<i class="fas fa-arrow-circle-left"></i> <a href="#" onclick="goBack()"> Return</a>
+[ <a href="index.php?page=pokedex">Return to pokedex</a> ]<?php if($pokemon >1){?>[ <a href="index.php?page=seen&pokemon=<?=(($pokemon)-1)?>">Previous</a> ]<?php }?><?php if($pokemon <809){?>[ <a href="index.php?page=seen&pokemon=<?=(($pokemon)+1)?>">Next</a> ]<?php }?>
 </p>
 </div>
 </div>

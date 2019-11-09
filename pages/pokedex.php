@@ -7,12 +7,12 @@ $url = 'https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/sr
 $data = file_get_contents($url); // put the contents of the file into a variable
 $json = json_decode($data); // decode the JSON feed
 
-$query = 'SELECT distinct pokemon_id, form from pokemon union SELECT distinct pokemon_id, form from raid';
+$query = 'SELECT distinct pokemon_id from pokemon union SELECT distinct pokemon_id from raid';
 $result = $conn->query($query);
 $seenmon = [];
 if($result && $result->num_rows >= 1 ) {
     while ($row = $result->fetch_object() ) {
-    $seenmon[] = $row->pokemon_id . '_' . $row->form;
+    $seenmon[] = $row->pokemon_id;
     }
 }
 
@@ -31,11 +31,11 @@ if($result && $result->num_rows >= 1 ) {
         $imgurl='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
     }
     ?>  
-<?php if($entry->form->name != 'Purified' && $entry->form->name != 'Shadow'){?>
+<?php if($entry->form->name ==''){?>
 <div class="col" id="dexcol">
 <center>
 <?php if($entry->form->name == ''){?><a href="index.php?page=seen&pokemon=<?= $monid?>"><?php } else {?><a href="index.php?page=seen&pokemon=<?= $monid?>&form=<?= $entry->form->id?>"><?php }?>
-<img <?php if (!in_array($entry->id . '_' . $entry->form->id, $seenmon)) {?>class="unseen"<?php } else {?>class="dexentry"<?php }?>src="<?=$imgurl?>">
+<img <?php if (!in_array($entry->id, $seenmon)) {?>class="unseen"<?php } else {?>class="dexentry"<?php }?>src="<?=$imgurl?>">
 </a>
 <br>
 <span id="entrytext"><?= $monname?></span></center>
