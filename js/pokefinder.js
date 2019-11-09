@@ -422,3 +422,36 @@ $(document).ready(function ()
 
 	});
 });
+
+$(document).ready(function ()
+{
+	$('#evoTable').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:false,
+		autoWidth: true,
+        ordering: false,
+		searching: false,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Evolutions",
+			"infoEmpty": "Showing 0 to 0 of 0 Evolutions",
+			"infoFiltered": "(filtered from _MAX_ total Evolutions)",
+			"emptyTable": "This Pokémon has no evolutions",
+			"zeroRecords": "No matching Evolutions found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Evolutions per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});

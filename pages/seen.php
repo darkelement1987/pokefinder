@@ -142,9 +142,14 @@ $json = json_decode($data);?>
   <tbody>
 <?php foreach($json as $entry) if ($entry->id == $pokemon && $entry->form->name !== 'Shadow' && $entry->form->name !== 'Purified'){
     if (empty($entry->form->name)){$formtext='No form'; $link = 'index.php?page=seen&pokemon=' . $pokemon;} else {$formtext = $entry->form->name;$link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $entry->form->id;}
-    if ($entry->form->id != $form){?>
+    if ($entry->form->id != $form){
+        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($entry->id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($entry->form->id, 2, 0, STR_PAD_LEFT) . '.png';
+        if(!file_exists($formimg)){
+            $formimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+            }
+        ?>
     <tr align='center' style='align-content:center;text-align:center;'>
-      <td class="align-middle"><img src='images/pokemon/pokemon_icon_<?=str_pad($entry->id, 3, 0, STR_PAD_LEFT)?>_<?=str_pad($entry->form->id, 2, 0, STR_PAD_LEFT)?>.png' height='96' width='96'></td>
+      <td class="align-middle"><img src='<?=$formimg?>' height='96' width='96'></td>
       <td class="align-middle"><?=$formtext?></td>
       <td class="align-middle"><a href="<?=$link?>">Link</a></td>
     </tr>
@@ -152,6 +157,49 @@ $json = json_decode($data);?>
   </tbody>
 </table>
 </div>
+
+<hr class="my-4">
+<h4 class="display-6">Evolutions</h4>
+<?php
+$data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/description.json');
+$json = json_decode($data);
+
+$nametoid = json_decode(file_get_contents('json/namedex.json'), true);
+
+?>
+
+<div class="table-responsive-sm">
+<table id="evoTable" class="table table-striped table-bordered w-auto">
+  <thead>
+    <tr>
+      <th>Evolution</th>
+      <th>Method</th>
+      <th>Pokedex</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php
+  foreach($json as $entry) {
+      if($entry->pkdx_id == $pokemon){
+          foreach ($entry->evolutions as $evo) {
+              $evoname=$evo->to;
+              $evoimg='images/pokemon/pokemon_icon_' . str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT) . '_00.png';
+              if(!file_exists($evoimg)){
+                  $evoimg='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' . str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT) . '.png';
+                  }
+              ?>
+              <tr align='center' style='align-content:center;text-align:center;'>
+              <td class="align-middle"><img src="<?=$evoimg?>" class="dexentry"><br><?=$evo->to?></td>
+              <td class="align-middle"><?=ucfirst(str_replace("_"," ",$evo->method));?></td>
+              <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$nametoid[$evoname]['id']?>">Link</td>
+              </tr>
+              <?php }
+      }
+  }
+      ?>
+  </tbody>
+  </table>
+  </div>
 
 <hr class="my-4">
 <?php if(!empty($mapkey)){
