@@ -114,7 +114,7 @@ if(!file_exists($img)){
   <p class="lead"><?= $desc?></p>
   <p class="lead"><b><?=$type1 . $type2?></b></p>
   <hr class="my-4">
-
+<?php if($monseen>0){?>
 <h4 class="display-6">Recently seen</h4>
 <p class="lead">
 Wild: <span class="badge badge-secondary"><?= $monseen?></span> times<br>
@@ -125,7 +125,7 @@ Rarity: <?= $rarity?><br>
 Spawnrate: <?= $spawnrate?>%<br>
 Highest IV seen: <?= $highest?><br>
 Highest CP seen: <?= $maxcp?>
-<hr class="my-4">
+<hr class="my-4"><?php }?>
 <h4 class="display-6">Forms</h4>
 <?php
 $data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json');
