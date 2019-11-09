@@ -52,6 +52,16 @@ $lon = $monrow['longitude'];
 $last = $monrow['last_seen'];
 $raidlast = $raidmonrow['last_seen'];
 
+$highestquery = $conn->query("select pokemon_id, ROUND(((individual_attack+individual_defense+individual_stamina)/45)*100,1) as iv from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by ROUND(((individual_attack+individual_defense+individual_stamina)/45)*100,1) desc limit 1");
+$highestrow = $highestquery->fetch_assoc();
+$highestquery->close();
+if(!empty($highestrow['iv'])){$highest = $highestrow['iv'] . '%';} else {$highest = '-';}
+
+$maxcpquery = $conn->query("select pokemon_id, cp from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by cp desc limit 1");
+$maxcprow = $maxcpquery->fetch_assoc();
+$maxcpquery->close();
+if(!empty($maxcprow['cp'])){$maxcp = $maxcprow['cp'];} else {$maxcp = '-';}
+
 if($monseen>0){
 $rarity = 'Common';
 
@@ -112,7 +122,9 @@ Raids: <span class="badge badge-secondary"><?= $raidmonseen?></span> times<br>
 Recently wild: <?= $last?><br>
 Recently in raids: <?=$raidlast?><br>
 Rarity: <?= $rarity?><br>
-Spawnrate: <?= $spawnrate?>%
+Spawnrate: <?= $spawnrate?>%<br>
+Highest IV seen: <?= $highest?><br>
+Highest CP seen: <?= $maxcp?>
 <hr class="my-4">
 <h4 class="display-6">Forms</h4>
 <?php
