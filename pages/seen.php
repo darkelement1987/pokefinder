@@ -183,15 +183,16 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
       if($entry->pkdx_id == $pokemon){
           foreach ($entry->evolutions as $evo) {
               $evoname=$evo->to;
-              $evoimg='images/pokemon/pokemon_icon_' . str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT) . '_00.png';
+              if(empty($nametoid[$evoname])){$evoid='0';} else {$evoid = str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT);}
+              $evoimg='images/pokemon/pokemon_icon_' . $evoid . '_00.png';
               if(!file_exists($evoimg)){
-                  $evoimg='https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' . str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT) . '.png';
+                  $evoimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
                   }
               ?>
               <tr align='center' style='align-content:center;text-align:center;'>
               <td class="align-middle"><img src="<?=$evoimg?>" class="dexentry"><br><?=$evo->to?></td>
               <td class="align-middle"><?=ucfirst(str_replace("_"," ",$evo->method));?></td>
-              <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$nametoid[$evoname]['id']?>">Link</td>
+              <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$evoid?>">Link</td>
               </tr>
               <?php }
       }
