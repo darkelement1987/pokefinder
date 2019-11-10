@@ -6,9 +6,37 @@ global $mapkey;
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/description.json'), true);
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
+$released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
+$gen = 0;
+
+switch ($pokemon) {
+    case $pokemon <= 151:
+    $gen = 1;
+    break;
+    case $pokemon <= 251:
+    $gen = 2;
+    break;
+    case $pokemon <= 386:
+    $gen = 3;
+    break;
+    case $pokemon <= 493:
+    $gen = 4;
+    break;
+    case $pokemon <= 649:
+    $gen = 5;
+    break;
+    case $pokemon <= 721:
+    $gen = 6;
+    break;
+    case $pokemon <= 809:
+    $gen = 7;
+    break;
+}
+
+if(!empty($released[$pokemon])){$checkrelease = $released[$pokemon];} else {$checkrelease = '';}
 if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
@@ -102,6 +130,8 @@ if(empty($dex[$pokemon-90]['types'][0])){$type1='Unknown type(s)';} else { $type
 if(empty($dex[$pokemon-90]['types'][1])){$type2='';} else { $type2 = ' / '. ucfirst($dex[$pokemon-90]['types'][1]); }
 }
 
+if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pokémon is not in game yet</div>';}
+
 // Replace mon image with placeholder sprite if image is not in assets yet
 if(!file_exists($img)){
     $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
@@ -112,7 +142,7 @@ if(!file_exists($img)){
 <div class="jumbotron-fluid">
   <h4 class="display-6"><img src="<?= $img?>" class="dexmon"> <b><?= $monname?></b></h4>
   <p class="lead"><?= $desc?></p>
-  <p class="lead"><b><?=$type1 . $type2?></b></p>
+  <p class="lead"><b><?=$type1 . $type2 . ' / Gen ' . $gen?></b></p>
   <hr class="my-4">
 <?php if($monseen>0){?>
 <h4 class="display-6">Recently seen</h4>
@@ -183,8 +213,8 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
       if($entry->pkdx_id == $pokemon){
           foreach ($entry->evolutions as $evo) {
               $evoname=$evo->to;
-              if(empty($nametoid[$evoname])){$evoid='0';} else {$evoid = str_pad($nametoid[$evoname]['id'], 3, 0, STR_PAD_LEFT);}
-              $evoimg='images/pokemon/pokemon_icon_' . $evoid . '_00.png';
+              if(empty($nametoid[$evoname])){$evoid='0';} else {$evoid = $nametoid[$evoname]['id'];}
+              $evoimg='images/pokemon/pokemon_icon_' . str_pad($evoid, 3, 0, STR_PAD_LEFT) . '_00.png';
               if(!file_exists($evoimg)){
                   $evoimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
                   }
@@ -192,7 +222,7 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
               <tr align='center' style='align-content:center;text-align:center;'>
               <td class="align-middle"><img src="<?=$evoimg?>" class="dexentry"><br><?=$evo->to?></td>
               <td class="align-middle"><?=ucfirst(str_replace("_"," ",$evo->method));?></td>
-              <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$nametoid[$evoname]['id']?>">Link</td>
+              <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$evoid?>">Link</td>
               </tr>
               <?php }
       }
