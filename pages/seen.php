@@ -141,21 +141,69 @@ if(!file_exists($img)){
 
 <div class="container">
 <div class="jumbotron-fluid">
-  <h4 class="display-6"><img src="<?= $img?>" class="dexmon"> <b><?= $monname?></b></h4>
+<div class="media">
+  <img src="<?=$img?>" class="dexmon">
+  <div class="media-body">
+    <h4 class="mt-0"><?=$monname?></h4>
+    <h6><small><b><?=$type1 . $type2 . ' / Gen ' . $gen . ' / ' . $rarity?></b></small></h6>
+  </div>
+</div>
+<hr class="my-4">
+<h4 class="display-6">Description</h4>
   <p class="lead"><?= $desc?></p>
-  <p class="lead"><b><?=$type1 . $type2 . ' / Gen ' . $gen?></b></p>
   <hr class="my-4">
 <?php if($totalseen>0){?>
-<h4 class="display-6">Recently seen <span class="badge badge-secondary"><?= $totalseen?>x</span></h4>
+<h4 class="display-6">Stats</h4>
 <p class="lead">
-Wild: <span class="badge badge-secondary"><?= $monseen?></span> times<br>
-Raids: <span class="badge badge-secondary"><?= $raidmonseen?></span> times<br>
-Recently wild: <?= $last?><br>
-Recently in raids: <?=$raidlast?><br>
-Rarity: <?= $rarity?><br>
-Spawnrate: <?= $spawnrate?>%<br>
-Highest IV seen: <?= $highest?><br>
-Highest CP seen: <?= $maxcp?>
+
+<div class="table-responsive-sm">
+<table id="seenTable" class="table table-striped table-bordered w-auto">
+<tbody>
+
+<tr>
+<th>Total seen:</th>
+<td><?= $totalseen?></td>
+</tr>
+
+<tr>
+<th>Wild:</th>
+<td><?= $monseen?></td>
+</tr>
+
+<tr>
+<th>Raids:</th>
+<td><?= $raidmonseen?></td>
+</tr>
+
+<tr>
+<th>Recently wild:</th>
+<td><?= $last?></td>
+</tr>
+
+<tr>
+<th>Recently raids:</th>
+<td><?= $raidlast?></td>
+</tr>
+
+<tr>
+<th>Spawnrate:</th>
+<td><?= $spawnrate?>%</td>
+</tr>
+
+<tr>
+<th>Max IV seen:</th>
+<td><?= $highest?></td>
+</tr>
+
+<tr>
+<th>Max CP seen:</th>
+<td><?= $maxcp?></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
 <hr class="my-4"><?php }?>
 <h4 class="display-6">Forms</h4>
 <?php
