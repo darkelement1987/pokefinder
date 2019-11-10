@@ -146,7 +146,7 @@ if(!file_exists($img)){
   <p class="lead"><b><?=$type1 . $type2 . ' / Gen ' . $gen?></b></p>
   <hr class="my-4">
 <?php if($totalseen>0){?>
-<h4 class="display-6">Recently seen</h4>
+<h4 class="display-6">Recently seen <span class="badge badge-secondary"><?= $totalseen?>x</span></h4>
 <p class="lead">
 Wild: <span class="badge badge-secondary"><?= $monseen?></span> times<br>
 Raids: <span class="badge badge-secondary"><?= $raidmonseen?></span> times<br>
