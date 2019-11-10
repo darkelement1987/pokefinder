@@ -73,8 +73,9 @@ $raidmonname = $mon_name[$pokemon]['name'];
 
 $monseen = $monrow['count'];
 $raidmonseen = $raidmonrow['count'];
+$totalseen = $monseen + $raidmonseen;
 $total = $totalrow['total'];
-$spawnrate = number_format((($monseen / $total)*100), 2, '.', '');
+$spawnrate = number_format((($totalseen / $total)*100), 2, '.', '');
 $lat = $monrow['latitude'];
 $lon = $monrow['longitude'];
 $last = $monrow['last_seen'];
@@ -90,7 +91,7 @@ $maxcprow = $maxcpquery->fetch_assoc();
 $maxcpquery->close();
 if(!empty($maxcprow['cp'])){$maxcp = $maxcprow['cp'];} else {$maxcp = '-';}
 
-if($monseen>0){
+if($totalseen>0){
 $rarity = 'Common';
 
 switch ($rarity) {
@@ -144,7 +145,7 @@ if(!file_exists($img)){
   <p class="lead"><?= $desc?></p>
   <p class="lead"><b><?=$type1 . $type2 . ' / Gen ' . $gen?></b></p>
   <hr class="my-4">
-<?php if($monseen>0){?>
+<?php if($totalseen>0){?>
 <h4 class="display-6">Recently seen</h4>
 <p class="lead">
 Wild: <span class="badge badge-secondary"><?= $monseen?></span> times<br>
@@ -234,7 +235,7 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
 
 <hr class="my-4">
 <?php if(!empty($mapkey)){
-    if($monseen>0){?>
+    if($totalseen>0){?>
 <h4 class="display-6">Location last seen</h4>
 <a href="https://maps.google.com/?q=<?=$lat. ',' .$lon?>"><img src="https://open.mapquestapi.com/staticmap/v5/map?locations=<?=$lat. ',' .$lon?>&key=<?=$mapkey?>&zoom=15&size=250,200" style="border: 1px solid grey;" class="minimap"></a><br>
 <hr class="my-4">
