@@ -142,10 +142,10 @@ if(!file_exists($img)){
 <div class="container">
 <div class="jumbotron-fluid">
 <div class="media">
-  <img src="<?=$img?>" class="dexmon">
+  <img src="<?=$img?>" class="dexentry">
   <div class="media-body">
-    <h4 class="mt-0"><?=$monname?></h4>
-    <h6><small><b><?=$type1 . $type2 . ' / Gen ' . $gen . ' / ' . $rarity?></b></small></h6>
+    <h3 class="mt-0"><?=$monname?></h3>
+    <h5><small>📱 Pokedex ID: #<?=str_pad($pokemon, 3, 0, STR_PAD_LEFT)?><br><?=$type1 . $type2 . ' / Gen ' . $gen . ' / ' . $rarity?></small></h5>
   </div>
 </div>
 <hr class="my-4">
@@ -228,7 +228,7 @@ $json = json_decode($data);?>
             }
         ?>
     <tr align='center' style='align-content:center;text-align:center;'>
-      <td class="align-middle"><img src='<?=$formimg?>' height='96' width='96'></td>
+      <td class="align-middle"><img src='<?=$formimg?>' height='96' width='96' class='dexentry'></td>
       <td class="align-middle"><?=$formtext?></td>
       <td class="align-middle"><a href="<?=$link?>">Link</a></td>
     </tr>
