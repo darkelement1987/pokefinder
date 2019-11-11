@@ -56,6 +56,9 @@ include './includes.php';
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?page=pokedex"><i class="fas fa-mobile-alt"></i> Pokedex</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?page=rank"><i class="far fa-list-alt"></i> Rankings</a>
+                            </li>
                         </ul>
                         <?php if($socialon != false) {?>
                         <ul class="navbar-nav ml-auto">

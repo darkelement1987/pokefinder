@@ -49,6 +49,28 @@ $totalquery = $conn->query("select count(*) as total from pokemon");
 $totalrow = $totalquery->fetch_assoc();
 $totalquery->close();
 
+// Mon Ranking
+
+$monrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id ) a ) b WHERE pokemon_id =" . $pokemon);
+$monrankrow = $monrankquery->fetch_assoc();
+$monrankquery->close();
+if(!empty($monrankrow['rank'])){
+    $monrank='<a href="index.php?page=rank&mode=pokemon">#' . $monrankrow['rank'] . '</a>';
+    } else {
+        $monrank='-';
+        }
+
+// Raid Mon Ranking
+
+$raidrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id ) a ) b WHERE pokemon_id =" . $pokemon);
+$raidrankrow = $raidrankquery->fetch_assoc();
+$raidrankquery->close();
+if(!empty($raidrankrow['rank'])){
+    $raidrank='<a href="index.php?page=rank&mode=raid">#' . $raidrankrow['rank'] . '</a>';
+    } else {
+        $raidrank='-';
+        }
+
 if(!isset($_GET['form'])){
 $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=0) as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=0 order by last_seen desc limit 1");
 $monrow = $monquery->fetch_assoc();
@@ -151,6 +173,29 @@ if(!file_exists($img)){
 <hr class="my-4">
 <h4 class="display-6">Description</h4>
   <p class="lead"><?= $desc?></p>
+<hr class="my-4">
+
+<h4 class="display-6">Most Seen Rank</h4>
+  <p class="lead">
+  
+<div class="table-responsive-sm">
+<table id="seenTable" class="table table-striped table-bordered w-auto">
+<tbody>
+
+<tr>
+<th>Wild:</th>
+<td><?= $monrank?></td>
+</tr>
+
+<tr>
+<th>Raid:</th>
+<td><?= $raidrank?></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+  </p>
   <hr class="my-4">
 <?php if($totalseen>0){?>
 <h4 class="display-6">Stats</h4>
