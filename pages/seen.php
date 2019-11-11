@@ -321,7 +321,6 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
   <thead>
     <tr>
       <th>Evolution</th>
-      <th>Method</th>
       <th>Pokedex</th>
     </tr>
   </thead>
@@ -339,7 +338,6 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
               ?>
               <tr align='center' style='align-content:center;text-align:center;'>
               <td class="align-middle"><img src="<?=$evoimg?>" class="dexentry"><br><?=$evo->to?></td>
-              <td class="align-middle"><?=ucfirst(str_replace("_"," ",$evo->method));?></td>
               <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$evoid?>">Link</td>
               </tr>
               <?php }
