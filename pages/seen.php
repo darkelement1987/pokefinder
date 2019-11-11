@@ -134,7 +134,7 @@ switch ($rarity) {
         break;
 }
 } else {
-    $rarity = 'Never seen';
+    $rarity = 'Never seen, try a <a href="#forms">form</a>';
 }
 
 if(!$monrow || empty($monrow)){$monseen='0';$last='-';} else {$last = date('l jS \of F Y ' . $clock, $last);}
@@ -250,7 +250,7 @@ if(!file_exists($img)){
 </div>
 
 <hr class="my-4"><?php }?>
-<h4 class="display-6">Forms</h4>
+<span id='forms'><h4 class="display-6">Forms</h4></span>
 <?php
 $data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json');
 $json = json_decode($data);?>
