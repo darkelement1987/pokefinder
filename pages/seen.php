@@ -7,10 +7,27 @@ $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cec
 $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/description.json'), true);
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 $released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
+$shiny = json_decode(file_get_contents('https://pogoapi.net/api/v1/shiny_pokemon.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
 $gen = 0;
+
+if(empty($shiny[$pokemon])){
+    $showshiny='false';
+    } else {
+    if (
+!empty($shiny[$pokemon]) || $shiny[$pokemon]['found_egg'] == 'true' || 
+$shiny[$pokemon]['found_evolution'] == 'true' || 
+$shiny[$pokemon]['found_raid'] == 'true' || 
+$shiny[$pokemon]['found_research'] == 'true' ||
+$shiny[$pokemon]['found_wild'] == 'true'){
+    $isshiny='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
+    $showshiny='true';
+    } else {
+    $showshiny='false';
+    }
+}
 
 switch ($pokemon) {
     case $pokemon <= 151:
@@ -264,6 +281,13 @@ $json = json_decode($data);?>
     </tr>
   </thead>
   <tbody>
+  <?php if ($showshiny=='true'){?>
+      <tr align='center' style='align-content:center;text-align:center;'>
+      <td class="align-middle"><img src='<?=$isshiny?>' height='96' width='96' class='dexentry'></td>
+      <td class="align-middle">Shiny</td>
+      <td class="align-middle"><a href="#">Link</a></td>
+    </tr>
+  <?php } else {}?>
 <?php foreach($json as $entry) if ($entry->id == $pokemon && $entry->form->name !== 'Shadow' && $entry->form->name !== 'Purified'){
     if (empty($entry->form->name)){$formtext='No form'; $link = 'index.php?page=seen&pokemon=' . $pokemon;} else {$formtext = $entry->form->name;$link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $entry->form->id;}
     if ($entry->form->id != $form){
