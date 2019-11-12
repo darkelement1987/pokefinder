@@ -22,7 +22,7 @@ $shiny[$pokemon]['found_evolution'] == 'true' ||
 $shiny[$pokemon]['found_raid'] == 'true' || 
 $shiny[$pokemon]['found_research'] == 'true' ||
 $shiny[$pokemon]['found_wild'] == 'true'){
-    $isshiny='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
+    $isshiny='http://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
     $showshiny='true';
     } else {
     $showshiny='false';
