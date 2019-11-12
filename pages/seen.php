@@ -68,7 +68,7 @@ $totalquery->close();
 
 // Mon Ranking
 
-$monrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id ) a ) b WHERE pokemon_id =" . $pokemon);
+$monrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
 $monrankrow = $monrankquery->fetch_assoc();
 $monrankquery->close();
 if(!empty($monrankrow['rank'])){
@@ -79,7 +79,7 @@ if(!empty($monrankrow['rank'])){
 
 // Raid Mon Ranking
 
-$raidrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id ) a ) b WHERE pokemon_id =" . $pokemon);
+$raidrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
 $raidrankrow = $raidrankquery->fetch_assoc();
 $raidrankquery->close();
 if(!empty($raidrankrow['rank'])){
