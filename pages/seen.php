@@ -151,7 +151,7 @@ switch ($rarity) {
         break;
 }
 } else {
-    $rarity = 'Never seen, try a <a href="#forms">form</a>';
+    $rarity = 'No rarity, try a <a href="#forms">form</a>';
 }
 
 if(!$monrow || empty($monrow)){$monseen='0';$last='-';} else {$last = date('l jS \of F Y ' . $clock, $last);}
