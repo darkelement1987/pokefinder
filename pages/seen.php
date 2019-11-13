@@ -8,6 +8,7 @@ $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUd
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 $released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
 $shiny = json_decode(file_get_contents('https://pogoapi.net/api/v1/shiny_pokemon.json'), true);
+$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/src/util/forms.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
@@ -57,8 +58,8 @@ if(!empty($released[$pokemon])){$checkrelease = $released[$pokemon];} else {$che
 if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
-if(!empty($stats[$pokemon. '_' . $form]['form']['name'])){
-$formname = ' (' . $stats[$pokemon. '_' . $form]['form']['name'] . ')';} else {
+if(!empty($forms[$pokemon][$form])){
+$formname = ' (' . $forms[$pokemon][$form] . ')';} else {
     $formname = '';
 }
 
@@ -89,12 +90,12 @@ if(!empty($raidrankrow['rank'])){
         }
 
 if(!isset($_GET['form'])){
-$monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=0) as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=0 order by last_seen desc limit 1");
+$monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $monrow = $monquery->fetch_assoc();
 $monquery->close();
 $monname = $mon_name[$pokemon]['name'];
 
-$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=0) as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " and form=0 order by last_seen desc limit 1");
+$raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
 $raidmonrow = $raidmonquery->fetch_assoc();
 $raidmonquery->close();
 $raidmonname = $mon_name[$pokemon]['name'];
@@ -269,8 +270,9 @@ if(!file_exists($img)){
 <hr class="my-4"><?php }?>
 <span id='forms'><h4 class="display-6">Forms</h4></span>
 <?php
-$data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json');
-$json = json_decode($data);?>
+$data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/src/util/forms.json');
+$json = json_decode($data,true);
+$i=0;?>
 <div class="table-responsive-sm">
 <table id="formTable" class="table table-striped table-bordered w-auto">
   <thead>
@@ -288,20 +290,21 @@ $json = json_decode($data);?>
       <td class="align-middle"><a href="#">Link</a></td>
     </tr>
   <?php } else {}?>
-<?php foreach($json as $entry) if ($entry->id == $pokemon && $entry->form->name !== 'Shadow' && $entry->form->name !== 'Purified'){
-    if (empty($entry->form->name)){$formtext='No form'; $link = 'index.php?page=seen&pokemon=' . $pokemon;} else {$formtext = $entry->form->name;$link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $entry->form->id;}
-    if ($entry->form->id != $form){
-        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($entry->id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($entry->form->id, 2, 0, STR_PAD_LEFT) . '.png';
+<?php foreach($json as $pokemonid => $value) if ($pokemonid == $pokemon){
+    foreach ($value as $formid => $fname) if ($fname != 'Shadow' && $fname != 'Purified' && $fname != 'NoEvolve'){
+        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($pokemonid, 3, 0, STR_PAD_LEFT) . '_' . str_pad($formid, 2, 0, STR_PAD_LEFT) . '.png';
+        $link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $formid;
         if(!file_exists($formimg)){
             $formimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
             }
+        
         ?>
     <tr align='center' style='align-content:center;text-align:center;'>
       <td class="align-middle"><img src='<?=$formimg?>' height='96' width='96' class='dexentry'></td>
-      <td class="align-middle"><?=$formtext?></td>
+      <td class="align-middle"><?=$fname?></td>
       <td class="align-middle"><a href="<?=$link?>">Link</a></td>
     </tr>
-    <?php }}?>
+<?php }}?>
   </tbody>
 </table>
 </div>
