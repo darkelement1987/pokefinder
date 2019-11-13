@@ -59,7 +59,7 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 if(!empty($forms[$pokemon][$form])){
-$formname = ' (' . $forms[$pokemon][$form] . ')';} else {
+$formname = ' (' . str_replace("_"," ",$forms[$pokemon][$form]) . ')';} else {
     $formname = '';
 }
 
@@ -301,7 +301,7 @@ $i=0;?>
         ?>
     <tr align='center' style='align-content:center;text-align:center;'>
       <td class="align-middle"><img src='<?=$formimg?>' height='96' width='96' class='dexentry'></td>
-      <td class="align-middle"><?=$fname?></td>
+      <td class="align-middle"><?=str_replace("_"," ",$fname);?></td>
       <td class="align-middle"><a href="<?=$link?>">Link</a></td>
     </tr>
 <?php }}?>
