@@ -59,7 +59,7 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 if(!empty($forms[$pokemon][$form])){
-$formname = ' (' . str_replace("_"," ",$forms[$pokemon][$form]) . ')';} else {
+$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {
     $formname = '';
 }
 
@@ -103,12 +103,12 @@ $raidmonname = $mon_name[$pokemon]['name'];
     $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
     $monrow = $monquery->fetch_assoc();
     $monquery->close();
-    $monname = $mon_name[$pokemon]['name'] . $formname;
+    $monname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
     
     $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
     $raidmonrow = $raidmonquery->fetch_assoc();
     $raidmonquery->close();
-    $raidmonname = $mon_name[$pokemon]['name'] . $formname;
+    $raidmonname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
     }
 
 $monseen = $monrow['count'];
@@ -215,9 +215,9 @@ if(!file_exists($img)){
 </div>
   </p>
   <hr class="my-4">
-<?php if($totalseen>0){?>
-<h4 class="display-6">Stats</h4>
+<h4 class="display-6">Stats<?php if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';} ?></h4>
 <p class="lead">
+<?php if($totalseen>0){?>
 
 <div class="table-responsive-sm">
 <table id="seenTable" class="table table-striped table-bordered w-auto">
@@ -266,8 +266,8 @@ if(!file_exists($img)){
 </tbody>
 </table>
 </div>
-
-<hr class="my-4"><?php }?>
+<?php } else { echo 'This form is not seen';}?>
+<hr class="my-4">
 <span id='forms'><h4 class="display-6">Forms</h4></span>
 <?php
 $data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json');
