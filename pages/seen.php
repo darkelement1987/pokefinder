@@ -14,6 +14,11 @@ if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
 $gen = 0;
 
+// Detect amount of forms seen for mon
+$cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon;
+$result = $conn->query($cfquery);
+$cfcount = $result->num_rows;
+
 if(empty($shiny[$pokemon])){
     $showshiny='false';
     } else {
@@ -215,7 +220,7 @@ if(!file_exists($img)){
 </div>
   </p>
   <hr class="my-4">
-<h4 class="display-6">Stats<?php if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';} ?></h4>
+<h4 class="display-6">Stats<?php if($cfcount > 1){if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';}} ?></h4>
 <p class="lead">
 <?php if($totalseen>0){?>
 
@@ -226,6 +231,11 @@ if(!file_exists($img)){
 <tr>
 <th>Total seen:</th>
 <td><?= $totalseen?></td>
+</tr>
+
+<tr>
+<th>Forms seen:</th>
+<td><?= $cfcount?></td>
 </tr>
 
 <tr>
