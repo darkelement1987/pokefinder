@@ -69,6 +69,7 @@ $formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {
 }
 
 if ($form == '0'){$formname = 'No form';}
+if ($formname == ''){$formname = 'Unknown form';}
 
 $totalquery = $conn->query("select count(*) as total from pokemon");
 $totalrow = $totalquery->fetch_assoc();
