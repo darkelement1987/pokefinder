@@ -8,7 +8,7 @@ $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUd
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 $released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
 $shiny = json_decode(file_get_contents('https://pogoapi.net/api/v1/shiny_pokemon.json'), true);
-$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/src/util/forms.json'), true);
+$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
@@ -270,7 +270,7 @@ if(!file_exists($img)){
 <hr class="my-4"><?php }?>
 <span id='forms'><h4 class="display-6">Forms</h4></span>
 <?php
-$data = file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/master/src/util/forms.json');
+$data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json');
 $json = json_decode($data,true);
 $i=0;?>
 <div class="table-responsive-sm">
