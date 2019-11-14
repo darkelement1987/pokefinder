@@ -68,6 +68,8 @@ $formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {
     $formname = '';
 }
 
+if ($form == '0'){$formname = 'No form';}
+
 $totalquery = $conn->query("select count(*) as total from pokemon");
 $totalrow = $totalquery->fetch_assoc();
 $totalquery->close();
@@ -108,13 +110,20 @@ $raidmonname = $mon_name[$pokemon]['name'];
     $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
     $monrow = $monquery->fetch_assoc();
     $monquery->close();
-    $monname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
+    if ($form == '0'){
+    $monname = $mon_name[$pokemon]['name'];
+    } else {
+        $monname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
+    }
     
     $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
     $raidmonrow = $raidmonquery->fetch_assoc();
     $raidmonquery->close();
-    $raidmonname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
-    }
+    if ($form == '0'){
+    $raidmonname = $mon_name[$pokemon]['name'];
+    } else {
+        $raidmonname = $mon_name[$pokemon]['name'] . ' (' .  $formname . ')';
+    }}
 
 $monseen = $monrow['count'];
 $raidmonseen = $raidmonrow['count'];
