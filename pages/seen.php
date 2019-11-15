@@ -17,8 +17,10 @@ $gen = 0;
 // Detect amount of forms seen for mon
 $cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon;
 $result = $conn->query($cfquery);
+$formsseen = '';
 if($result){$cfcount = $result->num_rows;}
 
+// Detect shiny and show/hide
 if(empty($shiny[$pokemon])){
     $showshiny='false';
     } else {
@@ -62,12 +64,12 @@ switch ($pokemon) {
 if(!empty($released[$pokemon])){$checkrelease = $released[$pokemon];} else {$checkrelease = '';}
 if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
 
-if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
+// Use formid 0 for images if &form= is not used
+if(isset($_GET['form'])){$form=$_GET['form'];} else {$form="0";}
 if(!empty($forms[$pokemon][$form])){
-$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {
-    $formname = 'Unknown form';
-}
+if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="";}} else {$formname="Unknown form";}
 
+// Check total mons for spawnrate calculation
 $totalquery = $conn->query("select count(*) as total from pokemon");
 $totalrow = $totalquery->fetch_assoc();
 $totalquery->close();
@@ -142,6 +144,8 @@ $maxcpquery = $conn->query("select pokemon_id, cp from pokemon where pokemon_id=
 $maxcprow = $maxcpquery->fetch_assoc();
 $maxcpquery->close();
 if(!empty($maxcprow['cp'])){$maxcp = $maxcprow['cp'];} else {$maxcp = '-';}
+
+// Rarity calculation
 
 if($totalseen>0){
 $rarity = 'Common';
@@ -227,7 +231,11 @@ if(!file_exists($img)){
 </div>
   </p>
   <hr class="my-4">
+  <?php if($form > 0){?>
 <h4 class="display-6">Stats<?php if($cfcount > 1){if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';}} ?></h4>
+  <?php } else {?>
+  <h4 class="display-6">Stats</h4>
+  <?php }?>
 <p class="lead">
 <?php if($totalseen>0){?>
 
@@ -241,8 +249,17 @@ if(!file_exists($img)){
 </tr>
 
 <tr>
-<th>Forms seen:</th>
-<td><?= $cfcount?></td>
+<th><?= $cfcount?> Form(s) seen:</th>
+<td> 
+<?php if($result && $result->num_rows >= 1 ){
+    while ($row = $result->fetch_object() ) {
+        if ($row->form == '0'){
+            $output = 'No Form';
+        } else {if(!empty($forms[$pokemon][$row->form])){$output = $forms[$pokemon][$row->form];} else {$output = 'Unknown form';}}
+echo '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png" height="48" width="48"> - <a href="index.php?page=seen&pokemon=' . $pokemon . '&form=' . $row->form . '">' . $output . '</a><br>';
+    }
+}?>
+</td>
 </tr>
 
 <tr>
@@ -306,7 +323,16 @@ $i=0;?>
       <td class="align-middle">Shiny</td>
       <td class="align-middle"><a href="#">Link</a></td>
     </tr>
-  <?php } else {}?>
+  <?php } else {}
+  $noformimg=$assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_00.png';
+  if(!file_exists($noformimg)){
+            $noformimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+            }?>
+  <tr align='center' style='align-content:center;text-align:center;'>
+  <td class="align-middle"><img src='<?=$noformimg?>'height='96' width='96' class='dexentry'></td>
+  <td class="align-middle">No form</td>
+  <td class="align-middle"><a href="#">Link</a></td>
+  </tr>
 <?php foreach($json as $pokemonid => $value) if ($pokemonid == $pokemon){
     foreach ($value as $formid => $fname) if ($fname != 'Shadow' && $fname != 'Purified' && $fname != 'NoEvolve'){
         $formimg = 'images/pokemon/pokemon_icon_' . str_pad($pokemonid, 3, 0, STR_PAD_LEFT) . '_' . str_pad($formid, 2, 0, STR_PAD_LEFT) . '.png';
