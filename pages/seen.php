@@ -15,7 +15,7 @@ $pokemon = $_GET['pokemon'];
 $gen = 0;
 
 // Detect amount of forms seen for mon
-$cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon;
+$cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon . ' union select distinct form from raid where pokemon_id=' . $pokemon;
 $result = $conn->query($cfquery);
 $formsseen = '';
 if($result){$cfcount = $result->num_rows;}
@@ -335,7 +335,7 @@ $i=0;?>
   <tr align='center' style='align-content:center;text-align:center;'>
   <td class="align-middle"><img src='<?=$noformimg?>'height='96' width='96' class='dexentry'></td>
   <td class="align-middle">No form</td>
-  <td class="align-middle"><a href="#">Link</a></td>
+  <td class="align-middle"><a href="index.php?page=seen&pokemon=<?=$pokemon?>&form=0">Link</a></td>
   </tr>
 <?php foreach($json as $pokemonid => $value) if ($pokemonid == $pokemon){
     foreach ($value as $formid => $fname) if ($fname != 'Shadow' && $fname != 'Purified' && $fname != 'NoEvolve'){
