@@ -70,7 +70,7 @@ if(!empty($forms[$pokemon][$form])){
 if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="";}} else {$formname="Unknown form";}
 
 // Check total mons for spawnrate calculation
-$totalquery = $conn->query("select count(*) as total from pokemon");
+$totalquery = $conn->query("select (select count(raid.pokemon_id) from raid) + (select count(pokemon.pokemon_id) from pokemon) as total");
 $totalrow = $totalquery->fetch_assoc();
 $totalquery->close();
 
