@@ -17,7 +17,7 @@ $gen = 0;
 // Detect amount of forms seen for mon
 $cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon;
 $result = $conn->query($cfquery);
-$cfcount = $result->num_rows;
+if($result){$cfcount = $result->num_rows;}
 
 if(empty($shiny[$pokemon])){
     $showshiny='false';
