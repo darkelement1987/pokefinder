@@ -306,7 +306,7 @@ if(!file_exists($img)){
 </div>
 <?php } else { echo 'This form is not seen';}?>
 <hr class="my-4">
-<span id='forms'><h4 class="display-6">Forms</h4></span>
+<span id='forms'><h4 class="display-6">Forms in game</h4></span>
 <?php
 $data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json');
 $json = json_decode($data,true);
