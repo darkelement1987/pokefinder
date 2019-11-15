@@ -253,12 +253,16 @@ if(!file_exists($img)){
 <td> 
 <?php if($result && $result->num_rows >= 1 ){
     while ($row = $result->fetch_object() ) {
-        if ($row->form == '0'){
-            $output = 'No Form';
-        } else {if(!empty($forms[$pokemon][$row->form])){$output = $forms[$pokemon][$row->form];} else {$output = 'Unknown form';}}
-echo '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png" height="48" width="48"> - <a href="index.php?page=seen&pokemon=' . $pokemon . '&form=' . $row->form . '">' . $output . '</a><br>';
-    }
-}?>
+        $formsseenimg = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png';
+        if(!file_exists($formsseenimg)){
+            $formsseenimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+            }
+            if ($row->form == '0'){
+                $output = 'No Form';
+                } else {if(!empty($forms[$pokemon][$row->form])){$output = $forms[$pokemon][$row->form];} else {$output = 'Unknown form';}}
+                echo '<img src="' . $formsseenimg . '" height="48" width="48"> - <a href="index.php?page=seen&pokemon=' . $pokemon . '&form=' . $row->form . '">' . $output . '</a><br>';
+                }
+                }?>
 </td>
 </tr>
 
