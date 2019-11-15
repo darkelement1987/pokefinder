@@ -65,11 +65,8 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form='0';}
 if(!empty($forms[$pokemon][$form])){
 $formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {
-    $formname = '';
+    $formname = 'Unknown form';
 }
-
-if ($form == '0'){$formname = 'No form';}
-if ($formname == ''){$formname = 'Unknown form';}
 
 $totalquery = $conn->query("select count(*) as total from pokemon");
 $totalrow = $totalquery->fetch_assoc();
