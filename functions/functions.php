@@ -195,11 +195,17 @@ function getRocket()
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
-            $row->rgender = str_replace(" Grunt","",$rocket_name[$row->type]['grunt']);
+            $row->rgender = $rocket_name[$row->type]['grunt'];
             $row->rtype = $rocket_name[$row->type]['type'];
            if (empty($rocket_name[$row->type]['type'])) {
                 $row->rtype = 'Unknown';
             }
+            
+            if (empty($rocket_name[$row->type]['grunt'])){$row->rtype='Rocket';}
+            if($row->type == '41'){$row->rgender = 'Cliff';}
+            if($row->type == '42'){$row->rgender = 'Arlo';}
+            if($row->type == '43'){$row->rgender = 'Sierra';}
+            if($row->type == '44'){$row->rgender = 'Giovanni';}
 
             $row->secreward = $rocket_name[$row->type]['second_reward'];
             $row->onefirst = $rocket_name[$row->type]['encounters']['first'];
