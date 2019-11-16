@@ -8,7 +8,7 @@ $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUd
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 $released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
 $shiny = json_decode(file_get_contents('https://pogoapi.net/api/v1/shiny_pokemon.json'), true);
-$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json'), true);
+$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
@@ -66,8 +66,7 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 
 // Use formid 0 for images if &form= is not used
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form="0";}
-if(!empty($forms[$pokemon][$form])){
-if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="";}} else {$formname="Unknown form";}
+if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="Unknown form";}
 
 // Check total mons for spawnrate calculation
 $totalquery = $conn->query("select (select count(raid.pokemon_id) from raid) + (select count(pokemon.pokemon_id) from pokemon) as total");
@@ -208,7 +207,7 @@ if(!file_exists($img)){
 <h4 class="display-6">Description</h4>
   <p class="lead"><?= $desc?></p>
 <hr class="my-4">
-
+<?php if(!isset($_GET['form'])){?>
 <h4 class="display-6">Most Seen Rank</h4>
   <p class="lead">
   
@@ -230,7 +229,7 @@ if(!file_exists($img)){
 </table>
 </div>
   </p>
-  <hr class="my-4">
+<hr class="my-4"><?php }?>
   <?php if($form > 0){?>
 <h4 class="display-6">Stats<?php if($cfcount > 1){if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';}} ?></h4>
   <?php } else {?>
@@ -308,7 +307,7 @@ if(!file_exists($img)){
 <hr class="my-4">
 <span id='forms'><h4 class="display-6">Forms in game</h4></span>
 <?php
-$data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-5/src/util/forms.json');
+$data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json');
 $json = json_decode($data,true);
 $i=0;?>
 <div class="table-responsive-sm">
