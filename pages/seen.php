@@ -129,7 +129,7 @@ $monseen = $monrow['count'];
 $raidmonseen = $raidmonrow['count'];
 $totalseen = $monseen + $raidmonseen;
 $total = $totalrow['total'];
-$spawnrate = number_format((($totalseen / $total)*100), 2, '.', '');
+$spawnrate = number_format((($totalseen / $total)*100), 4, '.', '');
 $lat = $monrow['latitude'];
 $lon = $monrow['longitude'];
 $last = $monrow['last_seen'];
@@ -151,7 +151,7 @@ if($totalseen>0){
 $rarity = 'Common';
 
 switch ($rarity) {
-    case $spawnrate == 0.00:
+    case $spawnrate == 0:
     $rarity = 'New Spawn';
         break;
     case $spawnrate < 0.01:
@@ -160,10 +160,10 @@ switch ($rarity) {
     case $spawnrate < 0.03:
     $rarity = 'Very Rare';
         break;
-    case $spawnrate < 0.5:
+    case $spawnrate < 0.50:
     $rarity = 'Rare';
         break;
-    case $spawnrate < 0.1:
+    case $spawnrate < 1:
     $rarity = 'Uncommon';
         break;
 }
