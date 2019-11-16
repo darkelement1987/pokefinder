@@ -249,7 +249,7 @@ if(!file_exists($img)){
 </tr>
 
 <tr>
-<th><?= $cfcount?> Form(s) seen:</th>
+<th><?= $cfcount?> <?php if($cfcount > 1){?>Forms<?php } else {?>Form<?php }?> seen:</th>
 <td> 
 <?php if($result && $result->num_rows >= 1 ){
     while ($row = $result->fetch_object() ) {

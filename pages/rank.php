@@ -5,7 +5,7 @@ global $conn;
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 
 if(isset($_GET['mode'])){
-    if($_GET['mode']!='raid' && $_GET['mode']!='pokemon'){
+    if($_GET['mode']!='raid' && $_GET['mode']!='pokemon' && $_GET['mode']!='0' && $_GET['mode']!='100'){
         $mode=' (Wild Pokemon)';
         $type='pokemon';
         $end='disappear_time';
@@ -23,6 +23,18 @@ if(isset($_GET['mode'])){
                 $end='end';
                 $query = 'SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id ) a ) b WHERE pokemon_id is not null ORDER BY rank asc, pokemon_id asc';
             }
+            if($_GET['mode']=='0'){
+                $mode=' (0%)';
+                $type='pokemon';
+                $end='individual_attack=0 AND individual_defense=0 AND individual_stamina=0 AND disappear_time';
+                $query = 'select row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank, pokemon_id, count(*) as count from pokemon where individual_attack=0 and individual_defense=0 and individual_stamina=0 group by pokemon_id order by count desc, pokemon_id asc';
+            }  
+            if($_GET['mode']=='100'){
+                $mode=' (100%)';
+                $type='pokemon';
+                $end='individual_attack=15 AND individual_defense=15 AND individual_stamina=15 AND disappear_time';
+                $query = 'select row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank, pokemon_id, count(*) as count from pokemon where individual_attack=15 and individual_defense=15 and individual_stamina=15 group by pokemon_id order by count desc, pokemon_id asc';
+            }  
         }
 } else {
     $mode=' (Wild Pokemon)';
@@ -33,7 +45,9 @@ if(isset($_GET['mode'])){
 
 $result = $conn->query($query);?>
 <h3>Pokemon Seen Ranks<?=$mode?></h3>
-[<a href="index.php?page=rank&mode=pokemon">Wild</a>][<a href="index.php?page=rank&mode=raid">Raids</a>]
+<p>
+[<a href="index.php?page=rank&mode=pokemon">Wild</a>][<a href="index.php?page=rank&mode=raid">Raids</a>][<a href="index.php?page=rank&mode=0">0%</a>][<a href="index.php?page=rank&mode=100">100%</a>]
+</p>
 <div class="table-responsive-sm">
 <table id="rankTable" class="table table-striped table-bordered w-auto">
   <thead>
