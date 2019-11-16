@@ -208,8 +208,8 @@ function getRocket()
             if($row->type == '44'){$row->rgender = 'Giovanni';}
 
             $row->secreward = $rocket_name[$row->type]['second_reward'];
-            $row->onefirst = $rocket_name[$row->type]['encounters']['first'];
-            $row->onesecond = $rocket_name[$row->type]['encounters']['second'];
+            if(!empty($rocket_name[$row->type]['encounters']['first'])){$row->onefirst = $rocket_name[$row->type]['encounters']['first'];}
+            if(!empty($rocket_name[$row->type]['encounters']['second'])){$row->onesecond = $rocket_name[$row->type]['encounters']['second'];}
 
                         if (is_array($row->onefirst) || is_array($row->onesecond) || is_array($row->onethird)) {
                             for($x = 0; $x <= 2; $x++){
