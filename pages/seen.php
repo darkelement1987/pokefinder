@@ -160,7 +160,7 @@ switch ($rarity) {
     case $spawnrate < 0.03:
     $rarity = 'Very Rare';
         break;
-    case $spawnrate < 0.50:
+    case $spawnrate < 0.5:
     $rarity = 'Rare';
         break;
     case $spawnrate < 1:
