@@ -66,15 +66,13 @@ $result = $conn->query($query);?>
     $seenquery = 'SELECT pokemon_id, form FROM ' . $type . ' WHERE ' . $end . ' > utc_timestamp();';
     $seenresult = $conn->query($seenquery);
     $seenmon = [];
-    $seenform = [];
     if($seenresult && $seenresult->num_rows >= 1 ) {
         while ($seenrow = $seenresult->fetch_object() ) {
-        $seenmon[] = $seenrow->pokemon_id;
-        $seenform[] = $seenrow->form;
+        $seenmon[] = $seenrow->pokemon_id . '_' . $seenrow->form;
         }
     }
     while ($row = $result->fetch_object() ) {
-        if (!in_array($row->pokemon_id, $seenmon) && !in_array($row->form, $seenform)) {$seen='No';} else {$seen='Yes';}
+        if (!in_array($row->pokemon_id . '_' . $row->form, $seenmon)) {$seen='No';} else {$seen='Yes';}
         
         if($row->form > 0){
     if(!empty($forms[$row->pokemon_id][$row->form])){$formname = str_replace("_"," ",$forms[$row->pokemon_id][$row->form]);} else {$formname="Unknown form";}
