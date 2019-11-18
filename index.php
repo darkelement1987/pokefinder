@@ -53,8 +53,12 @@ include './includes.php';
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?page=raids"><i class="fas fa-fist-raised"></i> Raids <span class="badge badge-secondary"><?= $raidcount ?></span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.php?page=pokedex"><i class="fas fa-mobile-alt"></i> Pokedex</a>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-mobile-alt"></i> Pokedex</a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="index.php?page=pokedex">View Pokedex</a>
+                                <a class="dropdown-item" href="index.php?page=newentries">New Entries</a>
+                              </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?page=rank"><i class="far fa-list-alt"></i> Rankings</a>

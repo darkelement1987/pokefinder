@@ -521,3 +521,36 @@ $(document).ready(function ()
 
 	});
 });
+
+$(document).ready(function ()
+{
+	$('#newDexTable').DataTable(
+	{
+		order: [
+			[2, "desc"]
+		],
+
+
+        paging:true,
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
