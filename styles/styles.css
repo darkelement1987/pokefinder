@@ -216,3 +216,7 @@ img.unseen, img.dexentry {
 div#dexcol.col:hover span#entrytext {
     font-weight:bold;
 }
+
+div#myTopnav {
+    font-family: sans-serif;
+}
