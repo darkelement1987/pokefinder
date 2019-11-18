@@ -58,8 +58,8 @@ include './includes.php';
                               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="index.php?page=pokedex"><i class="fas fa-mobile-alt"></i> View Pokedex</a>
                                 <a class="dropdown-item" href="index.php?page=newentries"><i class="far fa-bell"></i> New Entries</a>
-                                <a class="dropdown-item" href="index.php?page=newentries"><i class="far fa-list-alt"></i> Rankings</a>
-                                <a class="dropdown-item" href="index.php?page=newentries"><i class="fas fa-grin-stars"></i> Shiny</a>
+                                <a class="dropdown-item" href="index.php?page=rank"><i class="far fa-list-alt"></i> Rankings</a>
+                                <a class="dropdown-item" href="index.php?page=shiny"><i class="fas fa-grin-stars"></i> Shiny</a>
                               </div>
                             </li>
                         </ul>
