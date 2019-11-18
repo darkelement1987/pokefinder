@@ -77,6 +77,9 @@ include './includes.php';
                         <?php if(!empty($pinterest)){ ?><li><a href="<?= $pinterest?>" class="nav-link"><i class="fab fa-pinterest"></i> <span class="social">Pinterest</span></a></li><?php }?>
                         </ul>
                         <?php }?>
+                        
+                        <?php if($usediscordauth){ ?><li><ul class="navbar-nav ml-auto"><a href="./?discordlogout=true" class="nav-link"><i class="fab fa-discord"></i> <span class="social">Discord-logout</span></a></li></ul><?php }?>
+
                     </div>
                 </nav>
             </div>

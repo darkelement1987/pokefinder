@@ -335,3 +335,6 @@ function getRaids()
         return $raids;
     }
 }
+function in_array_any($needles, $haystack) {
+    return !empty(array_intersect($needles, $haystack));
+ }
