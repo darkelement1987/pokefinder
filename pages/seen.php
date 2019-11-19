@@ -198,7 +198,7 @@ if(!file_exists($img)){
 <div class="jumbotron-fluid">
 <div class="media">
   <img src="<?=$img?>" class="dexentry">
-  <div class="media-body">
+  <div class="media-body" style="align-self:center;">
     <h3 class="mt-0"><?=$monname?></h3>
     <h5><small>📱 Pokedex ID: #<?=str_pad($pokemon, 3, 0, STR_PAD_LEFT)?><br><?=$type1 . $type2 . ' / Gen ' . $gen . ' / ' . $rarity?></small></h5>
   </div>

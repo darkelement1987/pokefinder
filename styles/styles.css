@@ -210,7 +210,7 @@ div#dexcol.col:hover {
 }
 
 img.unseen, img.dexentry {
-    padding:5px;
+    padding:10px;
 }
 
 div#dexcol.col:hover span#entrytext {
@@ -219,4 +219,17 @@ div#dexcol.col:hover span#entrytext {
 
 div#myTopnav {
     font-family: sans-serif;
+}
+
+.dropdown-item:hover{
+    background-color: #d0d6dc;
+    font-weight:bold;
+}
+
+div.dropdown-menu.show{
+    box-shadow: 2px 2px 5px 0px #00000054;
+}
+
+div#navbarSupportedContent.collapse.navbar-collapse{
+    text-shadow: 2px 2px 4px #0000006b;
 }
