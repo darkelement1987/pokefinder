@@ -164,8 +164,13 @@ function getMons()
                             }
                             $row->level = (round($row->level)*2)/2;
                             }
-
-            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png';
+                            
+                            if (!$row->form && $row->form==0){$pad=2;}
+                            if ($row->form>0 && $row->form<10){$pad=1;}
+                            if ($row->form>10 && $row->form<100){$pad=2;}
+                            if ($row->form>99 && $row->form<1000){$pad=3;}
+                            
+            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
             // Detect Form
@@ -313,6 +318,12 @@ function getRaids()
             $row->spawn = date($clock, $row->spawn);
             $row->raid_scan_time = date($clock, $row->last_scanned);
             $row->name = $row->name . $ex;
+            
+            if (!$row->form && $row->form==0){$pad=2;}
+            if ($row->form>0 && $row->form<10){$pad=1;}
+            if ($row->form>10 && $row->form<100){$pad=2;}
+            if ($row->form>99 && $row->form<1000){$pad=3;}
+            
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
                 $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
@@ -323,7 +334,7 @@ function getRaids()
                 $row->id = '#???';
             // Else it's a raid :-)
             } else {
-                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';              
+                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';              
                 $row->formlink = '&form=' . $row->form;
                 $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
