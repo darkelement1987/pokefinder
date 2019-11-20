@@ -68,6 +68,11 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form="0";}
 if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="Unknown form";}
 
+if (!$form && $form==0){$pad=2;}
+if ($form>0 && $form<10){$pad=1;}
+if ($form>10 && $form<100){$pad=2;}
+if ($form>99 && $form<1000){$pad=3;}
+
 // Check total mons for spawnrate calculation
 $totalquery = $conn->query("select (select count(raid.pokemon_id) from raid) + (select count(pokemon.pokemon_id) from pokemon) as total");
 $totalrow = $totalquery->fetch_assoc();
@@ -173,13 +178,13 @@ switch ($rarity) {
 if(!$monrow || empty($monrow)){$monseen='0';$last='-';} else {$last = date('l jS \of F Y ' . $clock, $last);}
 if(!$raidmonrow || empty($raidmonrow)){$raidmonseen='0';$raidlast='-';} else {$raidlast = date('l jS \of F Y ' . $clock, $raidlast);}
 
-$img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, 2, 0, STR_PAD_LEFT) . '.png';
+$img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
 
 // Perform check because of missing 719 - 807 in json
 if($pokemon < 808){
 if(empty($dex[$pokemon-1]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-1]['description']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='Unknown type(s)';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][0]['name']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name'])){$type2='';} else { $type2 = ' / ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['emoji'] . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, 1, 0, STR_PAD_LEFT)]['types'][1]['name']; }
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='Unknown type(s)';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name']; }
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name'])){$type2='';} else { $type2 = ' / ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['emoji'] . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name']; }
 } else {
     if(empty($dex[$pokemon-90]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-90]['description']; }
 if(empty($dex[$pokemon-90]['types'][0])){$type1='Unknown type(s)';} else { $type1 = ucfirst($dex[$pokemon-90]['types'][0]); }
@@ -252,7 +257,7 @@ if(!file_exists($img)){
 <td> 
 <?php if($result && $result->num_rows >= 1 ){
     while ($row = $result->fetch_object() ) {
-        $formsseenimg = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png';
+        $formsseenimg = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
         if(!file_exists($formsseenimg)){
             $formsseenimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
             }
@@ -338,7 +343,11 @@ $i=0;?>
   </tr>
 <?php foreach($json as $pokemonid => $value) if ($pokemonid == $pokemon){
     foreach ($value as $formid => $fname) if ($fname != 'Shadow' && $fname != 'Purified' && $fname != 'NoEvolve'){
-        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($pokemonid, 3, 0, STR_PAD_LEFT) . '_' . str_pad($formid, 2, 0, STR_PAD_LEFT) . '.png';
+        if (!$formid && $formid==0){$pad=2;}
+        if ($formid>0 && $formid<10){$pad=1;}
+        if ($formid>10 && $formid<100){$pad=2;}
+        if ($formid>99 && $formid<1000){$pad=3;}
+        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($pokemonid, 3, 0, STR_PAD_LEFT) . '_' . str_pad($formid, $pad, 0, STR_PAD_LEFT) . '.png';
         $link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $formid;
         if(!file_exists($formimg)){
             $formimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
