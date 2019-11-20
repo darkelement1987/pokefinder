@@ -257,6 +257,10 @@ if(!file_exists($img)){
 <td> 
 <?php if($result && $result->num_rows >= 1 ){
     while ($row = $result->fetch_object() ) {
+        if (!$row->form && $row->form==0){$pad=2;}
+        if ($row->form>0 && $row->form<10){$pad=1;}
+        if ($row->form>10 && $row->form<100){$pad=2;}
+        if ($row->form>99 && $row->form<1000){$pad=3;}
         $formsseenimg = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
         if(!file_exists($formsseenimg)){
             $formsseenimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
