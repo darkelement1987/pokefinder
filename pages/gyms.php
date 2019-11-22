@@ -2,8 +2,8 @@
 global $conn;
 global $clock;
 global $assetRepo;
-
-$gmaps = '';
+// Reminder: Remove next line and move to config, set $gmaps as global
+$gmaps = 'AIzaSyCGhAi9BF_UjqwHRK4mrcOhWJGLViRuyZQ';
 $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 ?>
 
