@@ -62,6 +62,13 @@ include './includes.php';
                                 <a class="dropdown-item" href="index.php?page=shiny"><i class="fas fa-grin-stars"></i> Shiny</a>
                               </div>
                             </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-map-signs"></i> Locations</a>
+                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="index.php?page=pokestops"><i class="fas fa-map-pin"></i> Pokestops</a>
+                                <a class="dropdown-item" href="index.php?page=gyms"><i class="fas fa-bolt"></i> Gyms</a>
+                              </div>
+                            </li>
                         </ul>
                         <?php if($socialon != false) {?>
                         <ul class="navbar-nav ml-auto">

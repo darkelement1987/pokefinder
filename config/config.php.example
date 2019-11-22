@@ -13,6 +13,7 @@ $title = "PokeFinder"; // Title of website
 $maplink = ""; // Enter url for your map to show map-button on main page
 $seconds = false; // Show seconds for times set to true to show seconds
 $socialon = false; // Enable/disable socialicons
+$gmaps = ''; // Google Maps API-Key for Reverse Geocoding. Necessary if you want to show addresses for gyms/stops
 $mapkey = ''; // Need mapquest.com API-key. Signup @ https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register
               // Make key @ https://developer.mapquest.com/user/me/apps
               
