@@ -7,7 +7,7 @@ global $gmaps;
 ?>
 
 <?php if(!isset($_GET['pokestop'])){
-    $query = "SELECT pokestop_id, guid, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as incident_expiration, quest_type, image, name from pokestop left join trs_quest on pokestop.pokestop_id = trs_quest.guid";
+    $query = "SELECT pokestop_id, guid, UNIX_TIMESTAMP(CONVERT_TZ(lure_expiration, '+00:00', @@global.time_zone)) as lure_expiration, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as incident_expiration, quest_type, image, name from pokestop left join trs_quest on pokestop.pokestop_id = trs_quest.guid";
     $result = $conn->query($query);
 ?>
 <h3>Pokestops</h3>
@@ -19,6 +19,7 @@ global $gmaps;
       <th>Stop</th>
       <th>Team Rocket</th>
       <th>Quest</th>
+      <th>Lured</th>
     </tr>
   </thead>
   <tbody>
@@ -29,12 +30,14 @@ global $gmaps;
         if($row->quest_type !== NULL){$quest='Yes';} else {$quest='No';}
         if($row->image == NULL){$img='images/Unknown.png';} else {$img=$row->image;}
         if($row->name == NULL){$name='Unknown';} else {$name=$row->name;}
+        if(!empty($row->lure_expiration)){$lure='Lured until ' . date($clock, $row->lure_expiration);} else {$lure='No';}
 ?>
 <tr>
 <td class="align-middle"><img src="<?=$img?>" class="pic" height="46" width="46"></td>
 <td class="align-middle"><a href="index.php?page=pokestops&pokestop=<?=$row->pokestop_id?>"><?=$name?></a></td>
 <td class="align-middle"><?=$rocket?></td>
 <td class="align-middle"><?=$quest?></td>
+<td class="align-middle"><?=$lure?></td>
 </tr>
 <?php
     }
