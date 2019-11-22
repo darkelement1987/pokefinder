@@ -58,7 +58,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 <td class="align-middle"><?=$raid?></td>
 <td class="align-middle"><?=$ex?></td>
 <td class="align-middle"><?=$row->team?></td>
-<td class="align-middle"><img src="<?=$assetRepo . 'pokemon_icon_' . str_pad($row->guard_pokemon_id, 3, 0, STR_PAD_LEFT)?>_00.png" height="46px" width="46px"><br><a href="index.php?page=seen&pokemon=<?=str_pad($row->guard_pokemon_id, 3, 0, STR_PAD_LEFT)?>"><?=$monname[$row->guard_pokemon_id]['name']?></a></td>
+<td class="align-middle"><img src="<?=$assetRepo . 'pokemon_icon_' . str_pad($row->guard_pokemon_id, 3, 0, STR_PAD_LEFT)?>_00.png" height="46px" width="46px"><br><a href="index.php?page=seen&pokemon=<?=$row->guard_pokemon_id?>"><?=$monname[$row->guard_pokemon_id]['name']?></a></td>
 <td class="align-middle"><?=$row->slots_available?></td>
 </tr>
 <?php
