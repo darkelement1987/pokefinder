@@ -164,8 +164,13 @@ function getMons()
                             }
                             $row->level = (round($row->level)*2)/2;
                             }
-
-            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png';
+                            
+                            if (!$row->form && $row->form==0){$pad=2;}
+                            if ($row->form>0 && $row->form<10){$pad=1;}
+                            if ($row->form>10 && $row->form<100){$pad=2;}
+                            if ($row->form>99 && $row->form<1000){$pad=3;}
+                            
+            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
             // Detect Form
@@ -189,12 +194,14 @@ function getRocket()
     $rocket = [];
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-    $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE name IS NOT NULL and incident_expiration > utc_timestamp() ORDER BY scanned desc;";
+    $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE incident_expiration > utc_timestamp() ORDER BY scanned desc;";
 
     $result = $conn->query($sql);
 
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_object()) {
+            if($row->name == NULL){$row->name='Unknown';}
+            if($row->image == NULL){$row->image='/images/Unknown.png';}
             $row->rgender = $rocket_name[$row->type]['grunt'];
             $row->rtype = $rocket_name[$row->type]['type'];
            if (empty($rocket_name[$row->type]['type'])) {
@@ -313,6 +320,12 @@ function getRaids()
             $row->spawn = date($clock, $row->spawn);
             $row->raid_scan_time = date($clock, $row->last_scanned);
             $row->name = $row->name . $ex;
+            
+            if (!$row->form && $row->form==0){$pad=2;}
+            if ($row->form>0 && $row->form<10){$pad=1;}
+            if ($row->form>10 && $row->form<100){$pad=2;}
+            if ($row->form>99 && $row->form<1000){$pad=3;}
+            
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
                 $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
@@ -323,7 +336,7 @@ function getRaids()
                 $row->id = '#???';
             // Else it's a raid :-)
             } else {
-                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, 2, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';              
+                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';              
                 $row->formlink = '&form=' . $row->form;
                 $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
