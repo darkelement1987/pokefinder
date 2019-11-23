@@ -1,5 +1,5 @@
 <?php
-$mons = getMons();
+if($_POST){$mons = getMons();}
 ?>
 <?php if(!$_POST){?><h3 class="display-6">Search:</h1><?php }?>
 <form action="index.php?page=results" method="post" name="searchmon" id="searchmon" <?php if($_POST){?>hidden<?php }?>><input name="page" type="hidden" value="test" />

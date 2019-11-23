@@ -7,7 +7,6 @@ $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUd
 $stats = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/PoracleJS/v4/src/util/monsters.json'), true);
 $released = json_decode(file_get_contents('https://pogoapi.net/api/v1/released_pokemon.json'), true);
 $shiny = json_decode(file_get_contents('https://pogoapi.net/api/v1/shiny_pokemon.json'), true);
-$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json'), true);
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
@@ -40,7 +39,7 @@ if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){
 
 // Use formid 0 for images if &form= is not used
 if(isset($_GET['form'])){$form=$_GET['form'];} else {$form="0";}
-if(!empty($forms[$pokemon][$form])){$formname = str_replace("_"," ",$forms[$pokemon][$form]);} else {$formname="Unknown form";}
+$formname = formName($pokemon, $form);
 
 if (!$form && $form==0){$pad=2;}
 if ($form>0 && $form<10){$pad=1;}
@@ -215,7 +214,7 @@ if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">PokÃ
         $formsseenimg = monPic('pokemon', $pokemon, $row->form);
             if ($row->form == '0'){
                 $output = 'No Form';
-                } else {if(!empty($forms[$pokemon][$row->form])){$output = $forms[$pokemon][$row->form];} else {$output = 'Unknown form';}}
+                } else {$output = formName($pokemon,$row->form);}
                 echo '<img src="' . $formsseenimg . '" height="48" width="48"> - <a href="index.php?page=seen&pokemon=' . $pokemon . '&form=' . $row->form . '">' . $output . '</a><br>';
                 }
                 }?>

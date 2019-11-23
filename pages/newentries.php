@@ -3,7 +3,6 @@ global $conn;
 global $clock;
 
 $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json'), true);
 $query = "select pokemon_id, form, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_modified, UNIX_TIMESTAMP(CONVERT_TZ(disappear_time, '+00:00', @@global.time_zone)) as disappear_time, count(pokemon.pokemon_id) as count from pokemon group by pokemon_id, form having count <= 1 order by disappear_time desc";
 $result = $conn->query($query);?>
 <h3>New Pokedex entries</h3>
@@ -22,8 +21,8 @@ $result = $conn->query($query);?>
 <?php if($result && $result->num_rows >= 1 ) {
     while ($row = $result->fetch_object() ) {
         if($row->form > 0){
-            if(!empty($forms[$row->pokemon_id][$row->form])){$formname = str_replace("_"," ",$forms[$row->pokemon_id][$row->form]);} else {$formname="Unknown form";}
-            } else {
+            $formname = formName($row->pokemon_id,$row->form);
+        } else {
                 $formname = '-';
             }
 ?>

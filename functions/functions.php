@@ -168,11 +168,11 @@ function getMons()
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
             // Detect Form
-            if (empty($row->form)){
-                $row->formname='-';
-                } else {
-                    $row->formname = $mon_name[$row->pokemon_id]['forms'][$row->form]['formName'];
-                    }
+            if($row->form > 0){
+                $row->formname = formName($row->pokemon_id,$row->form);
+            } else {
+                $row->formname = '-';
+            }
 
             $mons[] = $row;
         }
@@ -325,6 +325,7 @@ function getRaids()
                 $row->sprite = '<img src="' . monPic('pokemon', $row->pokemon_id, $row->form) . '" height="42" width="42"/>';              
                 $row->formlink = '&form=' . $row->form;
                 $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
+                if($row->form > 0){$row->formname = formName($row->pokemon_id,$row->form);}
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
                 if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
                 $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
@@ -437,3 +438,9 @@ function monPic($mode, $mon, $form){
                     }
                     return $img;
                     }
+                    
+function formName($monid,$formid){
+    $forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json'), true);
+    if(!empty($forms[$monid][$formid])){$formname = str_replace("_"," ",$forms[$monid][$formid]);} else {$formname="Unknown form";}
+            return $formname;
+}

@@ -2,7 +2,6 @@
 global $conn;
 
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-$forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkelement1987/PoracleJS/patch-6/src/util/forms.json'), true);
 
 if(isset($_GET['mode'])){
     if($_GET['mode']!='raid' && $_GET['mode']!='pokemon' && $_GET['mode']!='0' && $_GET['mode']!='100'){
@@ -74,8 +73,8 @@ $result = $conn->query($query);?>
         if (!in_array($row->pokemon_id . '_' . $row->form, $seenmon)) {$seen='No';} else {$seen='Yes';}
         
         if($row->form > 0){
-    if(!empty($forms[$row->pokemon_id][$row->form])){$formname = str_replace("_"," ",$forms[$row->pokemon_id][$row->form]);} else {$formname="Unknown form";}
-    } else {
+            $formname=formName($row->pokemon_id,$row->form);
+        } else {
         $formname = '-';
     }
 
