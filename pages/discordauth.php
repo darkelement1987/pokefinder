@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title> DiscordAuth</title>
+    <title>DiscordAuthentication</title>
     <?php
     session_start();
     require ('../vendor/autoload.php');
@@ -183,7 +183,6 @@ if (!empty($_SESSION['discordloggedin'])) {
                 echo "<div class='alert alert-info' role='error'>";
                 echo "2 factor authentication failed, please try again.</div>";
 
-
                 header("Refresh: 5; URL=$discordredirecturi");
                 unset($_SESSION['discordloggedin']);
                 unset($_SESSION['discordallowed']);
@@ -199,10 +198,10 @@ if (!empty($_SESSION['discordloggedin'])) {
 
 <body>
     <div class="text-center">
-        </div>
         <?php
-        require "../func.footer.php";
-    ?>
+            require "../func.footer.php";
+        ?>
+    </div>
 </body>
 
 </html>
