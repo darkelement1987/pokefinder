@@ -73,10 +73,6 @@ $result = $conn->query($query);?>
     }
     while ($row = $result->fetch_object() ) {
         if (!in_array($row->pokemon_id . '_' . $row->form, $seenmon)) {$seen='No';} else {$seen='Yes';}
-        if (!$row->form && $row->form==0){$pad=2;}
-        if ($row->form>0 && $row->form<10){$pad=1;}
-        if ($row->form>10 && $row->form<100){$pad=2;}
-        if ($row->form>99 && $row->form<1000){$pad=3;}
         
         if($row->form > 0){
     if(!empty($forms[$row->pokemon_id][$row->form])){$formname = str_replace("_"," ",$forms[$row->pokemon_id][$row->form]);} else {$formname="Unknown form";}
@@ -87,7 +83,7 @@ $result = $conn->query($query);?>
 ?>
 <tr>
 <td><?=$row->rank?></td>
-<td><img src="<?=$assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png'?>" height="32" width="32"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>"><?=$mon_name[$row->pokemon_id]['name']?></a></td>
+<td><img src="<?=monPic('pokemon',$row->pokemon_id,$row->form)?>" height="32" width="32"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>"><?=$mon_name[$row->pokemon_id]['name']?></a></td>
 <td><?=$formname?></td>
 <td><?=$row->count?></td>
 <td><?=$seen?></td>

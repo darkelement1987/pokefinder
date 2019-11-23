@@ -165,12 +165,7 @@ function getMons()
                             $row->level = (round($row->level)*2)/2;
                             }
                             
-                            if (!$row->form && $row->form==0){$pad=2;}
-                            if ($row->form>0 && $row->form<10){$pad=1;}
-                            if ($row->form>10 && $row->form<100){$pad=2;}
-                            if ($row->form>99 && $row->form<1000){$pad=3;}
-                            
-            $row->sprite = $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
+            $row->sprite = monPic('pokemon', $row->pokemon_id, $row->form);
             $row->name = $mon_name[$row->pokemon_id]['name'];
 
             // Detect Form
@@ -222,7 +217,7 @@ function getRocket()
                             for($x = 0; $x <= 2; $x++){
                                 if (!empty($row->onefirst[$x])) {
                                     $row->{"firstname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onefirst[$x])), '0')]['name'];
-                                    $row->{"firstrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onefirst[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onefirst[$x] . '.png" height="42" width="42"></a>';
+                                    $row->{"firstrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onefirst[$x])), '0') . '"><img src="' . monPic('pokemon', ltrim((str_replace("_00","",$row->onefirst[$x])), '0'), '0') . '" height="42" width="42"></a>';
                                     } else { 
                                     $row->{"firstrow" . $x} = '';
                                     $row->{"firstname" . $x} = '';
@@ -231,7 +226,7 @@ function getRocket()
                                     for($x = 0; $x <= 2; $x++) {
                                         if (!empty($row->onesecond[$x])) {
                                             $row->{"secondname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onesecond[$x])), '0')]['name'];
-                                            $row->{"secondrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onesecond[$x])), '0') . '"><img src="' . $assetRepo . 'pokemon_icon_' . $row->onesecond[$x] . '.png" height="42" width="42"></a>';
+                                            $row->{"secondrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onesecond[$x])), '0') . '"><img src="' . monPic('pokemon', ltrim((str_replace("_00","",$row->onesecond[$x])), '0'), '0') . '" height="42" width="42"></a>';
                                             } else {
                                                 $row->{"secondrow" . $x} = '';                                                
                                                 $row->{"secondname" . $x} = '';
@@ -272,7 +267,7 @@ function getQuest()
                 $row->text = $row->stardust . ' Stardust';
                 break;
                 case '7':
-                $row->type = $assetRepo . 'pokemon_icon_' . str_pad($row->monid, 3, 0, STR_PAD_LEFT) . '_00.png';
+                $row->type = monPic('pokemon',$row->monid,0);
                 $row->text = '<br><a href="index.php?page=seen&pokemon=' . $row->monid . '">' . $mon_name[$row->monid]['name'] . '</a>';
                 break;
             }
@@ -321,11 +316,6 @@ function getRaids()
             $row->raid_scan_time = date($clock, $row->last_scanned);
             $row->name = $row->name . $ex;
             
-            if (!$row->form && $row->form==0){$pad=2;}
-            if ($row->form>0 && $row->form<10){$pad=1;}
-            if ($row->form>10 && $row->form<100){$pad=2;}
-            if ($row->form>99 && $row->form<1000){$pad=3;}
-            
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
                 $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
@@ -336,7 +326,7 @@ function getRaids()
                 $row->id = '#???';
             // Else it's a raid :-)
             } else {
-                $row->sprite = '<img src="' . $assetRepo . 'pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png" height="42" width="42"/>';              
+                $row->sprite = '<img src="' . monPic('pokemon', $row->pokemon_id, $row->form) . '" height="42" width="42"/>';              
                 $row->formlink = '&form=' . $row->form;
                 $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
@@ -348,3 +338,106 @@ function getRaids()
         return $raids;
     }
 }
+
+function monGen($id){
+    $gen=0;
+    switch ($id) {
+        case $id <= 151:
+        $gen = 1;
+        break;
+        case $id <= 251:
+        $gen = 2;
+        break;
+        case $id <= 386:
+        $gen = 3;
+        break;
+        case $id <= 493:
+        $gen = 4;
+        break;
+        case $id <= 649:
+        $gen = 5;
+        break;
+        case $id <= 721:
+        $gen = 6;
+        break;
+        case $id <= 809:
+        $gen = 7;
+        break;
+    }
+    return $gen;
+}
+
+function rarity($pokemon, $form){
+    global $conn;
+    
+    $totalquery = $conn->query("select (select count(raid.pokemon_id) from raid) + (select count(pokemon.pokemon_id) from pokemon) as total");
+    $totalrow = $totalquery->fetch_assoc();
+    $totalquery->close();
+    
+    if(!isset($form)){
+    $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+    $monrow = $monquery->fetch_assoc();
+    $monquery->close();
+    $monname = $mon_name[$pokemon]['name'];
+    $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " order by last_seen desc limit 1");
+    $raidmonrow = $raidmonquery->fetch_assoc();
+    $raidmonquery->close();
+    $raidmonname = $mon_name[$pokemon]['name'];
+    } else {
+        $monquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as last_seen, latitude, longitude from pokemon where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
+        $monrow = $monquery->fetch_assoc();
+        $monquery->close();
+        $raidmonquery = $conn->query("select pokemon_id as pid, (select count(pokemon_id) from raid where pokemon_id=" . $pokemon . " and form=" . $form . ") as count, UNIX_TIMESTAMP(CONVERT_TZ(last_scanned, '+00:00', @@global.time_zone)) as last_seen from raid where pokemon_id=" . $pokemon . " and form=" . $form . " order by last_seen desc limit 1");
+        $raidmonrow = $raidmonquery->fetch_assoc();
+        $raidmonquery->close();
+        }
+        
+        $monseen = $monrow['count'];
+        $raidmonseen = $raidmonrow['count'];
+        $totalseen = $monseen + $raidmonseen;
+        $total = $totalrow['total'];
+        $spawnrate = number_format((($totalseen / $total)*100), 4, '.', '');
+        
+        if($totalseen>0){
+            $rarity = 'Common';
+            
+            switch ($rarity) {
+                case $spawnrate == 0:
+                $rarity = 'New Spawn';
+                break;
+                case $spawnrate < 0.01:
+                $rarity = 'Ultra Rare';
+                break;
+                case $spawnrate < 0.03:
+                $rarity = 'Very Rare';
+                break;
+                case $spawnrate < 0.5:
+                $rarity = 'Rare';
+                break;
+                case $spawnrate < 1:
+                $rarity = 'Uncommon';
+                break;
+                }
+                } else {
+                    $rarity = '-';
+                    }
+                    return $rarity;
+                    }
+                    
+function monPic($mode, $mon, $form){
+    global $assetRepo;
+    if (!$form && $form==0){$pad=2;}
+    if ($form>0 && $form<10){$pad=1;}
+    if ($form>10 && $form<100){$pad=2;}
+    if ($form>99 && $form<1000){$pad=3;}
+    if($mode=='shiny'){
+        $img='http://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
+            }
+            if($mode=='pokemon'){
+                $img = $assetRepo . 'pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
+                if(!file_exists($img)){
+                    $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+                    }
+                    }
+                    return $img;
+                    }

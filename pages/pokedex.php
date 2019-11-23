@@ -26,10 +26,7 @@ if($result && $result->num_rows >= 1 ) {
     $monid = str_pad($entry->id, 1, 0, STR_PAD_LEFT);
     $monsprite = str_pad($entry->id, 3, 0, STR_PAD_LEFT);
     if(!empty($entry->form->name)){$monname = $entry->name . '<br>(' . $entry->form->name . ')'; $formid = '_' . $entry->form->id;} else {$monname = $entry->name; $formid = '_00';}
-    $imgurl = 'images/pokemon/pokemon_icon_' . $monsprite . $formid . '.png';
-    if(!file_exists($imgurl)){
-        $imgurl='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-    }
+    $imgurl = monPic('pokemon',$monid,$entry->form->id);
     ?>  
 <?php if($entry->form->name ==''){?>
 <div class="col" id="dexcol">

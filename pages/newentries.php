@@ -23,17 +23,13 @@ $result = $conn->query($query);?>
 <?php if($result && $result->num_rows >= 1 ) {
     while ($row = $result->fetch_object() ) {
         if($row->form > 0){
-            if ($row->form>0 && $row->form<10){$pad=1;}
-            if ($row->form>10 && $row->form<100){$pad=2;}
-            if ($row->form>99 && $row->form<1000){$pad=3;}
             if(!empty($forms[$row->pokemon_id][$row->form])){$formname = str_replace("_"," ",$forms[$row->pokemon_id][$row->form]);} else {$formname="Unknown form";}
             } else {
-                if (!$row->form && $row->form==0){$pad=2;}
                 $formname = '-';
             }
 ?>
 <tr>
-<td class="align-middle"><img src="<?=$assetRepo?>pokemon_icon_<?=str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT)?>_<?=str_pad($row->form, $pad, 0, STR_PAD_LEFT)?>.png" height="46" width="46"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>" height="32" width="32"> <?=$monname[$row->pokemon_id]['name']?></a></td>
+<td class="align-middle"><img src="<?=monPic('pokemon',$row->pokemon_id,$row->form)?>" height="46" width="46"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>" height="32" width="32"> <?=$monname[$row->pokemon_id]['name']?></a></td>
 <td class="align-middle"><?=$formname?></td>
 <td class="align-middle"><span hidden><?=$row->last_modified?></span><?=date('l jS \of F Y ' . $clock, $row->last_modified)?></td>
 <td class="align-middle"><span hidden><?=$row->last_modified?></span><?=date('l jS \of F Y ' . $clock, $row->disappear_time)?></td>

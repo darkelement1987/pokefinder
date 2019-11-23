@@ -12,7 +12,6 @@ $forms = json_decode(file_get_contents('https://raw.githubusercontent.com/darkel
 
 if(isset($_GET['pokemon'])){
 $pokemon = $_GET['pokemon'];
-$gen = 0;
 
 // Detect amount of forms seen for mon
 $cfquery = 'select distinct form from pokemon where pokemon_id=' . $pokemon . ' union select distinct form from raid where pokemon_id=' . $pokemon;
@@ -37,30 +36,6 @@ $shiny[$pokemon]['found_wild'] == 'true'){
     }
 }
 
-switch ($pokemon) {
-    case $pokemon <= 151:
-    $gen = 1;
-    break;
-    case $pokemon <= 251:
-    $gen = 2;
-    break;
-    case $pokemon <= 386:
-    $gen = 3;
-    break;
-    case $pokemon <= 493:
-    $gen = 4;
-    break;
-    case $pokemon <= 649:
-    $gen = 5;
-    break;
-    case $pokemon <= 721:
-    $gen = 6;
-    break;
-    case $pokemon <= 809:
-    $gen = 7;
-    break;
-}
-
 if(!empty($released[$pokemon])){$checkrelease = $released[$pokemon];} else {$checkrelease = '';}
 if(empty($pokemon) || !is_numeric($pokemon) || $pokemon < 1 || $pokemon > 809 ){echo 'NO VALID/EMPTY ID';} else {
 
@@ -80,7 +55,11 @@ $totalquery->close();
 
 // Mon Ranking
 
-$monrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
+if(!isset($_GET['form'])){
+$monrankquery = $conn->query("SELECT pokemon_id, form, count, rank FROM ( SELECT pokemon_id, form, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, form, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id, form ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
+} else {
+    $monrankquery = $conn->query("SELECT pokemon_id, form, count, rank FROM ( SELECT pokemon_id, form, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, form, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id, form ) a ) b WHERE pokemon_id=" . $pokemon . " AND form=" . $form . " ORDER BY rank asc, pokemon_id asc");
+}
 $monrankrow = $monrankquery->fetch_assoc();
 $monrankquery->close();
 if(!empty($monrankrow['rank'])){
@@ -91,7 +70,11 @@ if(!empty($monrankrow['rank'])){
 
 // Raid Mon Ranking
 
-$raidrankquery = $conn->query("SELECT pokemon_id, count, rank FROM ( SELECT pokemon_id, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
+if(!isset($_GET['form'])){
+$raidrankquery = $conn->query("SELECT pokemon_id, form, count, rank FROM ( SELECT pokemon_id, form, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, form, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id, form ) a ) b WHERE pokemon_id=" . $pokemon . " ORDER BY rank asc, pokemon_id asc");
+} else {
+    $raidrankquery = $conn->query("SELECT pokemon_id, form, count, rank FROM ( SELECT pokemon_id, form, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, form, COUNT(pokemon_id) AS COUNT FROM raid GROUP BY pokemon_id, form ) a ) b WHERE pokemon_id=" . $pokemon . " AND form=" . $form . " ORDER BY rank asc, pokemon_id asc");
+}
 $raidrankrow = $raidrankquery->fetch_assoc();
 $raidrankquery->close();
 if(!empty($raidrankrow['rank'])){
@@ -151,34 +134,12 @@ if(!empty($maxcprow['cp'])){$maxcp = $maxcprow['cp'];} else {$maxcp = '-';}
 
 // Rarity calculation
 
-if($totalseen>0){
-$rarity = 'Common';
-
-switch ($rarity) {
-    case $spawnrate == 0:
-    $rarity = 'New Spawn';
-        break;
-    case $spawnrate < 0.01:
-    $rarity = 'Ultra Rare';
-        break;
-    case $spawnrate < 0.03:
-    $rarity = 'Very Rare';
-        break;
-    case $spawnrate < 0.5:
-    $rarity = 'Rare';
-        break;
-    case $spawnrate < 1:
-    $rarity = 'Uncommon';
-        break;
-}
-} else {
-    $rarity = 'No rarity, try a <a href="#forms">form</a>';
-}
+$rarity = rarity($pokemon, $form);
 
 if(!$monrow || empty($monrow)){$monseen='0';$last='-';} else {$last = date('l jS \of F Y ' . $clock, $last);}
 if(!$raidmonrow || empty($raidmonrow)){$raidmonseen='0';$raidlast='-';} else {$raidlast = date('l jS \of F Y ' . $clock, $raidlast);}
 
-$img = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
+$img = monPic('pokemon',$pokemon,$form);
 
 // Perform check because of missing 719 - 807 in json
 if($pokemon < 808){
@@ -193,10 +154,6 @@ if(empty($dex[$pokemon-90]['types'][1])){$type2='';} else { $type2 = ' / '. ucfi
 
 if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pokémon is not in game yet</div>';}
 
-// Replace mon image with placeholder sprite if image is not in assets yet
-if(!file_exists($img)){
-    $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-    }
 ?>
 
 <div class="container">
@@ -205,14 +162,13 @@ if(!file_exists($img)){
   <img src="<?=$img?>" class="dexentry">
   <div class="media-body" style="align-self:center;">
     <h3 class="mt-0"><?=$monname?></h3>
-    <h5><small>📱 Pokedex ID: #<?=str_pad($pokemon, 3, 0, STR_PAD_LEFT)?><br><?=$type1 . $type2 . ' / Gen ' . $gen . ' / ' . $rarity?></small></h5>
+    <h5><small>📱 Pokedex ID: #<?=str_pad($pokemon, 3, 0, STR_PAD_LEFT)?><br><?=$type1 . $type2 . ' / Gen ' . monGen($pokemon) . ' / ' . $rarity?></small></h5>
   </div>
 </div>
 <hr class="my-4">
 <h4 class="display-6">Description</h4>
   <p class="lead"><?= $desc?></p>
 <hr class="my-4">
-<?php if(!isset($_GET['form'])){?>
 <h4 class="display-6">Most Seen Rank</h4>
   <p class="lead">
   
@@ -234,7 +190,7 @@ if(!file_exists($img)){
 </table>
 </div>
   </p>
-<hr class="my-4"><?php }?>
+<hr class="my-4">
   <?php if($form > 0){?>
 <h4 class="display-6">Stats<?php if($cfcount > 1){if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';}} ?></h4>
   <?php } else {?>
@@ -257,14 +213,7 @@ if(!file_exists($img)){
 <td> 
 <?php if($result && $result->num_rows >= 1 ){
     while ($row = $result->fetch_object() ) {
-        if (!$row->form && $row->form==0){$pad=2;}
-        if ($row->form>0 && $row->form<10){$pad=1;}
-        if ($row->form>10 && $row->form<100){$pad=2;}
-        if ($row->form>99 && $row->form<1000){$pad=3;}
-        $formsseenimg = $assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($row->form, $pad, 0, STR_PAD_LEFT) . '.png';
-        if(!file_exists($formsseenimg)){
-            $formsseenimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-            }
+        $formsseenimg = monPic('pokemon', $pokemon, $row->form);
             if ($row->form == '0'){
                 $output = 'No Form';
                 } else {if(!empty($forms[$pokemon][$row->form])){$output = $forms[$pokemon][$row->form];} else {$output = 'Unknown form';}}
@@ -336,10 +285,8 @@ $i=0;?>
       <td class="align-middle"><a href="#">Link</a></td>
     </tr>
   <?php } else {}
-  $noformimg=$assetRepo . 'pokemon_icon_' . str_pad($pokemon, 3, 0, STR_PAD_LEFT) . '_00.png';
-  if(!file_exists($noformimg)){
-            $noformimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-            }?>
+  $noformimg=monPic('pokemon',$pokemon,0);
+  ?>
   <tr align='center' style='align-content:center;text-align:center;'>
   <td class="align-middle"><img src='<?=$noformimg?>'height='96' width='96' class='dexentry'></td>
   <td class="align-middle">No form</td>
@@ -347,15 +294,8 @@ $i=0;?>
   </tr>
 <?php foreach($json as $pokemonid => $value) if ($pokemonid == $pokemon){
     foreach ($value as $formid => $fname) if ($fname != 'Shadow' && $fname != 'Purified' && $fname != 'NoEvolve'){
-        if (!$formid && $formid==0){$pad=2;}
-        if ($formid>0 && $formid<10){$pad=1;}
-        if ($formid>10 && $formid<100){$pad=2;}
-        if ($formid>99 && $formid<1000){$pad=3;}
-        $formimg = 'images/pokemon/pokemon_icon_' . str_pad($pokemonid, 3, 0, STR_PAD_LEFT) . '_' . str_pad($formid, $pad, 0, STR_PAD_LEFT) . '.png';
+        $formimg = monPic('pokemon',$pokemonid,$formid);
         $link = 'index.php?page=seen&pokemon=' . $pokemon . '&form=' . $formid;
-        if(!file_exists($formimg)){
-            $formimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-            }
         
         ?>
     <tr align='center' style='align-content:center;text-align:center;'>
@@ -393,10 +333,7 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
           foreach ($entry->evolutions as $evo) {
               $evoname=$evo->to;
               if(empty($nametoid[$evoname])){$evoid='0';} else {$evoid = $nametoid[$evoname]['id'];}
-              $evoimg='images/pokemon/pokemon_icon_' . str_pad($evoid, 3, 0, STR_PAD_LEFT) . '_00.png';
-              if(!file_exists($evoimg)){
-                  $evoimg='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
-                  }
+              $evoimg=monPic('pokemon',$evoid,0);
               ?>
               <tr align='center' style='align-content:center;text-align:center;'>
               <td class="align-middle"><img src="<?=$evoimg?>" class="dexentry"><br><?=$evo->to?></td>
