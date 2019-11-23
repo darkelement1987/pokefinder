@@ -2,7 +2,6 @@
 function getMons()
 {
     global $conn;
-    global $assetRepo;
     global $monsters;
 
     $mons = [];
@@ -184,7 +183,6 @@ function getMons()
 function getRocket()
 {
     global $conn;
-    global $assetRepo;
 
     $rocket = [];
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
@@ -242,7 +240,6 @@ function getRocket()
 function getQuest()
 {
     global $conn;
-    global $assetRepo;
 
     $quest = [];
 
@@ -280,7 +277,6 @@ function getQuest()
 function getRaids()
 {
     global $conn;
-    global $assetRepo;
     global $clock;
     $raids = [];
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);

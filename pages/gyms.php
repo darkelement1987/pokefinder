@@ -1,7 +1,6 @@
 <?php
 global $conn;
 global $clock;
-global $assetRepo;
 global $gmaps;
 
 $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);

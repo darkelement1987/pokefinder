@@ -1,5 +1,4 @@
 <?php
-global $assetRepo;
 global $conn;
 global $maxpokemon;
 

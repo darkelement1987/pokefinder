@@ -1,7 +1,6 @@
 <?php
 global $conn;
 global $clock;
-global $assetRepo;
 global $gmaps;
 
 ?>

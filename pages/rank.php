@@ -1,5 +1,4 @@
 <?php
-global $assetRepo;
 global $conn;
 
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
