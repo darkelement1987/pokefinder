@@ -2,40 +2,6 @@
 include './config/config.php';
 define('DIRECTORY', __Dir__);
 
-session_start(); // To keep track of the particular user
-
-if ($usediscordauth) {
-    if (!empty($_GET['discordlogout'])) {
-        session_destroy();
-        unset($_SESSION['discordloggedin']);
-        unset($_SESSION['discordallowed']);
-        unset($_SESSION['discordname']);
-        unset($_SESSION['discordtoken']);
-        unset($_SESSION['authdate']);
-
-        header("Refresh: 0; url=$discordredirect");
-      }
-
-    if (empty($_SESSION['discordloggedin'])) { // If discordlogged is empty, get a check
-        header('Location: ./pages/discordauth.php');
-        exit;
-    }
-
-        // Check if the discord auth was today. This means you need to reauthenticate every new day
-        $current = strtotime(date("Y-m-d"));
-        if($_SESSION['authdate'] > $current) {
-            header('Location: ./?discordlogout=true');
-        }
-
-    if (!$_SESSION['discordallowed']) {
-        header('Location: ./pages/discordnotallowed.php');
-        exit;
-    }
-}
-
-// For composer
-require ('./vendor/autoload.php');
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 $conn->set_charset('utf8');

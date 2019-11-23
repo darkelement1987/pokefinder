@@ -30,24 +30,6 @@ $twitter = '';
 $instagram = '';
 $pinterest = '';
 
-// Discord authentication
-    $usediscordauth = false; // use discord authentication. False by default
-
-    // Dont forget to add your the location of your disorcauth.php in the Oauth2 section of your application in discord developers!
-
-      // Required for discordauth
-      $discordclientid = '12345'; // Make a new application at https://discordapp.com/developers/applications/ and copy the details here
-      $discordclientsecret = '12345576'; // copy the client secret
-      $discordbottoken = '1325.214421.12'; // Make a new bot and copy the bot-token
-
-    // Redirects for discordauth
-      $discordredirecturi = 'http://www.pokefinder.nl/pages/discordauth.php'; // Where discordauth.php is located
-      $discordredirect= 'http://www.pokefinder.nl/'; // Where you want your user to be redirected after a successfull authentication
-
-    // For discord role-authentication
-      $discordguildid = 123456789; // Your guild/server id. notice, NOT between '';
-      $allowedrole = "123456789, 987654321"; // The Id's that are allowed to see the site
-
 // Images
 
 // !!! Don't touch stuff below !!!

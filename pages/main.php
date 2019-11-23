@@ -44,5 +44,5 @@ global $maplink;
       <p><h4><strong>Map</strong></h4>
       <h5><a href="<?= $maplink ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" target="_blank">GO</a></h5></p>   
     </div>
-  </div><?php }?>
+  </div><? }?>
 </div>

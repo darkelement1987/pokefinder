@@ -1,8 +1,0 @@
-{
-    "name": "dark/pokefinder",
-    "type": "project",
-    "require": {
-        "wohali/oauth2-discord-new": "^1.0",
-        "restcord/restcord": "^0.3.2"
-    }
-}
