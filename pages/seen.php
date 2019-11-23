@@ -1,7 +1,6 @@
 <?php
 global $clock;
 global $conn;
-global $assetRepo;
 global $mapkey;
 $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 $dex = json_decode(file_get_contents('https://raw.githubusercontent.com/KartulUdus/Professor-Poracle/master/src/util/description.json'), true);
