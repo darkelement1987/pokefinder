@@ -50,7 +50,8 @@ global $gmaps;
     $result = $conn->query($query);
     ?>
 
-<h3>Pokestop: <?= $_GET['pokestop']?></h3>
+<h3>Pokestop:</h3>
+<p><small><?= $_GET['pokestop']?></small></p>
 <div class="table-responsive-sm">
 
 <table class="table table-striped table-bordered w-auto">
