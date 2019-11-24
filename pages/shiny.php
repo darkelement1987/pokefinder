@@ -23,15 +23,15 @@ $result = $conn->query($query);?>
   <tbody>
 
 <?php if($result && $result->num_rows >= 1 ) {
+    $data=[];
     while ($row = $result->fetch_object() ) {
-?>
-<tr>
-<td class="align-middle"><img src="<?=monPic('shiny',$row->pokemon_id, 0)?>" height="46" width="46"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>" height="32" width="32"> <?=$mon_name[$row->pokemon_id]['name']?></a></td>
-<td class="align-middle"><span hidden><?=$row->last_modified?></span><?=date('l jS \of F Y ' . $clock, $row->last_modified)?><br><a href='https://maps.google.com/?q=<?= $row->latitude ?>,<?= $row->longitude ?>'>Location</a></td>
-</tr>
-<?php
-    }
-}
+        $row->monname = '<img src="' . monPic('shiny', $row->pokemon_id, 0) . '" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '">' . $mon_name[$row->pokemon_id]['name'] . '</a>';
+        $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified);
+        $jsonfile->data[]  =  $row;
+        }
+        }
+        $save = json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        file_put_contents('pages/ajax/shiny.json', $save)
 ?>
 </tbody>
 </table>

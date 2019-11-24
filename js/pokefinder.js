@@ -507,6 +507,11 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/shiny.json',
+        "columns": [
+            { "data": "monname" },
+            { "data": "last_modified" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
