@@ -141,9 +141,27 @@ $img = monPic('pokemon',$pokemon,$form);
 
 // Perform check because of missing 719 - 807 in json
 if($pokemon < 808){
+    
 if(empty($dex[$pokemon-1]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-1]['description']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name'])){$type1='Unknown type(s)';} else { $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name']; }
-if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name'])){$type2='';} else { $type2 = ' / ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['emoji'] . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name']; }
+
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name'])){
+    if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][0]['name'])){$type1='Unknown type(s)';
+    } else {
+        $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][0]['name'];
+    }
+    } else {
+        $type1 = $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][0]['name'];
+        }
+
+if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name'])){
+    if(empty($stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][1]['name'])){$type2='';
+    } else {
+        $type2 = ' | ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][1]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_0']['types'][1]['name'];
+    }
+    } else {
+        $type2 = ' | ' . $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['emoji']. $stats[str_pad($pokemon, 1, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT)]['types'][1]['name'];
+        }
+
 } else {
     if(empty($dex[$pokemon-90]['description'])){$desc='No description available';} else { $desc = $dex[$pokemon-90]['description']; }
 if(empty($dex[$pokemon-90]['types'][0])){$type1='Unknown type(s)';} else { $type1 = ucfirst($dex[$pokemon-90]['types'][0]); }

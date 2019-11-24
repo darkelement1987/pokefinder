@@ -425,7 +425,6 @@ function rarity($pokemon, $form){
                     }
                     
 function monPic($mode, $mon, $form){
-    global $assetRepo;
     if (!$form && $form==0){$pad=2;}
     if ($form>0 && $form<10){$pad=1;}
     if ($form>10 && $form<100){$pad=2;}
@@ -434,7 +433,7 @@ function monPic($mode, $mon, $form){
         $img='http://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
             }
             if($mode=='pokemon'){
-                $img = $assetRepo . 'pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
+                $img = 'images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
                 if(!file_exists($img)){
                     $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
                     }
