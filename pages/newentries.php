@@ -19,22 +19,21 @@ $result = $conn->query($query);?>
   <tbody>
 
 <?php if($result && $result->num_rows >= 1 ) {
+    $data=[];
     while ($row = $result->fetch_object() ) {
         if($row->form > 0){
-            $formname = formName($row->pokemon_id,$row->form);
+            $row->formname = formName($row->pokemon_id,$row->form);
         } else {
-                $formname = '-';
+                $row->formname = '-';
             }
-?>
-<tr>
-<td class="align-middle"><img src="<?=monPic('pokemon',$row->pokemon_id,$row->form)?>" height="46" width="46"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>" height="32" width="32"> <?=$monname[$row->pokemon_id]['name']?></a></td>
-<td class="align-middle"><?=$formname?></td>
-<td class="align-middle"><span hidden><?=$row->last_modified?></span><?=date('l jS \of F Y ' . $clock, $row->last_modified)?></td>
-<td class="align-middle"><span hidden><?=$row->last_modified?></span><?=date('l jS \of F Y ' . $clock, $row->disappear_time)?></td>
-</tr>
-<?php
+            $row->monname = '<img src="' . monPic('pokemon', $row->pokemon_id, $row->form) . '" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '&form=' . $row->form . '">' . $monname[$row->pokemon_id]['name'] . '</a>';
+            $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified);
+            $row->disappear_time = '<span hidden>' . $row->disappear_time . '</span>' . date('l jS \of F Y ' . $clock, $row->disappear_time);
+            $jsonfile->data[]  =  $row;
     }
 }
+$save = json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+file_put_contents('pages/ajax/newentries.json', $save)
 ?>
 </tbody>
 </table>

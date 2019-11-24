@@ -532,6 +532,13 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/newentries.json',
+        "columns": [
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "last_modified" },
+            { "data": "disappear_time" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
