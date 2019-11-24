@@ -335,6 +335,9 @@ function getRaids()
         return $raids;
     }
 }
+function in_array_any($needles, $haystack) {
+    return !empty(array_intersect($needles, $haystack));
+ }
 
 function monGen($id){
     $gen=0;

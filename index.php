@@ -69,6 +69,11 @@ include './includes.php';
                                 <a class="dropdown-item" href="index.php?page=gyms"><i class="fas fa-bolt"></i> Gyms</a>
                               </div>
                             </li>
+                            <?php if($usediscordauth){ ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./?discordlogout=true"><i class="fab fa-discord"></i> Logout</a>
+                                </li>
+                            <?php }?>
                         </ul>
                         <?php if($socialon != false) {?>
                         <ul class="navbar-nav ml-auto">
