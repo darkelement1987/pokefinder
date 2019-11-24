@@ -30,9 +30,3 @@ $facebook = '';
 $twitter = '';
 $instagram = '';
 $pinterest = '';
-
-// Images
-
-// !!! Don't touch stuff below !!!
-
-$assetRepo = "images/pokemon/";
