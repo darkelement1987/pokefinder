@@ -565,6 +565,14 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/pokestops.json',
+        "columns": [
+            { "data": "image" },
+            { "data": "name" },
+            { "data": "rocket" },
+            { "data": "quest" },
+            { "data": "lure" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,

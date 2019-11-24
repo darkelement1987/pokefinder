@@ -24,23 +24,18 @@ global $gmaps;
   <tbody>
 
 <?php if($result && $result->num_rows >= 1 ) {
+    $data=[];
     while ($row = $result->fetch_object() ) {
-        if(date('Y-m-d ' . $clock, $row->incident_expiration) > date("Y-m-d H:i:s")){$rocket='Yes';} else {$rocket='No';}
-        if($row->quest_type !== NULL){$quest='Yes';} else {$quest='No';}
-        if($row->image == NULL){$img='images/Unknown.png';} else {$img=$row->image;}
-        if($row->name == NULL){$name='Unknown';} else {$name=$row->name;}
-        if(!empty($row->lure_expiration)){$lure='Lured until ' . date($clock, $row->lure_expiration);} else {$lure='No';}
-?>
-<tr>
-<td class="align-middle"><img src="<?=$img?>" class="pic" height="46" width="46"></td>
-<td class="align-middle"><a href="index.php?page=pokestops&pokestop=<?=$row->pokestop_id?>"><?=$name?></a></td>
-<td class="align-middle"><?=$rocket?></td>
-<td class="align-middle"><?=$quest?></td>
-<td class="align-middle"><?=$lure?></td>
-</tr>
-<?php
+        if(date('Y-m-d ' . $clock, $row->incident_expiration) > date("Y-m-d H:i:s")){$row->rocket='Yes';} else {$row->rocket='No';}
+        if($row->quest_type !== NULL){$row->quest='Yes';} else {$row->quest='No';}
+        if($row->image == NULL){$row->image='<img src="images/Unknown.png" class="pic" height="46" width="46">';} else {$row->image='<img src="' . $row->image . '" class="pic" height="46" width="46">';}
+        if($row->name == NULL){$row->name='Unknown';} else {$row->name='<a href="index.php?page=pokestops&pokestop=' . $row->pokestop_id . '">' . $row->name . '</a>';}
+        if(!empty($row->lure_expiration)){$row->lure='Lured until ' . date($clock, $row->lure_expiration);} else {$row->lure='No';}
+        $jsonfile->data[]  =  $row;
     }
 }
+$save = json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+file_put_contents('pages/ajax/pokestops.json', $save)
 ?>
 </tbody>
 </table>
