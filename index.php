@@ -82,11 +82,9 @@ include './includes.php';
                         <?php if(!empty($twitter)){ ?><li><a href="<?= $twitter?>" class="nav-link"><i class="fab fa-twitter"></i> <span class="social">Twitter</span></a></li><?php }?>
                         <?php if(!empty($instagram)){ ?><li><a href="<?= $instagram?>" class="nav-link"><i class="fab fa-instagram"></i> <span class="social">Instagram</span></a></li><?php }?>
                         <?php if(!empty($pinterest)){ ?><li><a href="<?= $pinterest?>" class="nav-link"><i class="fab fa-pinterest"></i> <span class="social">Pinterest</span></a></li><?php }?>
+                        <?php if($usediscordauth){ ?><li><a href="./?discordlogout=true" class="nav-link"><i class="fab fa-discord"></i> <span>Logout</span></a></li><?php }?>
                         </ul>
                         <?php }?>
-                        
-                        <?php if($usediscordauth){ ?><li><ul class="navbar-nav ml-auto"><a href="./?discordlogout=true" class="nav-link"><i class="fab fa-discord"></i> <span class="social">Discord-logout</span></a></li></ul><?php }?>
-
                     </div>
                 </nav>
             </div>
