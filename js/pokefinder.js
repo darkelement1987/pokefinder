@@ -466,6 +466,14 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/rank.json',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,

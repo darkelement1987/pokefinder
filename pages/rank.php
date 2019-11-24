@@ -61,6 +61,7 @@ $result = $conn->query($query);?>
   <tbody>
 
 <?php if($result && $result->num_rows >= 1 ) {
+    $data=[];
     $seenquery = 'SELECT pokemon_id, form FROM ' . $type . ' WHERE ' . $end . ' > utc_timestamp();';
     $seenresult = $conn->query($seenquery);
     $seenmon = [];
@@ -70,25 +71,19 @@ $result = $conn->query($query);?>
         }
     }
     while ($row = $result->fetch_object() ) {
-        if (!in_array($row->pokemon_id . '_' . $row->form, $seenmon)) {$seen='No';} else {$seen='Yes';}
+        if (!in_array($row->pokemon_id . '_' . $row->form, $seenmon)) {$row->seen='No';} else {$row->seen='Yes';}
         
         if($row->form > 0){
-            $formname=formName($row->pokemon_id,$row->form);
+            $row->formname=formName($row->pokemon_id,$row->form);
         } else {
-        $formname = '-';
+        $row->formname = '-';
     }
-
-?>
-<tr>
-<td><?=$row->rank?></td>
-<td><img src="<?=monPic('pokemon',$row->pokemon_id,$row->form)?>" height="32" width="32"> <a href="index.php?page=seen&pokemon=<?=$row->pokemon_id?>&form=<?=$row->form?>"><?=$mon_name[$row->pokemon_id]['name']?></a></td>
-<td><?=$formname?></td>
-<td><?=$row->count?></td>
-<td><?=$seen?></td>
-</tr>
-<?php
+    $row->monname = '<img src="' . monPic('pokemon', $row->pokemon_id, $row->form) . '" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '&form=' . $row->form . '">' . $mon_name[$row->pokemon_id]['name'] . '</a>';
+    $jsonfile->data[]  =  $row;
     }
 }
+$save = json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+file_put_contents('pages/ajax/rank.json', $save)
 ?>
 </tbody>
 </table>
