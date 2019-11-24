@@ -26,7 +26,7 @@ $result = $conn->query($query);?>
     $data=[];
     while ($row = $result->fetch_object() ) {
         $row->monname = '<img src="' . monPic('shiny', $row->pokemon_id, 0) . '" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '">' . $mon_name[$row->pokemon_id]['name'] . '</a>';
-        $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified);
+        $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified) . '<br><a href="https://maps.google.com/?q=' . $row->latitude . ',' . $row->longitude . '">Location</a>';
         $jsonfile->data[]  =  $row;
         }
         }
