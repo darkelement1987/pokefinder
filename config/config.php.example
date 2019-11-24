@@ -1,10 +1,11 @@
 <?php
 
 // Connect to Database
-$servername = "";
+$servername = ""; // Host/ip of database
 $username = "";
 $password = "";
 $database = "";
+$port = ""; // If empty default port will be used
 
 // Frontend
 

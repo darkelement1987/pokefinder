@@ -3,7 +3,8 @@ include './config/config.php';
 define('DIRECTORY', __Dir__);
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+if(empty($port) && !$port){$port="3306";}
+$conn = new mysqli($servername, $username, $password, $database, $port);
 $conn->set_charset('utf8');
 
 // Check connection
