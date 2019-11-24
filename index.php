@@ -69,6 +69,11 @@ include './includes.php';
                                 <a class="dropdown-item" href="index.php?page=gyms"><i class="fas fa-bolt"></i> Gyms</a>
                               </div>
                             </li>
+                            <?php if($usediscordauth){ ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./?discordlogout=true"><i class="fab fa-discord"></i> Logout</a>
+                                </li>
+                            <?php }?>
                         </ul>
                         <?php if($socialon != false) {?>
                         <ul class="navbar-nav ml-auto">
@@ -82,7 +87,6 @@ include './includes.php';
                         <?php if(!empty($twitter)){ ?><li><a href="<?= $twitter?>" class="nav-link"><i class="fab fa-twitter"></i> <span class="social">Twitter</span></a></li><?php }?>
                         <?php if(!empty($instagram)){ ?><li><a href="<?= $instagram?>" class="nav-link"><i class="fab fa-instagram"></i> <span class="social">Instagram</span></a></li><?php }?>
                         <?php if(!empty($pinterest)){ ?><li><a href="<?= $pinterest?>" class="nav-link"><i class="fab fa-pinterest"></i> <span class="social">Pinterest</span></a></li><?php }?>
-                        <?php if($usediscordauth){ ?><li><a href="./?discordlogout=true" class="nav-link"><i class="fab fa-discord"></i> <span>Logout</span></a></li><?php }?>
                         </ul>
                         <?php }?>
                     </div>

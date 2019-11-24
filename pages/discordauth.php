@@ -14,11 +14,17 @@
             'clientId' => $discordclientid,
             'clientSecret' => $discordclientsecret,
             'redirectUri' => $discordredirecturi
-        ]); 
+        ]);
     ?>
 </head>
 
 <?php
+
+if (!empty($_GET['error'])) {
+    header('Location: ../pages/discordnotallowed.php');
+    exit;
+}
+
 // Check if the user has already authenticated
 if (!empty($_SESSION['discordloggedin'])) {
     // Check if the token is still valid
@@ -67,16 +73,31 @@ if (!empty($_SESSION['discordloggedin'])) {
     }
 } else { // Authenticate a new request
 
+
     if (!isset($_GET['code'])) {
         // Step 1. Get a new authorization code
+        // Prepare everything for the session by unsetting all previous set tokens:
+            unset($_SESSION['discordloggedin']);
+            unset($_SESSION['discordallowed']);
+            unset($_SESSION['discordname']);
+            unset($_SESSION['discordcode']);
+            unset($_SESSION['oauth2state']);
+            unset($_SESSION['discordtoken']);
+
         $authUrl = $provider->getAuthorizationUrl();
         $_SESSION['oauth2state'] = $provider->getState();
+        
         header('Location: ' . $authUrl);
 
     // Check given state against previously stored one to mitigate CSRF attack
     } elseif (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
 
+        unset($_SESSION['discordloggedin']);
+        unset($_SESSION['discordallowed']);
+        unset($_SESSION['discordname']);
+        unset($_SESSION['discordcode']);
         unset($_SESSION['oauth2state']);
+        unset($_SESSION['discordtoken']);
         exit('Invalid state');
 
     } else { // Everything is in place! Save it in session
@@ -120,7 +141,6 @@ if (!empty($_SESSION['discordloggedin'])) {
                         $discordadminid = explode(", ", $allowedrole);
                         $isdiscordadmin = in_array_any($discordadminid, $discordmemberroles);
             
-            
                     // Do the final checks, after everything is done. This will determine the outcome of the discord auth
                         if ($isdiscordadmin) {
                             if ($discorduserverified) {
@@ -142,13 +162,13 @@ if (!empty($_SESSION['discordloggedin'])) {
                                 echo "<div class='alert alert-info' role='alert'>";
                                 echo "Please verify your email on discord to use the 2 factor authentication on this website.</div>";
 
-                                header("Refresh: 5; URL=$discordredirect");
                                 unset($_SESSION['discordloggedin']);
                                 unset($_SESSION['discordallowed']);
                                 unset($_SESSION['discordname']);
                                 unset($_SESSION['discordcode']);
                                 unset($_SESSION['oauth2state']);
                                 unset($_SESSION['discordtoken']);
+                                header("Refresh: 5; URL=$discordredirect");
                                 exit;
                             }
                         } else {
@@ -183,25 +203,17 @@ if (!empty($_SESSION['discordloggedin'])) {
                 echo "<div class='alert alert-info' role='error'>";
                 echo "2 factor authentication failed, please try again.</div>";
 
-                header("Refresh: 5; URL=$discordredirecturi");
                 unset($_SESSION['discordloggedin']);
                 unset($_SESSION['discordallowed']);
                 unset($_SESSION['discordname']);
                 unset($_SESSION['discordcode']);
                 unset($_SESSION['oauth2state']);
                 unset($_SESSION['discordtoken']);
+                header("Refresh: 5; URL=$discordredirecturi");
+
                 exit;
             }
         }
     }
     ?>
-
-<body>
-    <div class="text-center">
-        <?php
-            require "../func.footer.php";
-        ?>
-    </div>
-</body>
-
 </html>
