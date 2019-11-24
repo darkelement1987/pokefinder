@@ -27,6 +27,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
   <tbody>
 
 <?php if($result && $result->num_rows >= 1 ) {
+    $data=[];
     while ($row = $result->fetch_object() ) {
         switch ($row->team) {
             case '0':
@@ -45,24 +46,17 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
                 $row->team = 'Unknown';
                 break;
         }
-        if(date('Y-m-d ' . $clock, $row->end) > date("Y-m-d H:i:s")){$raid='Yes';} else {$raid='No';}
-        if($row->url == NULL){$img='images/Unknown.png';} else {$img=$row->url;}
-        if($row->name == NULL){$name='Unknown';} else {$name=$row->name;}
-        if($row->is_ex_raid_eligible > 0){$ex='Yes';} else {$ex='No';}
+        if(date('Y-m-d ' . $clock, $row->end) > date("Y-m-d H:i:s")){$row->raid='Yes';} else {$row->raid='No';}
+        if($row->url == NULL){$row->url='<img src="images/Unknown.png" height="46" width="46" class="' . $row->team . '">';} else {$row->url='<img src="' . $row->url . '" height="46" width="46" class="' . $row->team . '">';}
+        if($row->name == NULL){$row->name='Unknown';} else {$row->name=$row->name;}
+        if($row->is_ex_raid_eligible > 0){$row->is_ex_raid_eligible='Yes';} else {$row->is_ex_raid_eligible='No';}
         if($row->slots_available == 0){$row->slots_available = '-';}
-?>
-<tr>
-<td class="align-middle"><img src="<?=$img?>" height="46" width="46" class="<?=$row->team?>"></td>
-<td class="align-middle"><a href="index.php?page=gyms&gym=<?=$row->gym_id?>"><?=$name?></a></td>
-<td class="align-middle"><?=$raid?></td>
-<td class="align-middle"><?=$ex?></td>
-<td class="align-middle"><?=$row->team?></td>
-<td class="align-middle"><img src="<?=monPic('pokemon',$row->guard_pokemon_id,0)?>" height="46px" width="46px"><br><a href="index.php?page=seen&pokemon=<?=$row->guard_pokemon_id?>"><?=$monname[$row->guard_pokemon_id]['name']?></a></td>
-<td class="align-middle"><?=$row->slots_available?></td>
-</tr>
-<?php
-    }
+        $row->guard_pokemon_id = '<img src="' . monPic('pokemon', $row->guard_pokemon_id,0) . '" height="46px" width="46px">';
+        $jsonfile->data[]  =  $row;
 }
+}
+$save = json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+file_put_contents('pages/ajax/gyms.json', $save)
 ?>
 </tbody>
 </table>

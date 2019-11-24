@@ -598,6 +598,16 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/gyms.json',
+        "columns": [
+            { "data": "url" },
+            { "data": "name" },
+            { "data": "raid" },
+            { "data": "is_ex_raid_eligible" },
+            { "data": "team" },
+            { "data": "guard_pokemon_id" },
+            { "data": "slots_available" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
