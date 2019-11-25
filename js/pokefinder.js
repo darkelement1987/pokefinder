@@ -507,7 +507,7 @@ $(document).ready(function ()
 
 
         paging:true,
-        ajax: './pages/ajax/shiny.json',
+        ajax: './pages/ajax/shiny.php',
         "columns": [
             { "data": "monname" },
             { "data": "last_modified" }
@@ -626,7 +626,7 @@ $(document).ready(function ()
 
 
         paging:true,
-        ajax: './pages/ajax/gyms.json',
+        ajax: './pages/ajax/gyms.php',
         "columns": [
             { "data": "url" },
             { "data": "name" },
