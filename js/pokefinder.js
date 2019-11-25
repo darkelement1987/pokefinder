@@ -585,7 +585,7 @@ $(document).ready(function ()
 
 
         paging:true,
-        ajax: './pages/ajax/pokestops.json',
+        ajax: './pages/ajax/pokestops.php',
         "columns": [
             { "data": "image" },
             { "data": "name" },
