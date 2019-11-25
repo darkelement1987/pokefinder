@@ -545,7 +545,7 @@ $(document).ready(function ()
 
 
         paging:true,
-        ajax: './pages/ajax/newentries.json',
+        ajax: './pages/ajax/newentries.php',
         "columns": [
             { "data": "monname" },
             { "data": "formname" },
