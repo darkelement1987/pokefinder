@@ -64,11 +64,12 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
                 break;
         }
         if(date('Y-m-d ' . $clock, $row->end) > date("Y-m-d H:i:s")){$row->raid='Yes';} else {$row->raid='No';}
-        if($row->url == NULL){$row->url='<img src="images/Unknown.png" height="46" width="46" class="' . $row->team . '">';} else {$row->url='<img src="' . $row->url . '" height="46" width="46" class="' . $row->team . '">';}
-        if($row->name == NULL){$row->name='Unknown';} else {$row->name='<a href="index.php?page=gyms&gym=' . $row->gym_id . '">' . $row->name . '</a>';}
+        if($row->url == NULL){$row->url='<img src=images/Unknown.png height=46 width=46 class=' . $row->team . '>';} else {$row->url='<img src=' . $row->url . ' height=46 width=46 class=' . $row->team . '>';}
+        if($row->name == NULL){$row->name='Unknown';} else {$row->name='<a href=index.php?page=gyms&gym=' . $row->gym_id . '>' . $row->name . '</a>';}
         if($row->is_ex_raid_eligible > 0){$row->is_ex_raid_eligible='Yes';} else {$row->is_ex_raid_eligible='No';}
         if($row->slots_available == 0){$row->slots_available = '-';}
-        $row->guard_pokemon_id = '<img src="images/pokemon/pokemon_icon_' . str_pad($row->guard_pokemon_id, 3, 0, STR_PAD_LEFT) . '_00.png" height="46px" width="46px"><br><a href="index.php?page=seen&pokemon=' . $row->guard_pokemon_id . '">' . $monname[$row->guard_pokemon_id]['name'] . '</a>';
+        $pic = monPicAjax('pokemon',$row->guard_pokemon_id,0);
+        $row->guard_pokemon_id = '<img src=' . $pic . ' height=46px width=46px><br><a href=index.php?page=seen&pokemon=' . $row->guard_pokemon_id . '>' . $monname[$row->guard_pokemon_id]['name'] . '</a>';
         $jsonfile->data[]  =  $row;
 }
 }

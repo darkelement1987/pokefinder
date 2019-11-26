@@ -443,3 +443,23 @@ function formName($monid,$formid){
     if(!empty($forms[$monid][$formid])){$formname = str_replace("_"," ",$forms[$monid][$formid]);} else {$formname="Unknown form";}
             return $formname;
 }
+
+function monPicAjax($mode, $mon, $form){
+    if (!$form && $form==0){$pad=2;}
+    if ($form>0 && $form<10){$pad=1;}
+    if ($form>10 && $form<100){$pad=2;}
+    if ($form>99 && $form<1000){$pad=3;}
+    if($mode=='shiny'){
+        $img='http://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
+            }
+            if($mode=='pokemon'){
+                // Source pic on ajax source
+                $img = '../../images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
+                if(!file_exists($img)){
+                    $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+                    } else {
+                        // Source pic on processed page
+                        $img = 'images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';}
+                    }
+                    return $img;
+                    }
