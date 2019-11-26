@@ -458,7 +458,7 @@ $(document).ready(function ()
 
 $(document).ready(function ()
 {
-	$('#rankTable').DataTable(
+	$('#rankTableWild').DataTable(
 	{
 		order: [
 			[0, "asc"]
@@ -466,7 +466,130 @@ $(document).ready(function ()
 
 
         paging:true,
-        ajax: './pages/ajax/rank.json',
+        ajax: './pages/ajax/rankwild.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTableRaid').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rankraid.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTable0').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rank0.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTable100').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rank100.php',
         "columns": [
             { "data": "rank" },
             { "data": "monname" },

@@ -1,5 +1,9 @@
 <?php
-include './config/config.php';
+if (basename($_SERVER["SCRIPT_NAME"]) == 'index.php'){
+    include './config/config.php';
+    } else {
+        include '../../config/config.php';
+        }
 define('DIRECTORY', __Dir__);
 
 // Create connection
@@ -12,7 +16,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-include './functions/functions.php';
+if (basename($_SERVER["SCRIPT_NAME"]) == 'index.php'){
+    include './functions/functions.php';
+    } else {
+        include '../../functions/functions.php';
+        }
 
 switch ($seconds) {
     case true:

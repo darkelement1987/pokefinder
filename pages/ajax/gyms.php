@@ -1,42 +1,5 @@
 <?php
-
-include '../../config/config.php';
-
-// Create connection
-if(empty($port) && !$port){$port="3306";}
-$conn = new mysqli($servername, $username, $password, $database, $port);
-$conn->set_charset('utf8');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-switch ($seconds) {
-    case true:
-        $showseconds = ':s';
-        break;
-    case false:
-        $showseconds = '';
-        break;
-    default:
-        $showseconds = '';
-        break;
-}
-
-switch ($clock) {
-    case '24':
-        $clock = 'H:i' . $showseconds;
-        break;
-    case '12':
-        $clock = 'g:i' . $showseconds;
-        break;
-    default:
-        $clock = 'g:i' . $showseconds;
-        break;
-}
-
-include '../../functions/functions.php';
+include '../../includes.php';
 
 $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
 
