@@ -46,8 +46,8 @@ include '../../functions/functions.php';
     while ($row = $result->fetch_object() ) {
         if(date('Y-m-d ' . $clock, $row->incident_expiration) > date("Y-m-d H:i:s")){$row->rocket='Yes';} else {$row->rocket='No';}
         if($row->quest_type !== NULL){$row->quest='Yes';} else {$row->quest='No';}
-        if($row->image == NULL){$row->image='<img src="images/Unknown.png" class="pic" height="46" width="46">';} else {$row->image='<img src="' . $row->image . '" class="pic" height="46" width="46">';}
-        if($row->name == NULL){$row->name='Unknown';} else {$row->name='<a href="index.php?page=pokestops&pokestop=' . $row->pokestop_id . '">' . $row->name . '</a>';}
+        if($row->image == NULL){$row->image='<img src=images/Unknown.png class=pic height=46 width=46>';} else {$row->image='<img src=' . $row->image . ' class=pic height=46 width=46>';}
+        if($row->name == NULL){$row->name='Unknown';} else {$row->name='<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id . '>' . $row->name . '</a>';}
         if(!empty($row->lure_expiration)){$row->lure='Lured until ' . date($clock, $row->lure_expiration);} else {$row->lure='No';}
         $jsonfile->data[]  =  $row;
     }

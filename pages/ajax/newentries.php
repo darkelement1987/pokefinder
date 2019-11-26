@@ -51,7 +51,7 @@ if($result && $result->num_rows >= 1 ) {
                 $row->formname = '-';
             }
             $pic = monPicAjax('pokemon',$row->pokemon_id,$row->form);
-            $row->monname = '<img src="' . $pic . '" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '&form=' . $row->form . '">' . $monname[$row->pokemon_id]['name'] . '</a>';
+            $row->monname = '<img src=' . $pic . ' height=46 width=46> <a href=index.php?page=seen&pokemon=' . $row->pokemon_id . '&form=' . $row->form . '>' . $monname[$row->pokemon_id]['name'] . '</a>';
             $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified);
             $row->disappear_time = '<span hidden>' . $row->disappear_time . '</span>' . date('l jS \of F Y ' . $clock, $row->disappear_time);
             $jsonfile->data[]  =  $row;

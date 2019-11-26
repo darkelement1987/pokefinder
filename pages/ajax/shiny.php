@@ -45,7 +45,7 @@ $result = $conn->query($query);
 if($result && $result->num_rows >= 1 ) {
     $data=[];
     while ($row = $result->fetch_object() ) {
-        $row->monname = '<img src="https://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00_shiny.png" height="46" width="46"> <a href="index.php?page=seen&pokemon=' . $row->pokemon_id . '">' . $mon_name[$row->pokemon_id]['name'] . '</a>';
+        $row->monname = '<img src=https://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT) . '_00_shiny.png height=46 width=46> <a href=index.php?page=seen&pokemon=' . $row->pokemon_id . '>' . $mon_name[$row->pokemon_id]['name'] . '</a>';
         $row->last_modified = '<span hidden>' . $row->last_modified . '</span>' . date('l jS \of F Y ' . $clock, $row->last_modified) . '<br><a href="https://maps.google.com/?q=' . $row->latitude . ',' . $row->longitude . '">Location</a>';
         $jsonfile->data[]  =  $row;
         }
