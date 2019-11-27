@@ -217,6 +217,13 @@ $(document).ready( function () {
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/quests.php',
+        "columns": [
+            { "data": "image" },
+            { "data": "coords" },
+            { "data": "type" },
+            { "data": "task" }
+        ],
 		searching: true,
 		responsive: true,
 		processing: true,
