@@ -167,7 +167,7 @@ $(document).ready(function ()
 		},
         {
             visible: false,
-            targets: [9,10,11]
+            targets: [3]
         }],
 
 
@@ -175,6 +175,18 @@ $(document).ready(function ()
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/rocket.php',
+        "columns": [
+            { "data": "hidden" },
+            { "data": "image" },
+            { "data": "stopname" },
+            { "data": "stopnamehidden" },
+            { "data": "rgender" },
+            { "data": "stop" },
+            { "data": "chance15" },
+            { "data": "chance85" },
+            { "data": "chance100" }
+        ],
 		searching: true,
 		responsive:
 		{
