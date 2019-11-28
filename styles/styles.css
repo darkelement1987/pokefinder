@@ -240,3 +240,8 @@ max-height:100%;
 width:10rem;
 height:auto;
 }
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0;
+    vertical-align: middle;
+}
