@@ -31,7 +31,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
     $result = $conn->query($query);
     ?>
 
-<h3>Gym: <?= $_GET['gym']?></h3>
+<h3>Gym:</h3>
 <div class="table-responsive-sm">
 
 <table class="table table-striped table-bordered w-auto">

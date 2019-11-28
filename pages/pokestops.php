@@ -28,7 +28,6 @@ global $gmaps;
     ?>
 
 <h3>Pokestop:</h3>
-<p><small><?= $_GET['pokestop']?></small></p>
 <div class="table-responsive-sm">
 
 <table class="table table-striped table-bordered w-auto">
