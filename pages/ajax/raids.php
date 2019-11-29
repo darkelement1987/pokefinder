@@ -47,9 +47,9 @@ include '../../includes.php';
                 $row->id = '#???';
             // Else it's a raid :-)
             } else {
-                $row->sprite = '<img src="' . monPicAjax('pokemon', $row->pokemon_id, $row->form) . '" height="42" width="42"/>';              
+                $row->sprite = '<img src=' . monPicAjax('pokemon', $row->pokemon_id, $row->form) . ' height=42 width=42/>';              
                 $row->formlink = '&form=' . $row->form;
-                $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
+                $row->bossname = '<a href=index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '>' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
                 if($row->form > 0){$row->formname = formName($row->pokemon_id,$row->form);}
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
                 if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
