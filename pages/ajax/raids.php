@@ -39,12 +39,11 @@ include '../../includes.php';
             
             // If no mon id is scanned then its considered an egg
             if (empty($row->pokemon_id)){
-                $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
+                $row->bossname = '<img class=egg src=images/egg' . $row->level . '.png> Egg not hatched';
                 $row->formname = '';
                 $row->move_1 = '-';
                 $row->move_2 = '';
                 $row->cp = '-';
-                $row->id = '#???';
             // Else it's a raid :-)
             } else {
                 $row->sprite = '<img src=' . monPicAjax('pokemon', $row->pokemon_id, $row->form) . ' height=42 width=42/>';              
@@ -54,13 +53,12 @@ include '../../includes.php';
                 if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
                 if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
                 if(!empty($row->formname)){$row->fname = ' (' . $row->formname . ')';} else {$row->fname = '';}
-                $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
             }
                 $row->hidden = '';
                 $row->coords = '<a href=https://www.google.com/maps?q=' . $row->latitude . ',' . $row->longitude . '>' . $row->name . '</a>';
                 $row->bossname = $row->bossname . $row->fname;
                 $row->moves = $row->move_1 . $row->move_2;
-                $row->level = '<span hidden>' . $row->level . '</span>' . str_repeat('<img src=https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/premierball_sprite.png height=28 width=28>', $row->level);
+                $row->level = '<span hidden>' . 'level' . $row->level . '</span>' . $row->level;
                 $row->times = $row->time_start . '-' . $row->time_end;
                 $row->rteam = '<span hidden>' . $row->team . '</span><img class=' . $row->team . ' height=42 width=42 src=' . $row->image . '>';
                 $jsonfile->data[]  =  $row;
