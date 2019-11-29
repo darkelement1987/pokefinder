@@ -6,10 +6,10 @@ include '../../includes.php';
     $result = $conn->query($query);
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-
+    $jsonfile = new stdClass();
     if($result && $result->num_rows >= 1 ) {
-    $data=[];
-    while ($row = $result->fetch_object()) {
+    $jsonfile->data = [];
+    while ($row = $result->fetch_object() ) {
         if($row->name == NULL){$row->name='Unknown';}
         if($row->image == NULL){$row->image='/images/Unknown.png';}
         $row->rgender = $rocket_name[$row->type]['grunt'];
@@ -65,5 +65,8 @@ include '../../includes.php';
                                             }
                                             $jsonfile->data[]  =  $row;
                                             }
-                                            }
-print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);?>
+                                            print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                                            } else {
+                                                echo '{"data":[]}';
+                                                }
+                                                ?>

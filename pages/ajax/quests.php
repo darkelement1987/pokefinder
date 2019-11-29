@@ -6,9 +6,9 @@ include '../../includes.php';
     $result = $conn->query($query);
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
     $item_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/master/static/data/items.json'), true);
-
+    $jsonfile = new stdClass();
     if($result && $result->num_rows >= 1 ) {
-    $data=[];
+    $jsonfile->data = [];
     while ($row = $result->fetch_object() ) {
         $row->text='';
         $row->monname='';
@@ -32,6 +32,9 @@ include '../../includes.php';
         $row->coords = '<a href=https://maps.google.com/?q=' . $row->lat . ','. $row->lon . '>' . $row->name;
         $row->type = '<img height=42 width=42 src=' . $row->type . '>' . $row->text . ' ' . $row->item;
         $jsonfile->data[]  =  $row;
-    }
-}
-print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);?>
+        }
+        print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        } else {
+            echo '{"data":[]}';
+            }
+            ?>

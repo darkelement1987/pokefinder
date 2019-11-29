@@ -5,9 +5,9 @@ $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cec
 
 $query = 'SELECT pokemon_id, form, count, rank FROM ( SELECT pokemon_id, form, count, row_number() OVER ( ORDER BY COUNT DESC, pokemon_id ASC) AS rank FROM ( SELECT pokemon_id, form, COUNT(pokemon_id) AS COUNT FROM pokemon GROUP BY pokemon_id, form ) a ) b WHERE pokemon_id is not null ORDER BY rank asc, pokemon_id asc';
 $result = $conn->query($query);
-
+$jsonfile = new stdClass();
 if($result && $result->num_rows >= 1 ) {
-    $data=[];
+    $jsonfile->data = [];
     $seenquery = 'SELECT pokemon_id, form FROM pokemon WHERE disappear_time > utc_timestamp();';
     $seenresult = $conn->query($seenquery);
     $seenmon = [];
@@ -27,6 +27,8 @@ if($result && $result->num_rows >= 1 ) {
     $row->monname = '<img src=' . monPicAjax('pokemon', $row->pokemon_id, $row->form) . ' height=46 width=46> <a href=index.php?page=seen&pokemon=' . $row->pokemon_id . '&form=' . $row->form . '>' . $mon_name[$row->pokemon_id]['name'] . '</a>';
     $jsonfile->data[]  =  $row;
     }
+    print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+} else {
+    echo '{"data":[]}';
 }
-print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 ?>

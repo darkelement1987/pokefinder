@@ -5,9 +5,9 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 
     $query = "select gym.gym_id, gym.team_id as team, gym.is_ex_raid_eligible, gym.guard_pokemon_id, gym.slots_available, gymdetails.name, gymdetails.url, raid.level, UNIX_TIMESTAMP(CONVERT_TZ(raid.end, '+00:00', @@global.time_zone)) end from gym left join gymdetails on gym.gym_id = gymdetails.gym_id left join raid on gym.gym_id = raid.gym_id";
     $result = $conn->query($query);
-
+    $jsonfile = new stdClass();
     if($result && $result->num_rows >= 1 ) {
-    $data=[];
+    $jsonfile->data = [];
     while ($row = $result->fetch_object() ) {
         switch ($row->team) {
             case '0':
@@ -34,7 +34,9 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
         $pic = monPicAjax('pokemon',$row->guard_pokemon_id,0);
         $row->guard_pokemon_id = '<img src=' . $pic . ' height=46px width=46px><br><a href=index.php?page=seen&pokemon=' . $row->guard_pokemon_id . '>' . $monname[$row->guard_pokemon_id]['name'] . '</a>';
         $jsonfile->data[]  =  $row;
-}
-}
-print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-?>
+        }
+        print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        } else {
+            echo '{"data":[]}';
+            }
+            ?>

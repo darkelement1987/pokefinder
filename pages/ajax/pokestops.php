@@ -4,9 +4,9 @@ include '../../includes.php';
 
     $query = "SELECT pokestop_id, guid, UNIX_TIMESTAMP(CONVERT_TZ(lure_expiration, '+00:00', @@global.time_zone)) as lure_expiration, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as incident_expiration, quest_type, image, name from pokestop left join trs_quest on pokestop.pokestop_id = trs_quest.guid";
     $result = $conn->query($query);
-
+    $jsonfile = new stdClass();
     if($result && $result->num_rows >= 1 ) {
-    $data=[];
+    $jsonfile->data = [];
     while ($row = $result->fetch_object() ) {
         if(date('Y-m-d ' . $clock, $row->incident_expiration) > date("Y-m-d H:i:s")){$row->rocket='Yes';} else {$row->rocket='No';}
         if($row->quest_type !== NULL){$row->quest='Yes';} else {$row->quest='No';}
@@ -15,5 +15,8 @@ include '../../includes.php';
         if(!empty($row->lure_expiration)){$row->lure='Lured until ' . date($clock, $row->lure_expiration);} else {$row->lure='No';}
         $jsonfile->data[]  =  $row;
     }
+    print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+} else {
+    echo '{"data":[]}';
 }
-print json_encode($jsonfile,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);?>
+?>

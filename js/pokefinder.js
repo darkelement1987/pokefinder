@@ -314,6 +314,18 @@ $(document).ready(function ()
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/raids.php',
+        "columns": [
+            { "data": "hidden" },
+            { "data": "rteam" },
+            { "data": "coords" },
+            { "data": "bossname" },
+            { "data": "moves" },
+            { "data": "cp" },
+            { "data": "level" },
+            { "data": "spawn" },
+            { "data": "times" }
+        ],
 		searching: true,
         responsive: {
             details: true
