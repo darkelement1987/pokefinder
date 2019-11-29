@@ -60,7 +60,7 @@ include '../../includes.php';
                 $row->coords = '<a href=https://www.google.com/maps?q=' . $row->latitude . ',' . $row->longitude . '>' . $row->name . '</a>';
                 $row->bossname = $row->bossname . $row->fname;
                 $row->moves = $row->move_1 . $row->move_2;
-                $row->level = '<span hidden>' . $row->level . '</span>' . str_repeat('<img src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/premierball_sprite.png" height="28" width="28">', $row->level);
+                $row->level = '<span hidden>' . $row->level . '</span>' . str_repeat('<img src=https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/premierball_sprite.png height=28 width=28>', $row->level);
                 $row->times = $row->time_start . '-' . $row->time_end;
                 $row->rteam = '<span hidden>' . $row->team . '</span><img class=' . $row->team . ' height=42 width=42 src=' . $row->image . '>';
                 $jsonfile->data[]  =  $row;
