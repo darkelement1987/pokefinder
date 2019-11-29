@@ -9,7 +9,6 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 <?php if(!isset($_GET['gym'])){
 ?>
 <h3>Gyms</h3>
-<div class="table-responsive-sm">
 <table id="gymsTable" class="table table-striped table-bordered w-auto display compact">
   <thead>
     <tr>
@@ -25,17 +24,14 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
   <tbody>
 </tbody>
 </table>
-</div>
 <?php } else {
     $query = "SELECT * FROM gym WHERE gym_id='" . $_GET['gym'] . "'";
     $result = $conn->query($query);
     ?>
 
 <h3>Gym:</h3>
-<div class="table-responsive-sm">
-
 <table class="table table-striped table-bordered w-auto">
-  <tbody>
+<tbody>
 <tr>
 <th><b>Column:</b></th>
 <td><b>Value:</b></td>
@@ -61,5 +57,4 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 <?php }}}?>
 </tbody>
 </table>
-</div>
 <?php }?>

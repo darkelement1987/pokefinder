@@ -1,5 +1,4 @@
 <h3 class="display-6">Team Rocket</h3>
-<div class="table-responsive-sm">
 <table id="rocket_table" class="table table-striped table-bordered w-auto">
     <thead class="thead-dark">
         <tr>
@@ -17,4 +16,3 @@
     <tbody>
 </tbody>
 </table>
-</div>

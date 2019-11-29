@@ -30,7 +30,6 @@ if(isset($_GET['mode'])){
 <p>
 [<a href="index.php?page=rank&mode=pokemon">Wild</a>][<a href="index.php?page=rank&mode=raid">Raids</a>][<a href="index.php?page=rank&mode=0">0%</a>][<a href="index.php?page=rank&mode=100">100%</a>]
 </p>
-<div class="table-responsive-sm">
 <table id="<?=$id?>" class="table table-striped table-bordered w-auto">
   <thead>
     <tr>
@@ -44,4 +43,3 @@ if(isset($_GET['mode'])){
   <tbody>
 </tbody>
 </table>
-</div>

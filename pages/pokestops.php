@@ -7,7 +7,6 @@ global $gmaps;
 
 <?php if(!isset($_GET['pokestop'])){?>
 <h3>Pokestops</h3>
-<div class="table-responsive-sm">
 <table id="stopsTable" class="table table-striped table-bordered w-auto display compact">
   <thead>
     <tr>
@@ -21,15 +20,12 @@ global $gmaps;
   <tbody>
 </tbody>
 </table>
-</div>
 <?php } else {
     $query = "SELECT * from pokestop WHERE pokestop_id='" . $_GET['pokestop'] . "'";
     $result = $conn->query($query);
     ?>
 
 <h3>Pokestop:</h3>
-<div class="table-responsive-sm">
-
 <table class="table table-striped table-bordered w-auto">
   <tbody>
 <tr>
@@ -58,5 +54,4 @@ global $gmaps;
 <?php }}}?>
 </tbody>
 </table>
-</div>
 <?php }?>
