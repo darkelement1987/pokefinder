@@ -180,162 +180,6 @@ function getMons()
     }
 }
 
-function getRocket()
-{
-    global $conn;
-
-    $rocket = [];
-    $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
-    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-    $sql = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE incident_expiration > utc_timestamp() ORDER BY scanned desc;";
-
-    $result = $conn->query($sql);
-
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_object()) {
-            if($row->name == NULL){$row->name='Unknown';}
-            if($row->image == NULL){$row->image='/images/Unknown.png';}
-            $row->rgender = $rocket_name[$row->type]['grunt'];
-            $row->rtype = $rocket_name[$row->type]['type'];
-           if (empty($rocket_name[$row->type]['type'])) {
-                $row->rtype = 'Unknown';
-            }
-            
-            if (empty($rocket_name[$row->type]['grunt'])){$row->rtype='Rocket';}
-            if($row->type == '41'){$row->rgender = 'Cliff';}
-            if($row->type == '42'){$row->rgender = 'Arlo';}
-            if($row->type == '43'){$row->rgender = 'Sierra';}
-            if($row->type == '44'){$row->rgender = 'Giovanni';}
-
-            $row->secreward = $rocket_name[$row->type]['second_reward'];
-            if(!empty($rocket_name[$row->type]['encounters']['first'])){$row->onefirst = $rocket_name[$row->type]['encounters']['first'];}
-            if(!empty($rocket_name[$row->type]['encounters']['second'])){$row->onesecond = $rocket_name[$row->type]['encounters']['second'];}
-
-                        if (is_array($row->onefirst) || is_array($row->onesecond) || is_array($row->onethird)) {
-                            for($x = 0; $x <= 2; $x++){
-                                if (!empty($row->onefirst[$x])) {
-                                    $row->{"firstname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onefirst[$x])), '0')]['name'];
-                                    $row->{"firstrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onefirst[$x])), '0') . '"><img src="' . monPic('pokemon', ltrim((str_replace("_00","",$row->onefirst[$x])), '0'), '0') . '" height="42" width="42"></a>';
-                                    } else { 
-                                    $row->{"firstrow" . $x} = '';
-                                    $row->{"firstname" . $x} = '';
-                                    };
-                                    };
-                                    for($x = 0; $x <= 2; $x++) {
-                                        if (!empty($row->onesecond[$x])) {
-                                            $row->{"secondname" . $x} = $mon_name[ltrim((str_replace("_00","",$row->onesecond[$x])), '0')]['name'];
-                                            $row->{"secondrow" . $x} = '<a href="index.php?page=seen&pokemon=' . ltrim((str_replace("_00","",$row->onesecond[$x])), '0') . '"><img src="' . monPic('pokemon', ltrim((str_replace("_00","",$row->onesecond[$x])), '0'), '0') . '" height="42" width="42"></a>';
-                                            } else {
-                                                $row->{"secondrow" . $x} = '';                                                
-                                                $row->{"secondname" . $x} = '';
-                                                };
-                                                };
-                                                $rocket[] = $row;
-                                                }
-                                                }
-                                                return $rocket;
-                                                }
-                                                }
-                                                
-function getQuest()
-{
-    global $conn;
-
-    $quest = [];
-
-    $sql = "SELECT pokestop.latitude as lat, pokestop.longitude as lon, pokestop.name, pokestop.image, trs_quest.quest_reward_type as type, trs_quest.quest_item_amount as amount, trs_quest.quest_task as task, trs_quest.quest_stardust as stardust, trs_quest.quest_pokemon_id as monid, trs_quest.quest_item_id as itemid from pokestop,trs_quest WHERE trs_quest.GUID = pokestop.pokestop_id;";
-    $result = $conn->query($sql);
-    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-    $item_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/master/static/data/items.json'), true);
-
-    if ($result && $result->num_rows > 0){
-        while ($row = $result->fetch_object()) {
-            $row->text='';
-            $row->monname='';
-            $row->item='';
-            switch ($row->type) {
-                case '2':
-                $row->item = $item_name[$row->itemid]['name'];
-                $row->type = 'https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/images/quest/reward_' . $row->itemid . '_1.png';
-                $row->text = $row->amount;
-                break;
-                case '3':
-                $row->type = 'https://raw.githubusercontent.com/Map-A-Droid/MAD/master/madmin/static/quest/reward_stardust.png';
-                $row->text = $row->stardust . ' Stardust';
-                break;
-                case '7':
-                $row->type = monPic('pokemon',$row->monid,0);
-                $row->text = '<br><a href="index.php?page=seen&pokemon=' . $row->monid . '">' . $mon_name[$row->monid]['name'] . '</a>';
-                break;
-            }
-            $quest[] = $row;
-                }
-                return $quest;
-                }
-                }
-
-function getRaids()
-{
-    global $conn;
-    global $clock;
-    $raids = [];
-    $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
-    $raid_move_1 = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/moves.json'), true);
-    $raid_move_2 = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/moves.json'), true);
-    $sql = "SELECT UNIX_TIMESTAMP(CONVERT_TZ(a.start, '+00:00', @@global.time_zone)) as start, UNIX_TIMESTAMP(CONVERT_TZ(a.end, '+00:00', @@global.time_zone)) as end, UNIX_TIMESTAMP(CONVERT_TZ(a.spawn, '+00:00', @@global.time_zone)) as spawn, a.pokemon_id, a.move_1, a.move_2, a.form, UNIX_TIMESTAMP(CONVERT_TZ(a.last_scanned, '+00:00', @@global.time_zone)) as last_scanned, b.name, b.url as image, c.team_id as team, a.level, a.cp, c.latitude, c.longitude, c.is_ex_raid_eligible FROM raid a INNER JOIN gymdetails b INNER JOIN gym c ON a.gym_id = b.gym_id AND a.gym_id = c.gym_id AND a.end > UTC_TIMESTAMP() ORDER BY a.end ASC";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_object()) {
-            if ($row->is_ex_raid_eligible == '1') {$ex=' <span class="badge badge-secondary">EX</span>';} else {$ex='';}
-            
-            switch ($row->team) {
-                case '0':
-                    $row->team = 'Uncontested';
-                    break;
-                case '1':
-                    $row->team = 'Mystic';
-                    break;
-                case '2':
-                    $row->team = 'Valor';
-                    break;
-                case '3':
-                    $row->team = 'Instinct';
-                    break;
-                default:
-                    $row->team = 'Unknown';
-                    break;
-            }
-            
-            $row->time_start = date($clock, $row->start);
-            $row->time_end = date($clock, $row->end);
-            $row->spawn = date($clock, $row->spawn);
-            $row->raid_scan_time = date($clock, $row->last_scanned);
-            $row->name = $row->name . $ex;
-            
-            // If no mon id is scanned then its considered an egg
-            if (empty($row->pokemon_id)){
-                $row->bossname = '<img class="egg" src="images/egg' . $row->level . '.png"> Egg not hatched';
-                $row->formname = '';
-                $row->move_1 = '-';
-                $row->move_2 = '';
-                $row->cp = '-';
-                $row->id = '#???';
-            // Else it's a raid :-)
-            } else {
-                $row->sprite = '<img src="' . monPic('pokemon', $row->pokemon_id, $row->form) . '" height="42" width="42"/>';              
-                $row->formlink = '&form=' . $row->form;
-                $row->bossname = '<a href="index.php?page=seen&pokemon=' . $row->pokemon_id . $row->formlink . '">' . $row->sprite . $mon_name[$row->pokemon_id]['name'] . '</a>';
-                if($row->form > 0){$row->formname = formName($row->pokemon_id,$row->form);}
-                if(empty($row->move_1)){$row->move_1='Unknown &';} else {$row->move_1 = $raid_move_1[$row->move_1]['name'] . ' & ';}
-                if(empty($row->move_2)){$row->move_2='Unknown';} else {$row->move_2 = $raid_move_2[$row->move_2]['name'];}
-                $row->id = '#' . str_pad($row->pokemon_id, 3, 0, STR_PAD_LEFT);
-            }
-            $raids[] = $row;
-        }
-        return $raids;
-    }
-}
-
 function monGen($id){
     $gen=0;
     switch ($id) {
@@ -443,3 +287,23 @@ function formName($monid,$formid){
     if(!empty($forms[$monid][$formid])){$formname = str_replace("_"," ",$forms[$monid][$formid]);} else {$formname="Unknown form";}
             return $formname;
 }
+
+function monPicAjax($mode, $mon, $form){
+    if (!$form && $form==0){$pad=2;}
+    if ($form>0 && $form<10){$pad=1;}
+    if ($form>10 && $form<100){$pad=2;}
+    if ($form>99 && $form<1000){$pad=3;}
+    if($mode=='shiny'){
+        $img='http://raw.githubusercontent.com/darkelement1987/shinyassets/master/96x96/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_00_shiny.png';
+            }
+            if($mode=='pokemon'){
+                // Source pic on ajax source
+                $img = '../../images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';
+                if(!file_exists($img)){
+                    $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
+                    } else {
+                        // Source pic on processed page
+                        $img = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';}
+                    }
+                    return $img;
+                    }

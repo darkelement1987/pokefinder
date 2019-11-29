@@ -167,7 +167,7 @@ $(document).ready(function ()
 		},
         {
             visible: false,
-            targets: [9,10,11]
+            targets: [3]
         }],
 
 
@@ -175,6 +175,18 @@ $(document).ready(function ()
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/rocket.php',
+        "columns": [
+            { "data": "hidden" },
+            { "data": "image" },
+            { "data": "stopname" },
+            { "data": "stopnamehidden" },
+            { "data": "rgender" },
+            { "data": "stop" },
+            { "data": "chance15" },
+            { "data": "chance85" },
+            { "data": "chance100" }
+        ],
 		searching: true,
 		responsive:
 		{
@@ -217,6 +229,13 @@ $(document).ready( function () {
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/quests.php',
+        "columns": [
+            { "data": "image" },
+            { "data": "coords" },
+            { "data": "type" },
+            { "data": "task" }
+        ],
 		searching: true,
 		responsive: true,
 		processing: true,
@@ -295,6 +314,18 @@ $(document).ready(function ()
         "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 		autoWidth: true,
 		paging: true,
+        ajax: './pages/ajax/raids.php',
+        "columns": [
+            { "data": "hidden" },
+            { "data": "rteam" },
+            { "data": "coords" },
+            { "data": "bossname" },
+            { "data": "moves" },
+            { "data": "cp" },
+            { "data": "level" },
+            { "data": "spawn" },
+            { "data": "times" }
+        ],
 		searching: true,
         responsive: {
             details: true
@@ -458,7 +489,7 @@ $(document).ready(function ()
 
 $(document).ready(function ()
 {
-	$('#rankTable').DataTable(
+	$('#rankTableWild').DataTable(
 	{
 		order: [
 			[0, "asc"]
@@ -466,6 +497,137 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/rankwild.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTableRaid').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rankraid.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTable0').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rank0.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
+		autoWidth: true,
+        ordering: true,
+		searching: true,
+        responsive: {
+            details: true
+        },
+		processing: true,
+		language:
+		{
+			"search": "Filter results:",
+			"info": "Showing _START_ to _END_ of _TOTAL_ Pokemon",
+			"infoEmpty": "Showing 0 to 0 of 0 Pokemon",
+			"infoFiltered": "(filtered from _MAX_ total Pokemon)",
+			"emptyTable": "No Pokemon available in table",
+			"zeroRecords": "No matching Pokemon found",
+			"searchPlaceholder": "Enter info",
+			"lengthMenu": "Show _MENU_ Pokemon per page",
+		},
+		"dom": '<"top"fl>rt<"bottom"p><"clear">'
+
+	});
+});
+
+$(document).ready(function ()
+{
+	$('#rankTable100').DataTable(
+	{
+		order: [
+			[0, "asc"]
+		],
+
+
+        paging:true,
+        ajax: './pages/ajax/rank100.php',
+        "columns": [
+            { "data": "rank" },
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "count" },
+            { "data": "seen" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
@@ -499,6 +661,11 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/shiny.php',
+        "columns": [
+            { "data": "monname" },
+            { "data": "last_modified" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
@@ -532,6 +699,13 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/newentries.php',
+        "columns": [
+            { "data": "monname" },
+            { "data": "formname" },
+            { "data": "last_modified" },
+            { "data": "disappear_time" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
@@ -565,6 +739,14 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/pokestops.php',
+        "columns": [
+            { "data": "image" },
+            { "data": "name" },
+            { "data": "rocket" },
+            { "data": "quest" },
+            { "data": "lure" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,
@@ -598,6 +780,16 @@ $(document).ready(function ()
 
 
         paging:true,
+        ajax: './pages/ajax/gyms.php',
+        "columns": [
+            { "data": "url" },
+            { "data": "name" },
+            { "data": "raid" },
+            { "data": "is_ex_raid_eligible" },
+            { "data": "team" },
+            { "data": "guard_pokemon_id" },
+            { "data": "slots_available" }
+        ],
 		autoWidth: true,
         ordering: true,
 		searching: true,

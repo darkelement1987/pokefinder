@@ -188,7 +188,6 @@ if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pok√
 <h4 class="display-6">Most Seen Rank</h4>
   <p class="lead">
   
-<div class="table-responsive-sm">
 <table id="seenTable" class="table table-striped table-bordered w-auto">
 <tbody>
 
@@ -204,8 +203,7 @@ if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pok√
 
 </tbody>
 </table>
-</div>
-  </p>
+</p>
 <hr class="my-4">
   <?php if($form > 0){?>
 <h4 class="display-6">Stats<?php if($cfcount > 1){if(!isset($_GET['form'])){echo ' for all forms';} else {echo ' for form "' . $formname . '"';}} ?></h4>
