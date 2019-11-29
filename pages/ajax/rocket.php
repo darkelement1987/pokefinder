@@ -2,7 +2,7 @@
 
 include '../../includes.php';
 
-    $query = "SELECT latitude as lat, longitude as lon, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE incident_expiration > utc_timestamp() ORDER BY scanned desc;";
+    $query = "SELECT latitude as lat, longitude as lon, pokestop_id, name, image, UNIX_TIMESTAMP(CONVERT_TZ(incident_expiration, '+00:00', @@global.time_zone)) as stop, UNIX_TIMESTAMP(CONVERT_TZ(last_modified, '+00:00', @@global.time_zone)) as scanned, UNIX_TIMESTAMP(CONVERT_TZ(incident_start, '+00:00', @@global.time_zone)) as start, incident_grunt_type as type FROM pokestop WHERE incident_expiration > utc_timestamp() ORDER BY scanned desc;";
     $result = $conn->query($query);
     $rocket_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/develop/static/data/grunttype.json'), true);
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
@@ -50,8 +50,8 @@ include '../../includes.php';
                                             }
                                             $row->hidden = '';
                                             $row->image='<img class=pic height=42 width=42 src=' . $row->image . '>';
-                                            $row->stopname = '<a href=https://maps.google.com/?q=' . $row->lat. ',' . $row->lon . '>' . $row->name . '</a>';
-                                            $row->stopnamehidden = '<a href=https://maps.google.com/?q=' . $row->lat. ',' . $row->lon . '>' . $row->name . '</a>';
+                                            $row->stopname = '<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id. '>' . $row->name . '</a>';
+                                            $row->stopnamehidden = '<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id. '>' . $row->name . '</a>';
                                             $row->rgender = '<img height=42 width=42 src=' . (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/' . $row->rgender . '.png><span class=genderhide>' . $row->rgender . '</span> <img height=42 width=42 src=' . (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/' . $row->rtype . '.png><span class=typehide>' . $row->rtype . '</span>';
                                             $row->stop = date($clock, $row->stop);
                                             if ($row->secreward == 'true'){

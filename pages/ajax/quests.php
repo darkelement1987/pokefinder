@@ -2,7 +2,7 @@
 
 include '../../includes.php';
 
-    $query = "SELECT pokestop.latitude as lat, pokestop.longitude as lon, pokestop.name, pokestop.image, trs_quest.quest_reward_type as type, trs_quest.quest_item_amount as amount, trs_quest.quest_task as task, trs_quest.quest_stardust as stardust, trs_quest.quest_pokemon_id as monid, trs_quest.quest_item_id as itemid from pokestop,trs_quest WHERE trs_quest.GUID = pokestop.pokestop_id;";
+    $query = "SELECT pokestop.pokestop_id, pokestop.latitude as lat, pokestop.longitude as lon, pokestop.name, pokestop.image, trs_quest.quest_reward_type as type, trs_quest.quest_item_amount as amount, trs_quest.quest_task as task, trs_quest.quest_stardust as stardust, trs_quest.quest_pokemon_id as monid, trs_quest.quest_item_id as itemid from pokestop,trs_quest WHERE trs_quest.GUID = pokestop.pokestop_id;";
     $result = $conn->query($query);
     $mon_name = json_decode(file_get_contents('https://raw.githubusercontent.com/cecpk/OSM-Rocketmap/master/static/data/pokemon.json'), true);
     $item_name = json_decode(file_get_contents('https://raw.githubusercontent.com/whitewillem/PMSF/master/static/data/items.json'), true);
@@ -29,7 +29,7 @@ include '../../includes.php';
                 break;
             }
         $row->image='<img class=pic height=42 width=42 src=' . $row->image. '>';
-        $row->coords = '<a href=https://maps.google.com/?q=' . $row->lat . ','. $row->lon . '>' . $row->name;
+        $row->coords = '<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id . '>' . $row->name . '</a>';
         $row->type = '<img height=42 width=42 src=' . $row->type . '>' . $row->text . ' ' . $row->item;
         $jsonfile->data[]  =  $row;
         }
