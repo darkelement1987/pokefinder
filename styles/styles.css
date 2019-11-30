@@ -253,6 +253,8 @@ table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td
 .table-fit thead th, table.table-fit tfoot th {
     width: auto !important;
 }
-    .table-fit tbody td, table.table-fit tfoot td {
+
+.table-fit tbody td, table.table-fit tfoot td {
     width: auto !important;
+    word-break: break-word;
 }
