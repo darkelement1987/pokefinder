@@ -104,6 +104,10 @@ div.bottom {
         height:64px;
         width:64px;
     }
+    
+    div.container {
+        display: inline-block;
+    }
 }
 
 td.stopnamehidden,
