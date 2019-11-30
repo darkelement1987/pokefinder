@@ -245,3 +245,14 @@ table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td
     border-bottom-width: 0;
     vertical-align: middle;
 }
+
+.table-fit {
+    width: auto !important;
+    table-layout: auto !important;
+}
+.table-fit thead th, table.table-fit tfoot th {
+    width: auto !important;
+}
+    .table-fit tbody td, table.table-fit tfoot td {
+    width: auto !important;
+}

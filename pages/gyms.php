@@ -9,7 +9,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 <?php if(!isset($_GET['gym'])){
 ?>
 <h3>Gyms</h3>
-<table id="gymsTable" class="table table-striped table-bordered w-auto display compact">
+<table id="gymsTable" class="table table-striped table-bordered w-auto table-fit">
   <thead>
     <tr>
       <th>Pic</th>
@@ -30,7 +30,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
     ?>
 
 <h3>Gym:</h3>
-<table class="table table-striped table-bordered w-auto">
+<table class="table table-striped table-bordered w-auto table-fit">
 <tbody>
 <tr>
 <th><b>Column:</b></th>

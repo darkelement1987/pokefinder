@@ -1,5 +1,5 @@
 <h3 class="display-6">Team Rocket</h3>
-<table id="rocket_table" class="table table-striped table-bordered w-auto">
+<table id="rocket_table" class="table table-striped table-bordered w-auto table-fit">
     <thead class="thead-dark">
         <tr>
             <th></th>

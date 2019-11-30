@@ -1,5 +1,5 @@
 <h3 class="display-6">Quests</h1>
-<table id="quest_table" class="table table-striped table-bordered w-auto">
+<table id="quest_table" class="table table-striped table-bordered w-auto table-fit">
     <thead class="thead-dark">
         <tr>
             <th>Pic:</th>

@@ -1,5 +1,5 @@
 <h3 class="display-6">Raids</h3>
-<table id="raid_table" class="table table-striped table-bordered w-auto">
+<table id="raid_table" class="table table-striped table-bordered w-auto table-fit">
     <thead class="thead-dark">
         <tr>
             <th></th>

@@ -1,5 +1,5 @@
 <h3>New Pokedex entries</h3>
-<table id="newDexTable" class="table table-striped table-bordered w-auto display compact">
+<table id="newDexTable" class="table table-striped table-bordered w-auto display compact table-fit">
   <thead>
     <tr>
       <th>Pokemon</th>

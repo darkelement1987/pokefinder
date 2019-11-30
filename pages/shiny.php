@@ -6,7 +6,7 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<table id="shinyTable" class="table table-striped table-bordered w-auto display compact">
+<table id="shinyTable" class="table table-striped table-bordered w-auto table-fit">
   <thead>
     <tr>
       <th>Pokemon</th>

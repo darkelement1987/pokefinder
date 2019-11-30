@@ -188,7 +188,7 @@ if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pok√
 <h4 class="display-6">Most Seen Rank</h4>
   <p class="lead">
   
-<table id="seenTable" class="table table-striped table-bordered w-auto">
+<table id="seenTable" class="table table-striped table-bordered w-auto table-fit">
 <tbody>
 
 <tr>
@@ -214,7 +214,7 @@ if(empty($checkrelease)){echo '<div class="alert alert-danger" role="alert">Pok√
 <?php if($totalseen>0){?>
 
 <div class="table-responsive-sm">
-<table id="seenTable" class="table table-striped table-bordered w-auto">
+<table id="seenTable" class="table table-striped table-bordered w-auto table-fit">
 <tbody>
 
 <tr>
@@ -283,7 +283,7 @@ $data = file_get_contents('https://raw.githubusercontent.com/darkelement1987/Por
 $json = json_decode($data,true);
 $i=0;?>
 <div class="table-responsive-sm">
-<table id="formTable" class="table table-striped table-bordered w-auto">
+<table id="formTable" class="table table-striped table-bordered w-auto table-fit">
   <thead>
     <tr>
       <th>Pic</th>
@@ -333,7 +333,7 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
 ?>
 
 <div class="table-responsive-sm">
-<table id="evoTable" class="table table-striped table-bordered w-auto">
+<table id="evoTable" class="table table-striped table-bordered w-auto table-fit">
   <thead>
     <tr>
       <th>Evolution</th>

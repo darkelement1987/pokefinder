@@ -7,7 +7,7 @@ global $gmaps;
 
 <?php if(!isset($_GET['pokestop'])){?>
 <h3>Pokestops</h3>
-<table id="stopsTable" class="table table-striped table-bordered w-auto display compact">
+<table id="stopsTable" class="table table-striped table-bordered w-auto table-fit">
   <thead>
     <tr>
       <th>Pic</th>
@@ -26,7 +26,7 @@ global $gmaps;
     ?>
 
 <h3>Pokestop:</h3>
-<table class="table table-striped table-bordered w-auto">
+<table class="table table-striped table-bordered w-auto table-fit">
   <tbody>
 <tr>
 <th><b>Column:</b></th>
