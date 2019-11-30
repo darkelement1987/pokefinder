@@ -164,11 +164,7 @@ $(document).ready(function ()
         {
 			className: "stopnamehidden",
 			"targets": [3]
-		},
-        {
-            visible: false,
-            targets: [3]
-        }],
+		}],
 
 
 		"pageLength": 10,
