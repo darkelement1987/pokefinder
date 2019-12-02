@@ -7,7 +7,7 @@
   </button>
 </div>
 <table id="shinyTable" class="table table-striped table-bordered w-auto table-fit">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>Pokemon</th>
       <th>Last seen</th>

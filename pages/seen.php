@@ -284,7 +284,7 @@ $json = json_decode($data,true);
 $i=0;?>
 <div class="table-responsive-sm">
 <table id="formTable" class="table table-striped table-bordered w-auto table-fit">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>Pic</th>
       <th>Form</th>
@@ -334,7 +334,7 @@ $nametoid = json_decode(file_get_contents('json/namedex.json'), true);
 
 <div class="table-responsive-sm">
 <table id="evoTable" class="table table-striped table-bordered w-auto table-fit">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>Evolution</th>
       <th>Pokedex</th>

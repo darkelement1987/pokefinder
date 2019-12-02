@@ -10,7 +10,7 @@ $monname = json_decode(file_get_contents('https://raw.githubusercontent.com/cecp
 ?>
 <h3>Gyms</h3>
 <table id="gymsTable" class="table table-striped table-bordered w-auto table-fit">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>Pic</th>
       <th>Gym</th>

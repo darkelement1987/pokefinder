@@ -8,7 +8,7 @@ global $gmaps;
 <?php if(!isset($_GET['pokestop'])){?>
 <h3>Pokestops</h3>
 <table id="stopsTable" class="table table-striped table-bordered w-auto table-fit">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th>Pic</th>
       <th>Stop</th>
