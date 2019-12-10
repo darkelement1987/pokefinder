@@ -52,7 +52,7 @@ include '../../includes.php';
                                             $row->image='<img class=pic height=42 width=42 src=' . $row->image . '>';
                                             $row->stopname = '<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id. '>' . $row->name . '</a>';
                                             $row->stopnamehidden = '<a href=index.php?page=pokestops&pokestop=' . $row->pokestop_id. '>' . $row->name . '</a>';
-                                            $row->rgender = '<img height=42 width=42 src=' . (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/' . $row->rgender . '.png><span class=genderhide>' . $row->rgender . '</span> <img height=42 width=42 src=' . (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/' . $row->rtype . '.png><span class=typehide>' . $row->rtype . '</span>';
+                                            $row->rgender = '<img height=42 width=42 src=images/' . $row->rgender . '.png><span class=genderhide>' . $row->rgender . '</span> <img height=42 width=42 src=images/' . $row->rtype . '.png><span class=typehide>' . $row->rtype . '</span>';
                                             $row->stop = date($clock, $row->stop);
                                             if ($row->secreward == 'true'){
                                                 $row->chance15 = '<span hidden>' . $row->secondname0 . $row->secondname1 . $row->secondname2 . '</span>' . $row->secondrow0 . $row->secondrow1 . $row->secondrow2;
