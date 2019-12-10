@@ -303,7 +303,7 @@ function monPicAjax($mode, $mon, $form){
                     $img='https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_000.png';
                     } else {
                         // Source pic on processed page
-                        $img = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';}
+                        $img = '../../images/pokemon/pokemon_icon_' . str_pad($mon, 3, 0, STR_PAD_LEFT) . '_' . str_pad($form, $pad, 0, STR_PAD_LEFT) . '.png';}
                     }
                     return $img;
                     }
